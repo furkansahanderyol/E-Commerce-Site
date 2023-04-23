@@ -1,0 +1,9 @@
+.home_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  grid-template-rows: repeat(auto, 250px);
+
+  gap: 100px;
+
+  padding: 2em;
+}

@@ -2,7 +2,7 @@ import React from "react"
 import { FaUser } from "react-icons/fa"
 import { FaHeart } from "react-icons/fa"
 import { FaShoppingCart } from "react-icons/fa"
-import styles from "../../styles/header.module.css"
+import styles from "../../styles/Header.module.css"
 
 export default function Header() {
   return (

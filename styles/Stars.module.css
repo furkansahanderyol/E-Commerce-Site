@@ -1,0 +1,7 @@
+.star {
+  color: orange;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
