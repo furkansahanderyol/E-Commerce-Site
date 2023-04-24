@@ -17,7 +17,7 @@
 }
 
 .product_image_wrapper img {
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 0.3em;
 }
 
@@ -30,7 +30,6 @@
 }
 
 .product_title {
-  font-weight: bold;
   font-size: 14px;
   display: -webkit-box;
   text-overflow: ellipsis;
@@ -38,6 +37,14 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.brand_name {
+  font-weight: bold;
+}
+
+.title {
+  font-weight: normal;
 }
 
 .rate {

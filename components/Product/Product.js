@@ -5,8 +5,10 @@ import FavoriteButton from "../FavoriteButton/FavoriteButton"
 import styles from "../../styles/Product.module.css"
 
 export default function Product(props) {
-  const { id, image, title, rate, count, price } = props
+  const { id, images, title, brand, rate, count, price } = props
   const [favorite, setFavorite] = useState(false)
+
+  let x = images[0]
 
   return (
     <div className={styles.product} id={id}>
@@ -14,10 +16,13 @@ export default function Product(props) {
         <FavoriteButton favorite={favorite} setFavorite={setFavorite} />
       </div>
       <div className={styles.product_image_wrapper}>
-        <Image src={image} width={200} height={250} alt="Product image" />
+        <Image src={x} width={200} height={250} alt="Product image" />
       </div>
       <div className={styles.product_information}>
-        <div className={styles.product_title}>{title}</div>
+        <div className={styles.product_title}>
+          <span className={styles.brand_name}>{brand} - </span>
+          <span className={styles.title}>{title}</span>
+        </div>
         <div className={styles.rate}>
           <div>
             <Stars rate={rate} />

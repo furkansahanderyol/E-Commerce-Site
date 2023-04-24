@@ -1,0 +1,40 @@
+.filter_list_element {
+  display: flex;
+  align-items: center;
+}
+
+.filter_list_element input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.filter_list_element label {
+  display: flex;
+  cursor: pointer;
+}
+
+.filter_list_element label::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border-radius: 0.2em;
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-right: 0.3em;
+}
+
+.filter_list_element label:hover::before,
+.filter_list_element input[type="checkbox"]:hover + label::before {
+  border: 1px solid green;
+}
+
+.filter_list_element input[type="checkbox"]:checked + label::before {
+  content: "\002714";
+  background-color: green;
+  color: white;
+}

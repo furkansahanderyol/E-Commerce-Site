@@ -1,0 +1,17 @@
+.filter_title {
+  font-weight: bold;
+  font-size: 1.2em;
+
+  display: flex;
+  justify-content: center;
+}
+
+.filter_title span {
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter_title_arrow {
+  font-size: 1.2em;
+  align-self: flex-end;
+}
