@@ -1,3 +1,38 @@
+.homepage_wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  position: relative;
+}
+
+.filters {
+  position: sticky;
+  border-right: 1px solid black;
+  top: 0;
+
+  width: 300px;
+
+  overflow: hidden;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter_list {
+  text-decoration: none;
+  list-style: none;
+
+  height: 200px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.filter_list_element {
+  padding-left: 0.5em;
+}
+
 .home_grid {
   display: grid;
   grid-template-columns: repeat(4, 200px);
