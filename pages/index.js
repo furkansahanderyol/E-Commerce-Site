@@ -1,12 +1,17 @@
 import React, { useState, useRef } from "react"
+import { useRouter } from "next/router"
 import Product from "@/components/Product/Product"
 import FilterListElement from "@/components/FilterListElement/FilterListElement"
 import FilterListHeader from "@/components/FilterListHeader/FilterListHeader"
+import { RiStarFill } from "react-icons/ri"
+import { RiStarLine } from "react-icons/ri"
 import styles from "../styles/Home.module.css"
 
 export default function Home({ data }) {
   const [brandsList, setBrandsList] = useState(false)
   const [priceList, setPriceList] = useState(false)
+  const [avgCustomerReview, setAvgCustomerReview] = useState(false)
+  const [gender, setGender] = useState(false)
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState(0)
   const minPriceRef = useRef()
@@ -15,6 +20,7 @@ export default function Home({ data }) {
   const allBrands = data.map((product) => {
     return product.brand
   })
+  const router = useRouter()
   const brands = [...new Set(allBrands)]
 
   function handleFilterClick() {
@@ -31,6 +37,14 @@ export default function Home({ data }) {
 
     console.log(min)
     console.log(max)
+  }
+
+  function handleAvgCustomerReviewClick() {
+    setAvgCustomerReview(!avgCustomerReview)
+  }
+
+  function handleGenderListClick() {
+    setGender(!gender)
   }
 
   return (
@@ -92,10 +106,65 @@ export default function Home({ data }) {
               </>
             ) : null}
           </div>
-
-          {/* avg. customer review */}
-          {/* price */}
-          {/* Availability */}
+          <div onClick={handleAvgCustomerReviewClick}>
+            <FilterListHeader
+              header={"Average customer review"}
+              list={avgCustomerReview}
+            />
+          </div>
+          <div className={styles.average_customer_review_wrapper}>
+            {avgCustomerReview ? (
+              <ul className={styles.average_customer_review_list}>
+                <li>
+                  <RiStarFill />
+                  <RiStarFill />
+                  <RiStarFill />
+                  <RiStarFill />
+                  <RiStarLine />
+                  <span> & up</span>
+                </li>
+                <li>
+                  <RiStarFill />
+                  <RiStarFill />
+                  <RiStarFill />
+                  <RiStarLine />
+                  <RiStarLine />
+                  <span> & up</span>
+                </li>
+                <li>
+                  <RiStarFill />
+                  <RiStarFill />
+                  <RiStarLine />
+                  <RiStarLine />
+                  <RiStarLine />
+                  <span> & up</span>
+                </li>
+                <li>
+                  <RiStarFill />
+                  <RiStarLine />
+                  <RiStarLine />
+                  <RiStarLine />
+                  <RiStarLine />
+                  <span> & up</span>
+                </li>
+              </ul>
+            ) : null}
+          </div>
+          <div onClick={handleGenderListClick}>
+            <FilterListHeader header={"Gender"} list={gender} />
+          </div>
+          <div>
+            {gender ? (
+              <ul className={styles.gender_list}>
+                <li>
+                  <FilterListElement brand={"Male"} />
+                </li>
+                <li>
+                  <FilterListElement brand={"Female"} />
+                </li>
+              </ul>
+            ) : null}
+          </div>
         </div>
       </div>
       <div className={styles.home_grid}>
