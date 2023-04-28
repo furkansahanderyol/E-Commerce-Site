@@ -10,6 +10,7 @@
   border-right: 1px solid black;
   top: 0;
 
+  height: 100vh;
   width: 300px;
 
   overflow: hidden;
@@ -20,7 +21,9 @@
   align-items: center;
 }
 
-.filter_list {
+.filter_list,
+.average_customer_review_list,
+.gender_list {
   text-decoration: none;
   list-style: none;
 
@@ -29,8 +32,62 @@
   overflow-y: auto;
 }
 
+.filter_list_price,
+.average_customer_review_list,
+.gender_list {
+  height: fit-content;
+}
+
+.average_customer_review_list svg {
+  color: orange;
+  font-size: 1.2em;
+}
+
+.price_list_wrapper,
+.average_customer_review_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.filter_list_price {
+  font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+
 .filter_list_element {
   padding-left: 0.5em;
+}
+
+.price_list_element {
+  width: 100%;
+
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.price_input_values {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price_input {
+  width: 80px;
+  height: 25px;
+
+  padding: 0.5em;
+}
+
+.price_input::-webkit-outer-spin-button,
+.price_input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .home_grid {
