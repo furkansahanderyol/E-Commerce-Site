@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, Children } from "react"
+import React, { useState, useRef, useEffect, use } from "react"
 import { useRouter } from "next/router"
 import Product from "@/components/Product/Product"
 import FilterListElement from "@/components/FilterListElement/FilterListElement"
@@ -13,15 +13,10 @@ export default function Home({ products }) {
   const [priceList, setPriceList] = useState(false)
   const [avgCustomerReview, setAvgCustomerReview] = useState(false)
   const [gender, setGender] = useState(false)
-  const [filterBrands, setFilterBrands] = useState([])
-  const [minPrice, setMinPrice] = useState(0)
-  const [maxPrice, setMaxPrice] = useState(0)
-  const minPriceRef = useRef()
-  const maxPriceRef = useRef()
 
   const router = useRouter()
   const { category } = router.query
-
+  const { query } = router
   const matchedProducts = products.filter((product) => {
     return product.category === category[0]
   })
@@ -40,11 +35,6 @@ export default function Home({ products }) {
     setPriceList(!priceList)
   }
 
-  function handleCustomPrice() {
-    const min = minPriceRef.current.value
-    const max = maxPriceRef.current.value
-  }
-
   function handleAvgCustomerReviewClick() {
     setAvgCustomerReview(!avgCustomerReview)
   }
@@ -58,32 +48,38 @@ export default function Home({ products }) {
   function handleX(e) {
     const list = e.target.closest("ul")
     const listItems = [...list.querySelectorAll("li")]
+    const brands = []
 
-    const selectedItems = listItems.filter((item) => {
+    listItems.map((item) => {
       const checkbox = item.querySelector("input")
       const label = item.querySelector("label")
 
-      if (checkbox.checked) return label.textContent
+      if (checkbox.checked) brands.push(label.textContent)
     })
 
-    const filteredBrands = selectedItems.map((item) => {
-      const label = item.querySelector("label")
-
-      return label.textContent
-    })
-
-    return setFilterBrands(filteredBrands)
+    router.push(
+      {
+        pathname: `/${category}`,
+        query: { brand: brands },
+      },
+      undefined,
+      { shallow: true }
+    )
   }
 
   useEffect(() => {
+    const queryBrands = Array.isArray(router.query.brand)
+      ? [...router.query.brand]
+      : router.query.brand
+
     const selectedBrands = matchedProducts.filter((product) => {
-      if (filterBrands.includes(product.brand)) return product
+      return Array.isArray(queryBrands)
+        ? queryBrands.includes(product.brand)
+        : product.brand === queryBrands
     })
 
-    selectedBrands.length > 0
-      ? setData(selectedBrands)
-      : setData(matchedProducts)
-  }, [filterBrands])
+    setData(selectedBrands)
+  }, [router.query.brand])
 
   return (
     <div className={styles.homepage_wrapper}>
@@ -156,9 +152,7 @@ export default function Home({ products }) {
                       type="number"
                       placeholder="Max $"
                     />
-                    <button onClick={handleCustomPrice} type="submit">
-                      Go
-                    </button>
+                    <button type="submit">Go</button>
                   </span>
                 </div>
               </>
@@ -245,7 +239,7 @@ export default function Home({ products }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const response = await fetch("https:dummyjson.com/products?limit=100")
   const data = await response.json()
 
@@ -256,7 +250,7 @@ export async function getStaticProps(context) {
   }
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context) {
   const response = await fetch("https:dummyjson.com/products?limit=100")
   const data = await response.json()
 

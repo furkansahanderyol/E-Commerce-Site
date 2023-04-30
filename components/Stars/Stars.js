@@ -54,8 +54,8 @@ export default function Stars({ rate }) {
 
   return (
     <div className={styles.star}>
-      {stars.map((star) => {
-        return star
+      {stars.map((star, index) => {
+        return <span key={index}>{star}</span>
       })}
     </div>
   )
