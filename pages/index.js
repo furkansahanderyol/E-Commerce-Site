@@ -4,16 +4,16 @@ import Link from "next/link"
 export default function index() {
   return (
     <div>
-      <Link href={"/smartphones"}>
+      <Link href={"/category/smartphones"}>
         <div>smartphones</div>
       </Link>
-      <Link href={"/laptops"}>
+      <Link href={"/category/laptops"}>
         <div>laptops</div>
       </Link>
-      <Link href={"/skincare"}>
+      <Link href={"/category/skincare"}>
         <div>skincare</div>
       </Link>
-      <Link href={"/groceries"}>
+      <Link href={"/category/groceries"}>
         <div>groceries</div>
       </Link>
     </div>

@@ -8,24 +8,19 @@ import { RiStarLine } from "react-icons/ri"
 import styles from "../../styles/Home.module.css"
 
 export default function Home({ products }) {
-  const [data, setData] = useState(products)
+  const router = useRouter()
+  const [data, setData] = useState(
+    products.filter((product) => {
+      return product.category === router.query.category[0]
+    })
+  )
   const [brandsList, setBrandsList] = useState(false)
   const [priceList, setPriceList] = useState(false)
   const [avgCustomerReview, setAvgCustomerReview] = useState(false)
+  const [brands, setBrands] = useState([])
+  const [selectedBrands, setSelectedBrands] = useState([])
   const [gender, setGender] = useState(false)
-
-  const router = useRouter()
-  const { category } = router.query
-  const { query } = router
-  const matchedProducts = products.filter((product) => {
-    return product.category === category[0]
-  })
-
-  const relativeBrands = matchedProducts.map((product) => {
-    return product.brand
-  })
-
-  const brands = [...new Set(relativeBrands)]
+  const brandsFilterList = useRef()
 
   function handleFilterClick() {
     setBrandsList(!brandsList)
@@ -43,24 +38,24 @@ export default function Home({ products }) {
     setGender(!gender)
   }
 
-  function handlePriceRange(e) {}
+  function handleBrandFilterClick(e) {
+    const filterList = e.target.closest("ul")
+    const filters = [...filterList.querySelectorAll("li")]
+    const selectedFilters = filters
+      .map((filter) => {
+        const checkbox = filter.querySelector("input")
+        const brandName = filter.querySelector("label").textContent
 
-  function handleX(e) {
-    const list = e.target.closest("ul")
-    const listItems = [...list.querySelectorAll("li")]
-    const brands = []
-
-    listItems.map((item) => {
-      const checkbox = item.querySelector("input")
-      const label = item.querySelector("label")
-
-      if (checkbox.checked) brands.push(label.textContent)
-    })
+        if (checkbox.checked) return brandName
+      })
+      .filter((brandName) => {
+        if (brandName) return brandName
+      })
 
     router.push(
       {
-        pathname: `/${category}`,
-        query: { brand: brands },
+        pathname: `/category/${router.query.category[0]}`,
+        query: { brand: selectedFilters },
       },
       undefined,
       { shallow: true }
@@ -68,18 +63,59 @@ export default function Home({ products }) {
   }
 
   useEffect(() => {
-    const queryBrands = Array.isArray(router.query.brand)
-      ? [...router.query.brand]
-      : router.query.brand
-
-    const selectedBrands = matchedProducts.filter((product) => {
-      return Array.isArray(queryBrands)
-        ? queryBrands.includes(product.brand)
-        : product.brand === queryBrands
+    const relativeBrands = products.filter((product) => {
+      return product.category === router.query.category[0]
     })
 
-    setData(selectedBrands)
+    const brandNames = relativeBrands.map((product) => {
+      return product.brand
+    })
+
+    const filteredBrandNames = [...new Set(brandNames)]
+
+    setBrands(filteredBrandNames)
+  }, [router.query.category])
+
+  useEffect(() => {
+    Array.isArray(router.query.brand)
+      ? setSelectedBrands(router.query.brand)
+      : setSelectedBrands([router.query.brand])
   }, [router.query.brand])
+
+  useEffect(() => {
+    if (selectedBrands && brandsFilterList.current) {
+      const filterList = brandsFilterList.current
+      const listItems = [...filterList.querySelectorAll("li")]
+
+      listItems.map((item) => {
+        const brandName = item.querySelector("label").textContent
+        const checkbox = item.querySelector("input")
+
+        if (selectedBrands.includes(brandName)) {
+          return (checkbox.checked = true)
+        }
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    const filteredProducts = products.filter((product) => {
+      if (
+        selectedBrands.includes(product.brand) &&
+        product.category === router.query.category[0]
+      ) {
+        return product
+      }
+    })
+
+    filteredProducts.length === 0
+      ? setData(
+          products.filter((product) => {
+            return product.category === router.query.category[0]
+          })
+        )
+      : setData(filteredProducts)
+  }, [selectedBrands])
 
   return (
     <div className={styles.homepage_wrapper}>
@@ -91,11 +127,18 @@ export default function Home({ products }) {
           </div>
           <div>
             {brandsList ? (
-              <ul onClick={handleX} className={styles.filter_list}>
+              <ul ref={brandsFilterList} className={styles.filter_list}>
                 {brands.map((brand, index) => {
                   return (
-                    <li className={styles.filter_list_element} key={index}>
-                      <FilterListElement brand={brand} />
+                    <li
+                      onClick={handleBrandFilterClick}
+                      className={styles.filter_list_element}
+                      key={index}
+                    >
+                      <FilterListElement
+                        brand={brand}
+                        selectedBrands={selectedBrands}
+                      />
                     </li>
                   )
                 })}
@@ -111,30 +154,10 @@ export default function Home({ products }) {
                 <ul
                   className={`${styles.filter_list} ${styles.filter_list_price}`}
                 >
-                  <li
-                    onClick={handlePriceRange}
-                    className={styles.price_list_element}
-                  >
-                    0$ to 25$
-                  </li>
-                  <li
-                    onClick={handlePriceRange}
-                    className={styles.price_list_element}
-                  >
-                    25$ to 50$
-                  </li>
-                  <li
-                    onClick={handlePriceRange}
-                    className={styles.price_list_element}
-                  >
-                    50$ to 100$
-                  </li>
-                  <li
-                    onClick={handlePriceRange}
-                    className={styles.price_list_element}
-                  >
-                    200$ & Above
-                  </li>
+                  <li className={styles.price_list_element}>0$ to 25$</li>
+                  <li className={styles.price_list_element}>25$ to 50$</li>
+                  <li className={styles.price_list_element}>50$ to 100$</li>
+                  <li className={styles.price_list_element}>200$ & Above</li>
                 </ul>
                 <div className={styles.price_i}>
                   <span>
