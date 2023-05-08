@@ -5,6 +5,7 @@ import FilterListElement from "@/components/FilterListElement/FilterListElement"
 import FilterListHeader from "@/components/FilterListHeader/FilterListHeader"
 import { RiStarFill } from "react-icons/ri"
 import { RiStarLine } from "react-icons/ri"
+import axios from "axios"
 import styles from "../../styles/Home.module.css"
 
 export default function Home({ products }) {
@@ -51,6 +52,7 @@ export default function Home({ products }) {
       .filter((brandName) => {
         if (brandName) return brandName
       })
+      .join(",")
 
     router.push(
       {
@@ -76,46 +78,57 @@ export default function Home({ products }) {
     setBrands(filteredBrandNames)
   }, [router.query.category])
 
-  useEffect(() => {
-    Array.isArray(router.query.brand)
-      ? setSelectedBrands(router.query.brand)
-      : setSelectedBrands([router.query.brand])
-  }, [router.query.brand])
+  // useEffect(() => {
+  //   Array.isArray(router.query.brand)
+  //     ? setSelectedBrands(router.query.brand)
+  //     : setSelectedBrands([router.query.brand])
+  // }, [router.query.brand])
+
+  // useEffect(() => {
+  //   if (selectedBrands && brandsFilterList.current) {
+  //     const filterList = brandsFilterList.current
+  //     const listItems = [...filterList.querySelectorAll("li")]
+
+  //     listItems.map((item) => {
+  //       const brandName = item.querySelector("label").textContent
+  //       const checkbox = item.querySelector("input")
+
+  //       if (selectedBrands.includes(brandName)) {
+  //         return (checkbox.checked = true)
+  //       }
+  //     })
+  //   }
+  // }, [])
+
+  // useEffect(() => {
+  //   const filteredProducts = products.filter((product) => {
+  //     if (
+  //       selectedBrands.includes(product.brand) &&
+  //       product.category === router.query.category[0]
+  //     ) {
+  //       return product
+  //     }
+  //   })
+
+  //   filteredProducts.length === 0
+  //     ? setData(
+  //         products.filter((product) => {
+  //           return product.category === router.query.category[0]
+  //         })
+  //       )
+  //     : setData(filteredProducts)
+  // }, [selectedBrands])
 
   useEffect(() => {
-    if (selectedBrands && brandsFilterList.current) {
-      const filterList = brandsFilterList.current
-      const listItems = [...filterList.querySelectorAll("li")]
-
-      listItems.map((item) => {
-        const brandName = item.querySelector("label").textContent
-        const checkbox = item.querySelector("input")
-
-        if (selectedBrands.includes(brandName)) {
-          return (checkbox.checked = true)
-        }
-      })
+    if (router.query.brand) {
+      fetch(
+        `/api/category/${router.query.category[0]}?brand=${router.query.brand}`
+      )
+        .then((response) => response.json())
+        .then((data) => setData(data.products))
+        .catch((error) => console.error(error))
     }
-  }, [])
-
-  useEffect(() => {
-    const filteredProducts = products.filter((product) => {
-      if (
-        selectedBrands.includes(product.brand) &&
-        product.category === router.query.category[0]
-      ) {
-        return product
-      }
-    })
-
-    filteredProducts.length === 0
-      ? setData(
-          products.filter((product) => {
-            return product.category === router.query.category[0]
-          })
-        )
-      : setData(filteredProducts)
-  }, [selectedBrands])
+  }, [router.query])
 
   return (
     <div className={styles.homepage_wrapper}>
@@ -262,8 +275,11 @@ export default function Home({ products }) {
   )
 }
 
-export async function getStaticProps() {
-  const response = await fetch("https:dummyjson.com/products?limit=100")
+export async function getStaticProps(context) {
+  const { params } = context
+  const category = params.category[0]
+
+  const response = await fetch(`http://localhost:3000/api/category/${category}`)
   const data = await response.json()
 
   return {
@@ -273,10 +289,9 @@ export async function getStaticProps() {
   }
 }
 
-export async function getStaticPaths(context) {
+export async function getStaticPaths() {
   const response = await fetch("https:dummyjson.com/products?limit=100")
   const data = await response.json()
-
   const path = data.products.map((product) => {
     return {
       params: { category: [product.category] },
