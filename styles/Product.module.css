@@ -8,6 +8,7 @@
   border: 1px solid #ccc;
 
   position: relative;
+  text-decoration: none;
 }
 
 .favorite_button_wrapper {

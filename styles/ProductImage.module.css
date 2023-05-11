@@ -1,0 +1,16 @@
+.product_image {
+  width: 350px;
+  height: 400px;
+  object-fit: cover;
+
+  border-radius: 0.6em;
+}
+
+.product_image_mini {
+  width: 40px;
+  height: 60px;
+  object-fit: cover;
+
+  border-radius: 0.3em;
+  box-shadow: 0 0 5px 0 black;
+}
