@@ -36,8 +36,11 @@ app.prepare().then(() => {
     })
   })
 
-  const useRouter = require("./routes/category")
-  server.use("/api/category", useRouter)
+  const categoryRouter = require("./routes/category")
+  server.use("/api/category", categoryRouter)
+
+  const productsRouter = require("./routes/products")
+  server.use("/api/products", productsRouter)
 
   // handle all other requests
   server.all("*", (req, res) => {

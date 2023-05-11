@@ -263,6 +263,8 @@ export default function Home({ products }) {
               id={product.id}
               title={product.title}
               brand={product.brand}
+              category={product.category}
+              thumbnail={product.thumbnail}
               images={product.images}
               rate={product.rating}
               count={product.rating.count}
@@ -290,7 +292,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-  const response = await fetch("https:dummyjson.com/products?limit=100")
+  const response = await fetch("https://dummyjson.com/products?limit=100")
   const data = await response.json()
   const path = data.products.map((product) => {
     return {
