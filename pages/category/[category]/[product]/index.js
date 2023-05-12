@@ -1,5 +1,8 @@
 import React from "react"
 import ProductImage from "@/components/ProductImage/ProductImage"
+import Stars from "@/components/Stars/Stars"
+import AddToCartButton from "@/components/AddToCartButton/AddToCartButton"
+import FavoriteButton from "@/components/FavoriteButton/FavoriteButton"
 import styles from "../../../../styles/ProductPage.module.css"
 
 export default function Product({ product = [] }) {
@@ -23,12 +26,18 @@ export default function Product({ product = [] }) {
           <div className={styles.product_description}>
             {product.description}
           </div>
+          <div className={styles.rating}>
+            <div className={styles.stars}>
+              <Stars rate={product.rating} />
+            </div>
+            <div className={styles.point}>{`(${product.rating})`}</div>
+          </div>
           <div className={styles.buttons_container}>
             <div className={styles.add_to_cart_button}>
-              <button>Add to cart</button>
+              <AddToCartButton />
             </div>
             <div className={styles.add_to_favorites_button}>
-              <button>Add to favorites</button>
+              <FavoriteButton square={true} />
             </div>
           </div>
         </div>

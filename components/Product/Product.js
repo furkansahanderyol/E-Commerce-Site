@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import Image from "next/image"
 import Stars from "../Stars/Stars"
 import FavoriteButton from "../FavoriteButton/FavoriteButton"
@@ -8,13 +8,12 @@ import styles from "../../styles/Product.module.css"
 export default function Product(props) {
   const { id, images, thumbnail, title, brand, category, rate, count, price } =
     props
-  const [favorite, setFavorite] = useState(false)
 
   return (
     <Link href={`/category/${category}/${id}`}>
       <div className={styles.product} id={id}>
         <div className={styles.favorite_button_wrapper}>
-          <FavoriteButton favorite={favorite} setFavorite={setFavorite} />
+          <FavoriteButton square={false} />
         </div>
         <div className={styles.product_image_wrapper}>
           <Image src={thumbnail} width={200} height={250} alt="Product image" />

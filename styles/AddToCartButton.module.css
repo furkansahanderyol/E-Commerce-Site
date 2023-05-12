@@ -1,0 +1,31 @@
+.add_to_cart,
+.added_to_cart {
+  border: 1px solid #477519;
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.3em;
+  transition: all 0.3s ease-in-out;
+  padding: 0.5em 1em;
+}
+
+.add_to_cart {
+  background: #ddd;
+  color: #477519;
+}
+
+.added_to_cart {
+  background: #477519;
+  color: white;
+}
+
+.add_to_cart:hover {
+  background-color: #477519;
+  color: white;
+}
+
+.add_to_cart div,
+.added_to_cart div {
+  display: flex;
+
+  gap: 10px;
+}
