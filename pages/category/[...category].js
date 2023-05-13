@@ -277,7 +277,7 @@ export default function Home({ products }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { params } = context
   const category = params.category[0]
 
@@ -291,17 +291,17 @@ export async function getStaticProps(context) {
   }
 }
 
-export async function getStaticPaths() {
-  const response = await fetch("https://dummyjson.com/products?limit=100")
-  const data = await response.json()
-  const path = data.products.map((product) => {
-    return {
-      params: { category: [product.category] },
-    }
-  })
+// export async function getStaticPaths() {
+//   const response = await fetch("https://dummyjson.com/products?limit=100")
+//   const data = await response.json()
+//   const path = data.products.map((product) => {
+//     return {
+//       params: { category: [product.category] },
+//     }
+//   })
 
-  return {
-    paths: path,
-    fallback: false,
-  }
-}
+//   return {
+//     paths: path,
+//     fallback: false,
+//   }
+// }

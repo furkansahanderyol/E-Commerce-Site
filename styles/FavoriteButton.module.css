@@ -12,6 +12,22 @@
   cursor: pointer;
 }
 
+.favorite_button_icon_square {
+  border: 1px solid #477519;
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.3em;
+  transition: all 0.3s ease-in-out;
+  padding: 0.5em 1em;
+  min-width: 80px;
+  width: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: green;
+}
+
 .favorite_button_icon:hover {
   color: green;
 }
