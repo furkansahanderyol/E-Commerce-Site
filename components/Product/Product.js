@@ -16,7 +16,7 @@ export default function Product(props) {
           <FavoriteButton square={false} />
         </div>
         <div className={styles.product_image_wrapper}>
-          <Image src={thumbnail} width={200} height={250} alt="Product image" />
+          <Image src={images[0]} layout="fill" alt="Product image" />
         </div>
         <div className={styles.product_information}>
           <div className={styles.product_title}>

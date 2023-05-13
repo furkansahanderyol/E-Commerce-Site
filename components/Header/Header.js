@@ -2,12 +2,15 @@ import React from "react"
 import { FaUser } from "react-icons/fa"
 import { FaHeart } from "react-icons/fa"
 import { FaShoppingCart } from "react-icons/fa"
+import Link from "next/link"
 import styles from "../../styles/Header.module.css"
 
 export default function Header() {
   return (
     <header className={styles.wrapper}>
-      <h1 className={styles.header}>getScammed.com</h1>
+      <Link href={"/"}>
+        <h1 className={styles.header}>getScammed.com</h1>
+      </Link>
       <input
         className={styles.input}
         type="text"

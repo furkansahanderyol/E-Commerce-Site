@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import ProductImage from "@/components/ProductImage/ProductImage"
 import Stars from "@/components/Stars/Stars"
 import AddToCartButton from "@/components/AddToCartButton/AddToCartButton"
@@ -6,6 +6,7 @@ import FavoriteButton from "@/components/FavoriteButton/FavoriteButton"
 import styles from "../../../../styles/ProductPage.module.css"
 
 export default function Product({ product = [] }) {
+  const [productImage, setProductImage] = useState(0)
   const productImages = product.images
 
   return (
@@ -13,11 +14,27 @@ export default function Product({ product = [] }) {
       <div className={styles.product_info_wrapper}>
         <div className={styles.product_images_container}>
           <div className={styles.product_images}>
-            <ProductImage image={productImages[0]} mini={false} />
+            <ProductImage
+              image={productImages[productImage]}
+              mini={false}
+              productImage={productImage}
+              setProductImage={setProductImage}
+              totalImageCount={productImages.length}
+            />
           </div>
           <div className={styles.product_mini_images}>
-            {productImages.map((image) => {
-              return <ProductImage image={image} mini={true} />
+            {productImages.map((image, index) => {
+              return (
+                <ProductImage
+                  key={index}
+                  index={index}
+                  image={image}
+                  mini={true}
+                  productImage={productImage}
+                  setProductImage={setProductImage}
+                  totalImageCount={productImages.length}
+                />
+              )
             })}
           </div>
         </div>
@@ -46,7 +63,7 @@ export default function Product({ product = [] }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { params } = context
   const product = params.product
 
@@ -60,21 +77,21 @@ export async function getStaticProps(context) {
   }
 }
 
-export async function getStaticPaths(context) {
-  const response = await fetch("https://dummyjson.com/products?limit=100")
-  const data = await response.json()
+// export async function getStaticPaths(context) {
+//   const response = await fetch("https://dummyjson.com/products?limit=100")
+//   const data = await response.json()
 
-  const value = data.products.map((product) => {
-    return {
-      params: {
-        category: String(product.category),
-        product: String(product.id),
-      },
-    }
-  })
+//   const value = data.products.map((product) => {
+//     return {
+//       params: {
+//         category: String(product.category),
+//         product: String(product.id),
+//       },
+//     }
+//   })
 
-  return {
-    paths: value,
-    fallback: false,
-  }
-}
+//   return {
+//     paths: value,
+//     fallback: false,
+//   }
+// }
