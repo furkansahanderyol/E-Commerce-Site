@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import ProductImage from "@/components/ProductImage/ProductImage"
 import Stars from "@/components/Stars/Stars"
 import AddToCartButton from "@/components/AddToCartButton/AddToCartButton"
@@ -6,7 +6,16 @@ import FavoriteButton from "@/components/FavoriteButton/FavoriteButton"
 import styles from "../../../../styles/ProductPage.module.css"
 
 export default function Product({ product = [] }) {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [productImage, setProductImage] = useState(0)
+  const [imageZoom, setImageZoom] = useState(false)
+  const [zoomedImageStyles, setZoomedImageStyles] = useState({
+    backgroundImage: "",
+    backgroundPosition: "",
+    left: "",
+    top: "",
+  })
+  const zoomedImageRef = useRef(null)
   const productImages = product.images
 
   return (
@@ -20,6 +29,12 @@ export default function Product({ product = [] }) {
               productImage={productImage}
               setProductImage={setProductImage}
               totalImageCount={productImages.length}
+              setImageZoom={setImageZoom}
+              mousePosition={mousePosition}
+              setMousePosition={setMousePosition}
+              zoomedImageRef={zoomedImageRef}
+              zoomedImageStyles={zoomedImageStyles}
+              setZoomedImageStyles={setZoomedImageStyles}
             />
           </div>
           <div className={styles.product_mini_images}>
@@ -38,26 +53,34 @@ export default function Product({ product = [] }) {
             })}
           </div>
         </div>
-        <div className={styles.product_info}>
-          <div className={styles.product_title}>{product.title}</div>
-          <div className={styles.product_description}>
-            {product.description}
-          </div>
-          <div className={styles.rating}>
-            <div className={styles.stars}>
-              <Stars rate={product.rating} />
+        {imageZoom ? (
+          <div
+            ref={zoomedImageRef}
+            className={styles.zoomed_image}
+            style={zoomedImageStyles}
+          />
+        ) : (
+          <div className={styles.product_info}>
+            <div className={styles.product_title}>{product.title}</div>
+            <div className={styles.product_description}>
+              {product.description}
             </div>
-            <div className={styles.point}>{`(${product.rating})`}</div>
-          </div>
-          <div className={styles.buttons_container}>
-            <div className={styles.add_to_cart_button}>
-              <AddToCartButton />
+            <div className={styles.rating}>
+              <div className={styles.stars}>
+                <Stars rate={product.rating} />
+              </div>
+              <div className={styles.point}>{`(${product.rating})`}</div>
             </div>
-            <div className={styles.add_to_favorites_button}>
-              <FavoriteButton square={true} />
+            <div className={styles.buttons_container}>
+              <div className={styles.add_to_cart_button}>
+                <AddToCartButton />
+              </div>
+              <div className={styles.add_to_favorites_button}>
+                <FavoriteButton square={true} />
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   )
@@ -76,22 +99,3 @@ export async function getServerSideProps(context) {
     },
   }
 }
-
-// export async function getStaticPaths(context) {
-//   const response = await fetch("https://dummyjson.com/products?limit=100")
-//   const data = await response.json()
-
-//   const value = data.products.map((product) => {
-//     return {
-//       params: {
-//         category: String(product.category),
-//         product: String(product.id),
-//       },
-//     }
-//   })
-
-//   return {
-//     paths: value,
-//     fallback: false,
-//   }
-// }

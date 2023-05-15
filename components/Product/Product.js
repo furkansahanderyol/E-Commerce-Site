@@ -6,8 +6,7 @@ import Link from "next/link"
 import styles from "../../styles/Product.module.css"
 
 export default function Product(props) {
-  const { id, images, thumbnail, title, brand, category, rate, count, price } =
-    props
+  const { id, images, title, brand, category, rate, count, price } = props
 
   return (
     <Link href={`/category/${category}/${id}`}>
