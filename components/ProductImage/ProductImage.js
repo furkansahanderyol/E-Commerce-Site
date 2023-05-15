@@ -61,8 +61,6 @@ export default function ProductImage(props) {
     const y = e.clientY - imageElementCoordinates.top
     const zoomX = (x / imageElement.offsetWidth) * 100
     const zoomY = (y / imageElement.offsetHeight) * 100
-    console.log(`zoomX: ${zoomX}`)
-    console.log(`zoomY: ${zoomY}`)
 
     setZoomedImageStyles({
       backgroundImage: `url(${image})`,
