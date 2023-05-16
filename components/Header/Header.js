@@ -22,10 +22,12 @@ export default function Header() {
             <FaUser />
             My Account
           </li>
-          <li className={styles.list_item}>
-            <FaHeart />
-            Favorites
-          </li>
+          <Link href={"/favorites"}>
+            <li className={styles.list_item}>
+              <FaHeart />
+              Favorites
+            </li>
+          </Link>
           <li className={styles.list_item}>
             <FaShoppingCart />
             Cart
