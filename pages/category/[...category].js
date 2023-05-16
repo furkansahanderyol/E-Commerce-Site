@@ -78,47 +78,6 @@ export default function Home({ products }) {
     setBrands(filteredBrandNames)
   }, [router.query.category])
 
-  // useEffect(() => {
-  //   Array.isArray(router.query.brand)
-  //     ? setSelectedBrands(router.query.brand)
-  //     : setSelectedBrands([router.query.brand])
-  // }, [router.query.brand])
-
-  // useEffect(() => {
-  //   if (selectedBrands && brandsFilterList.current) {
-  //     const filterList = brandsFilterList.current
-  //     const listItems = [...filterList.querySelectorAll("li")]
-
-  //     listItems.map((item) => {
-  //       const brandName = item.querySelector("label").textContent
-  //       const checkbox = item.querySelector("input")
-
-  //       if (selectedBrands.includes(brandName)) {
-  //         return (checkbox.checked = true)
-  //       }
-  //     })
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   const filteredProducts = products.filter((product) => {
-  //     if (
-  //       selectedBrands.includes(product.brand) &&
-  //       product.category === router.query.category[0]
-  //     ) {
-  //       return product
-  //     }
-  //   })
-
-  //   filteredProducts.length === 0
-  //     ? setData(
-  //         products.filter((product) => {
-  //           return product.category === router.query.category[0]
-  //         })
-  //       )
-  //     : setData(filteredProducts)
-  // }, [selectedBrands])
-
   useEffect(() => {
     if (router.query.brand) {
       fetch(
@@ -290,18 +249,3 @@ export async function getServerSideProps(context) {
     },
   }
 }
-
-// export async function getStaticPaths() {
-//   const response = await fetch("https://dummyjson.com/products?limit=100")
-//   const data = await response.json()
-//   const path = data.products.map((product) => {
-//     return {
-//       params: { category: [product.category] },
-//     }
-//   })
-
-//   return {
-//     paths: path,
-//     fallback: false,
-//   }
-// }
