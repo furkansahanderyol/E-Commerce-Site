@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { FaHeart } from "react-icons/fa"
 import { FaRegHeart } from "react-icons/fa"
+import axios from "axios"
 import styles from "../../styles/FavoriteButton.module.css"
 
 export default function FavoriteButton({ square }) {
@@ -8,6 +9,8 @@ export default function FavoriteButton({ square }) {
 
   function handleFavoriteButton() {
     setFavorite(!favorite)
+
+    console.log("favorite button clicked")
   }
 
   return (

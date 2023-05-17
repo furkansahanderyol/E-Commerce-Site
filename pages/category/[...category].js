@@ -219,6 +219,7 @@ export default function Home({ products }) {
           return (
             <Product
               key={product.id}
+              product={product}
               id={product.id}
               title={product.title}
               brand={product.brand}
