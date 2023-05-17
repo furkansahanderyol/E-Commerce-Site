@@ -2,13 +2,22 @@ import React from "react"
 import Image from "next/image"
 import Stars from "../Stars/Stars"
 import FavoriteButton from "../FavoriteButton/FavoriteButton"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import styles from "../../styles/Product.module.css"
 
 export default function Product(props) {
-  const { product, id, images, title, brand, category, rate, count, price } =
-    props
+  const {
+    product,
+    id,
+    images,
+    title,
+    brand,
+    category,
+    rate,
+    count,
+    price,
+    isFavorite,
+  } = props
 
   const router = useRouter()
 
@@ -16,17 +25,14 @@ export default function Product(props) {
     router.push(`/category/${category}/${id}`)
   }
 
-  function handleFavoriteButtonClick(e) {
-    e.stopPropagation()
-  }
-
   return (
     <div onClick={handleProductClick} className={styles.product} id={id}>
-      <div
-        onClick={handleFavoriteButtonClick}
-        className={styles.favorite_button_wrapper}
-      >
-        <FavoriteButton square={false} />
+      <div className={styles.favorite_button_wrapper}>
+        <FavoriteButton
+          product={product}
+          square={false}
+          isFavorite={isFavorite}
+        />
       </div>
       <div className={styles.product_image_wrapper}>
         <Image src={images[0]} layout="fill" alt="Product image" />

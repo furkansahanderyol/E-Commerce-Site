@@ -5,10 +5,9 @@ import FilterListElement from "@/components/FilterListElement/FilterListElement"
 import FilterListHeader from "@/components/FilterListHeader/FilterListHeader"
 import { RiStarFill } from "react-icons/ri"
 import { RiStarLine } from "react-icons/ri"
-import axios from "axios"
 import styles from "../../styles/Home.module.css"
 
-export default function Home({ products }) {
+export default function Home({ products, favorites }) {
   const router = useRouter()
   const [data, setData] = useState(
     products.filter((product) => {
@@ -20,6 +19,7 @@ export default function Home({ products }) {
   const [avgCustomerReview, setAvgCustomerReview] = useState(false)
   const [brands, setBrands] = useState([])
   const [selectedBrands, setSelectedBrands] = useState([])
+  const [favoriteProducts, setFavoriteProducts] = useState([])
   const [gender, setGender] = useState(false)
   const brandsFilterList = useRef()
 
@@ -88,6 +88,22 @@ export default function Home({ products }) {
         .catch((error) => console.error(error))
     }
   }, [router.query])
+
+  useEffect(() => {
+    const matchedProducts = []
+
+    products.map((product) => {
+      favorites.favorites.map((favorite) => {
+        if (parseInt(product.id) === parseInt(favorite.product.id)) {
+          if (!matchedProducts.includes(product)) {
+            matchedProducts.push(product)
+          }
+        }
+      })
+    })
+
+    setFavoriteProducts(matchedProducts)
+  }, [])
 
   return (
     <div className={styles.homepage_wrapper}>
@@ -229,6 +245,7 @@ export default function Home({ products }) {
               rate={product.rating}
               count={product.rating.count}
               price={product.price}
+              isFavorite={favoriteProducts.includes(product) ? true : false}
             />
           )
         })}
@@ -241,12 +258,17 @@ export async function getServerSideProps(context) {
   const { params } = context
   const category = params.category[0]
 
-  const response = await fetch(`http://localhost:3000/api/category/${category}`)
-  const data = await response.json()
+  const categoryResponse = await fetch(
+    `http://localhost:3000/api/category/${category}`
+  )
+  const favoritesResponse = await fetch("http://localhost:3000/api/favorites")
+  const categoryProductsData = await categoryResponse.json()
+  const favoriteProductsData = await favoritesResponse.json()
 
   return {
     props: {
-      products: data.products,
+      products: categoryProductsData.products,
+      favorites: favoriteProductsData,
     },
   }
 }

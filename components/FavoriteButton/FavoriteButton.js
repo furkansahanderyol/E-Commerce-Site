@@ -4,13 +4,20 @@ import { FaRegHeart } from "react-icons/fa"
 import axios from "axios"
 import styles from "../../styles/FavoriteButton.module.css"
 
-export default function FavoriteButton({ square }) {
+export default function FavoriteButton({ product, square, isFavorite }) {
   const [favorite, setFavorite] = useState(false)
 
-  function handleFavoriteButton() {
+  async function handleFavoriteButton(e) {
+    e.stopPropagation()
     setFavorite(!favorite)
 
-    console.log("favorite button clicked")
+    try {
+      await axios.post("http://localhost:3000/api/favorites", {
+        product,
+      })
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
@@ -23,7 +30,9 @@ export default function FavoriteButton({ square }) {
       }
       style={square && favorite ? { backgroundColor: "#477519" } : null}
     >
-      {!favorite ? (
+      {isFavorite ? (
+        <FaHeart style={{ color: "green" }} />
+      ) : !favorite ? (
         <FaRegHeart />
       ) : (
         <FaHeart
