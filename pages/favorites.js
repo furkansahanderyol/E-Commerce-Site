@@ -68,7 +68,6 @@ export default function Favorites({ favorites, collections }) {
 export async function getServerSideProps() {
   const response = await fetch("http://localhost:3000/api/favorites")
   const data = await response.json()
-
   return {
     props: {
       favorites: data.favorites,
