@@ -67,3 +67,13 @@
   color: #c4c4c4;
   gap: 20px;
 }
+
+.favorite_products {
+  display: grid;
+  grid-template-columns: repeat(4, 200px);
+  grid-template-rows: repeat(auto, 250px);
+
+  gap: 100px;
+
+  padding: 2em;
+}

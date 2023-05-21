@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, use } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/router"
 import Product from "@/components/Product/Product"
 import FilterListElement from "@/components/FilterListElement/FilterListElement"
@@ -245,7 +245,7 @@ export default function Home({ products, favorites }) {
               rate={product.rating}
               count={product.rating.count}
               price={product.price}
-              isFavorite={favoriteProducts.includes(product) ? true : false}
+              isFavorite={favoriteProducts.includes(product)}
             />
           )
         })}
