@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Image from "next/image"
 import Stars from "../Stars/Stars"
 import FavoriteButton from "../FavoriteButton/FavoriteButton"

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { FaHeart } from "react-icons/fa"
 import { FaBookmark } from "react-icons/fa"
+import Product from "@/components/Product/Product"
 import styles from "../styles/FavoritePage.module.css"
 
 export default function Favorites({ favorites, collections }) {
@@ -49,7 +50,26 @@ export default function Favorites({ favorites, collections }) {
             <div>You do not have any favorite products</div>
           </div>
         ) : (
-          <div>Favorite products</div>
+          <div className={styles.favorite_products}>
+            {favorites.map((product, index) => {
+              return (
+                <Product
+                  key={index}
+                  product={product.product}
+                  id={product.product.id}
+                  title={product.product.title}
+                  brand={product.product.brand}
+                  category={product.product.category}
+                  thumbnail={product.product.thumbnail}
+                  images={product.product.images}
+                  rate={product.product.rating}
+                  count={product.product.rating.count}
+                  price={product.product.price}
+                  isFavorite={true}
+                />
+              )
+            })}
+          </div>
         )
       ) : collections.length === 0 ? (
         <div className={styles.empty_section}>
