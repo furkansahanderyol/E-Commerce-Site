@@ -29,7 +29,6 @@ router.get("/:category", (req, res) => {
         }
       })
 
-      console.log(matchedProducts)
       res.json({ products: matchedProducts })
     })
   }

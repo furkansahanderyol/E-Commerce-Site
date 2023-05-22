@@ -25,6 +25,9 @@ app.prepare().then(() => {
   const favoritesRouter = require("./routes/favorites")
   server.use("/api", favoritesRouter)
 
+  const collectionsRouter = require("./routes/collections")
+  server.use("/api", collectionsRouter)
+
   server.all("*", (req, res) => {
     return handle(req, res)
   })

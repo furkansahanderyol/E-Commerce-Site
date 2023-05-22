@@ -1,0 +1,26 @@
+.collections_wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.create_new_collection_button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+
+  width: 240px;
+  height: 80px;
+
+  padding: 1.5rem;
+  border: 1px solid black;
+  border-radius: 0.6em;
+  cursor: pointer;
+}
+
+.create_new_collection_button:hover {
+  background-color: #477519;
+  color: white;
+}
