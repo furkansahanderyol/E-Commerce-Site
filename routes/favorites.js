@@ -5,10 +5,9 @@ router.use(server.json())
 router.use(server.urlencoded({ extended: false }))
 
 let favorites = []
-let collections = []
 
 router.get("/favorites", (req, res) => {
-  res.json({ favorites: favorites, collections: collections })
+  res.json({ favorites: favorites })
 })
 
 router.post("/favorites", (req, res) => {
@@ -21,21 +20,20 @@ router.post("/favorites", (req, res) => {
 
   if (count < 1) {
     favorites.push(product)
-    res.json({ favorites: favorites, collections: collections })
+    res.json({ favorites: favorites })
   } else {
-    res.json({ favorites: favorites, collections: collections })
+    res.json({ favorites: favorites })
   }
 })
 
 router.delete("/favorites", (req, res) => {
   const deletedItem = req.body
-  console.log(deletedItem)
 
   favorites = favorites.filter((product) => {
     return product.product.id !== deletedItem.id
   })
 
-  res.json({ favorites: favorites, collections: collections })
+  res.json({ favorites: favorites })
 })
 
 module.exports = router
