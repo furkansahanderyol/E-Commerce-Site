@@ -12,9 +12,11 @@ router.get("/collections", (req, res) => {
 
 router.post("/collections", (req, res) => {
   const collectionName = req.body.collectionName
+  const selectedItems = req.body.selectedItems
+
   const newCollection = {
     collectionName: collectionName,
-    items: {},
+    items: { selectedItems },
   }
 
   collections.push(newCollection)

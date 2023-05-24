@@ -246,6 +246,7 @@ export default function Home({ products, favorites }) {
               count={product.rating.count}
               price={product.price}
               isFavorite={favoriteProducts.includes(product)}
+              collection={false}
             />
           )
         })}
