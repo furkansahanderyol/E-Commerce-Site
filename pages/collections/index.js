@@ -1,18 +1,22 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect, use } from "react"
 import FavoritesHeader from "@/components/FavoritesHeader/FavoritesHeader"
 import SectionHeader from "@/components/SectionHeader/SectionHeader"
-import { FaPlus } from "react-icons/fa"
 import { AiOutlineClose } from "react-icons/ai"
 import { FaBookmark } from "react-icons/fa"
 import axios from "axios"
 import Product from "@/components/Product/Product"
-import styles from "../../styles/Collections.module.css"
+import CreateCollectionButton from "@/components/CreateCollectionButton/CreateCollectionButton"
+import CollectionBubble from "@/components/CollectionBubble/CollectionBubble"
+import styles from "../../styles/collections.module.css"
 
-export default function Collections({ collections, favorites }) {
+export default function Collections({ favorites }) {
+  const [collections, setCollections] = useState([])
   const [createCollectionModal, setCreateCollectionModal] = useState(false)
+  const [collectionName, setCollectionName] = useState("")
   const [selectFromFavorites, setSelectFromFavorites] = useState(false)
   const [selectedItemCount, setSelectedItemCount] = useState(0)
   const [selectedItems, setSelectedItems] = useState([])
+  const [invalidCollectionName, setInvalidCollectionName] = useState(false)
   const createCollectionRef = useRef(null)
 
   function handleCreateNewCollection() {
@@ -26,14 +30,16 @@ export default function Collections({ collections, favorites }) {
   async function handleCreateCollectionButton() {
     const collectionName = createCollectionRef.current.value
 
-    try {
-      axios.post("http://localhost:3000/api/collections", { collectionName })
-    } catch (error) {
-      console.log(error)
-    }
+    if (collectionName.length === 0) {
+      setInvalidCollectionName(true)
+    } else {
+      setInvalidCollectionName(false)
 
-    setCreateCollectionModal(false)
-    setSelectFromFavorites(true)
+      setCollectionName(collectionName)
+
+      setCreateCollectionModal(false)
+      setSelectFromFavorites(true)
+    }
   }
 
   function handleSelectCollectionItemsCloseButton() {
@@ -41,25 +47,57 @@ export default function Collections({ collections, favorites }) {
     setSelectedItems([])
   }
 
-  function createNewCollection() {
+  async function createNewCollection() {
     try {
-      axios.post("http://localhost:3000/api/collections", { selectedItems })
+      axios.post("http://localhost:3000/api/collections", {
+        collectionName,
+        selectedItems,
+      })
     } catch (error) {
       console.log(error)
     }
+
+    setSelectFromFavorites(false)
+    setCollectionName("")
   }
+
+  useEffect(() => {
+    try {
+      axios.get("http://localhost:3000/api/collections").then((response) => {
+        setCollections(response.data.collections)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }, [selectFromFavorites])
+
+  useEffect(() => {
+    setSelectedItemCount(selectedItems.length)
+  }, [selectedItems])
 
   return (
     <div className={styles.container}>
       <div className={styles.collections_wrapper}>
         <FavoritesHeader />
         <SectionHeader section={"collections"} />
-        <div
-          onClick={handleCreateNewCollection}
-          className={styles.create_new_collection_button}
-        >
-          <FaPlus />
-          <div>Create new collection</div>
+        <CollectionBubble
+          isDefault={true}
+          setCreateCollectionModal={setCreateCollectionModal}
+        />
+        <div className={styles.collections_grid}>
+          {collections.length > 0
+            ? collections.map((collection, index) => {
+                return (
+                  <CollectionBubble
+                    key={index}
+                    id={collection.id}
+                    isDefault={false}
+                    collectionName={collection.collectionName}
+                    collectionItems={collection.items}
+                  />
+                )
+              })
+            : null}
         </div>
         <div className={styles.collections}></div>
         {createCollectionModal ? (
@@ -83,13 +121,15 @@ export default function Collections({ collections, favorites }) {
                 type={"text"}
               />
             </div>
-            <button
-              onClick={handleCreateCollectionButton}
-              className={styles.create_new_collection_submit_button}
-              type={"submit"}
-            >
-              Create collection
-            </button>
+            {invalidCollectionName ? (
+              <div className={styles.invalid_collection_name}>
+                Invalid collection name, your collection name has to at least
+                one character.
+              </div>
+            ) : null}
+            <div onClick={handleCreateCollectionButton}>
+              <CreateCollectionButton isDisable={false} />
+            </div>
           </div>
         ) : null}
         {selectFromFavorites ? (
@@ -130,10 +170,13 @@ export default function Collections({ collections, favorites }) {
                 })}
               </div>
             )}
-            <div className={styles.create_collection_button}>
-              <button onClick={createNewCollection} type="submit">
-                Crate new collection
-              </button>
+            <div
+              className={styles.create_collection_button_wrapper}
+              onClick={createNewCollection}
+            >
+              <CreateCollectionButton
+                isDisable={favorites.length === 0 ? true : false}
+              />
             </div>
           </div>
         ) : null}

@@ -1,5 +1,6 @@
 const server = require("express")
 const router = server.Router()
+const uuid = require("uuid")
 
 router.use(server.json())
 router.use(server.urlencoded({ extended: false }))
@@ -15,11 +16,14 @@ router.post("/collections", (req, res) => {
   const selectedItems = req.body.selectedItems
 
   const newCollection = {
+    id: uuid.v4(),
     collectionName: collectionName,
-    items: { selectedItems },
+    items: selectedItems,
   }
 
   collections.push(newCollection)
+
+  res.json({ collections: collections })
 })
 
 module.exports = router
