@@ -11,25 +11,10 @@
   min-height: 100vh;
 }
 
-.create_new_collection_button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-
-  width: 240px;
-  height: 80px;
-
-  padding: 1.5rem;
-  border: 1px solid black;
-  border-radius: 0.6em;
-  cursor: pointer;
-}
-
-.create_new_collection_button:hover {
-  background-color: #477519;
-  color: white;
+.collections_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 300px);
+  grid-template-rows: auto;
 }
 
 .create_new_collection_modal {
@@ -44,10 +29,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   padding: 0.5rem 1rem;
   border: 1px solid black;
   background-color: white;
   z-index: 2;
+}
+
+.create_new_collection_modal button {
+  width: 100%;
 }
 
 .modal_close_button {
@@ -98,31 +88,6 @@
 
 .create_new_collection_input:focus {
   outline: 1px solid #477519;
-}
-
-.create_new_collection_submit_button {
-  align-self: center;
-  outline: none;
-  border: none;
-
-  width: 60%;
-  height: 40px;
-  padding: 1.5em;
-  border-radius: 0.3em;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-
-  background-color: #588620;
-  cursor: pointer;
-}
-
-.create_new_collection_submit_button:hover {
-  background-color: #477519;
-  box-shadow: 0 0 5px 0 #477519;
-  color: white;
 }
 
 .outline {
@@ -181,15 +146,13 @@
   gap: 20px;
 }
 
-.create_collection_button {
+.create_collection_button_wrapper {
+  width: 100%;
   margin-top: auto;
-  align-self: center;
-}
 
-.create_collection_button button {
-  outline: none;
-  border: 1px solid green;
-  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlay {
