@@ -3,7 +3,7 @@ import Image from "next/image"
 import Stars from "../Stars/Stars"
 import FavoriteButton from "../FavoriteButton/FavoriteButton"
 import { useRouter } from "next/router"
-import styles from "../../styles/Product.module.css"
+import styles from "../../styles/product.module.css"
 
 export default function Product(props) {
   const {

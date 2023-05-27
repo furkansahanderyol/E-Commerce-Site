@@ -1,0 +1,20 @@
+.collection_wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 0.5em;
+}
+
+.collection_name {
+  font-weight: bold;
+  font-size: 18px;
+  border-bottom: 1px solid black;
+}
+
+.collection_products_grid {
+  padding: 0.5em 1em;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
+}
