@@ -26,4 +26,17 @@ router.post("/collections", (req, res) => {
   res.json({ collections: collections })
 })
 
+router.delete("/collections", (req, res) => {
+  const collectionId = req.query.id
+
+  const updatedCollection = collections.filter((collection) => {
+    console.log(collection)
+    return collectionId !== collection.id
+  })
+
+  collections = updatedCollection
+
+  res.json({ collections: collections })
+})
+
 module.exports = router

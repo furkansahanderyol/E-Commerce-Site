@@ -47,7 +47,11 @@ export default function Collections({ favorites }) {
     setSelectedItems([])
   }
 
+  console.log(favorites)
+
   async function createNewCollection() {
+    if (favorites.length === 0) return
+
     try {
       axios.post("http://localhost:3000/api/collections", {
         collectionName,
@@ -198,7 +202,6 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      collections: collectionsData.collections,
       favorites: favoritesData.favorites,
     },
   }

@@ -36,11 +36,16 @@
   padding: 0.2em 0.5em;
   font-weight: bold;
 
+  width: 100%;
+
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
   position: relative;
+}
+
+.collection_bubble_header > svg {
+  margin-left: auto;
 }
 
 .collection {
@@ -69,19 +74,19 @@
   height: fit-content;
   white-space: nowrap;
 
-  padding: 1em 0.5em;
-
-  background-color: red;
+  background-color: white;
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
 
   opacity: 1;
   pointer-events: all;
   user-select: auto;
 
   transition: opacity 0.2s ease-in-out;
+
+  border: 1px solid black;
+  border-radius: 0.3em;
 }
 
 .options_hidden {
@@ -97,8 +102,21 @@
 
   gap: 20px;
   border-bottom: 1px solid black;
+  padding: 1em 0.5em;
+  border-radius: 0.3em;
 }
 
 .option svg {
   pointer-events: none;
+}
+
+.option:last-child {
+  border-bottom: none;
+  padding-bottom: none;
+}
+
+.option:hover {
+  background-color: lightgreen;
+  color: white;
+  cursor: pointer;
 }

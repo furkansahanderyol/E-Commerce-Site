@@ -10,13 +10,11 @@ export default function Collection({ collections }) {
 
   useEffect(() => {
     const selectedCollection = collections.filter((collection) => {
-      return parseInt(collection.id) === parseInt(collectionId)
+      return collection.id === collectionId
     })
 
     setCollection(selectedCollection)
   }, [collectionId])
-
-  console.log(collection)
 
   return (
     <div className={styles.collection_wrapper}>
@@ -25,7 +23,6 @@ export default function Collection({ collections }) {
       >{`${collection[0]?.collectionName}`}</div>
       <div className={styles.collection_products_grid}>
         {collection[0]?.items.map((product) => {
-          console.log(product)
           return (
             <Product
               key={product.id}
