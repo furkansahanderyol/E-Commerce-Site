@@ -4,6 +4,7 @@ import Image from "next/image"
 import { BsThreeDots } from "react-icons/bs"
 import { useRouter } from "next/router"
 import { FaTrashAlt } from "react-icons/fa"
+import axios from "axios"
 import styles from "../../styles/collectionBubble.module.css"
 
 export default function CollectionBubble({
@@ -15,6 +16,7 @@ export default function CollectionBubble({
 }) {
   const [optionsMenu, setOptionsMenu] = useState(false)
   const router = useRouter()
+  const collectionBubbleRef = useRef(null)
   const optionsRef = useRef(null)
 
   function handleCreateNewCollection() {
@@ -36,6 +38,16 @@ export default function CollectionBubble({
     setOptionsMenu(!optionsMenu)
   }
 
+  async function handleRemoveCollection() {
+    try {
+      axios.delete(`http://localhost:3000/api/collections?id=${id}`)
+    } catch (error) {
+      console.log(error)
+    }
+
+    collectionBubbleRef.current.style.display = "none"
+  }
+
   return isDefault ? (
     <div
       onClick={handleCreateNewCollection}
@@ -46,6 +58,7 @@ export default function CollectionBubble({
     </div>
   ) : (
     <div
+      ref={collectionBubbleRef}
       onClick={handleCollectionBubbleClick}
       className={styles.collection_bubble}
     >
@@ -59,7 +72,10 @@ export default function CollectionBubble({
                 <FaPlus />
                 Add item to the collection
               </div>
-              <div className={`${styles.option} ${styles.remove_item}`}>
+              <div
+                onClick={handleRemoveCollection}
+                className={`${styles.option} ${styles.remove_item}`}
+              >
                 <FaTrashAlt />
                 Remove item from collection
               </div>
