@@ -22,7 +22,7 @@ export default function Collection({ collections }) {
         className={styles.collection_name}
       >{`${collection[0]?.collectionName}`}</div>
       <div className={styles.collection_products_grid}>
-        {collection[0]?.items.map((product) => {
+        {collection[0]?.items.selectedItems.map((product) => {
           return (
             <Product
               key={product.id}

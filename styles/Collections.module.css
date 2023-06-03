@@ -96,65 +96,6 @@
   height: 100vh;
 }
 
-.select_collection_items {
-  position: absolute;
-  width: 40%;
-  min-height: 500px;
-  height: 500px;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  background-color: white;
-  z-index: 2;
-
-  display: flex;
-  flex-direction: column;
-
-  border: 1px solid black;
-  border-radius: 0.2em;
-
-  padding: 1em;
-}
-
-.select_from_collection_items_header {
-  font-size: 1.5rem;
-  font-weight: 400;
-
-  border-bottom: 1px solid black;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.select_from_collection_items_header svg {
-  cursor: pointer;
-}
-
-.select_favorites_grid {
-  max-height: 1fr;
-  overflow: hidden;
-  overflow-y: auto;
-  padding-top: 0.5em;
-
-  display: grid;
-  grid-template-columns: repeat(3, 160px);
-  grid-template-rows: auto;
-
-  gap: 20px;
-}
-
-.create_collection_button_wrapper {
-  width: 100%;
-  margin-top: auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .overlay {
   position: absolute;
   background-color: black;

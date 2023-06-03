@@ -18,6 +18,8 @@ export default function Product(props) {
     price,
     isFavorite,
     collection,
+    isUpdate,
+    setUpdateItems,
     selectedItems,
     setSelectedItems,
   } = props
@@ -35,8 +37,10 @@ export default function Product(props) {
       })
 
       setSelectedItems(updatedItems)
+      isUpdate ? setUpdateItems(selectedItems) : null
     } else {
       setSelectedItems([...selectedItems, product])
+      isUpdate ? setUpdateItems([...selectedItems, product]) : null
     }
   }
 
