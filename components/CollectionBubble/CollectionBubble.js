@@ -13,6 +13,10 @@ export default function CollectionBubble({
   setCreateCollectionModal,
   collectionName,
   collectionItems,
+  setSelectFromFavorites,
+  isNewCollection,
+  setIsNewCollection,
+  setCollectionId,
 }) {
   const [optionsMenu, setOptionsMenu] = useState(false)
   const router = useRouter()
@@ -38,6 +42,13 @@ export default function CollectionBubble({
     setOptionsMenu(!optionsMenu)
   }
 
+  function handleAddItem() {
+    setSelectFromFavorites(true)
+    setIsNewCollection(false)
+    setCollectionId(id)
+    setOptionsMenu(false)
+  }
+
   async function handleRemoveCollection() {
     try {
       axios.delete(`http://localhost:3000/api/collections?id=${id}`)
@@ -46,6 +57,7 @@ export default function CollectionBubble({
     }
 
     collectionBubbleRef.current.style.display = "none"
+    setOptionsMenu(false)
   }
 
   return isDefault ? (
@@ -68,7 +80,10 @@ export default function CollectionBubble({
         {optionsMenu ? (
           <div>
             <div ref={optionsRef} data-options className={styles.options}>
-              <div className={`${styles.option} ${styles.add_item}`}>
+              <div
+                onClick={handleAddItem}
+                className={`${styles.option} ${styles.add_item}`}
+              >
                 <FaPlus />
                 Add item to the collection
               </div>
