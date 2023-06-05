@@ -4,10 +4,16 @@
   padding: 1em 0.5em;
 }
 
+.collection_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
 .collection_name {
   font-weight: bold;
   font-size: 18px;
-  border-bottom: 1px solid black;
 }
 
 .collection_products_grid {

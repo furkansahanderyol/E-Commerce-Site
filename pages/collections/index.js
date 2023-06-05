@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect, useContext } from "react"
 import FavoritesHeader from "@/components/FavoritesHeader/FavoritesHeader"
 import SectionHeader from "@/components/SectionHeader/SectionHeader"
 import { AiOutlineClose } from "react-icons/ai"
@@ -7,19 +7,29 @@ import axios from "axios"
 import CreateCollectionButton from "@/components/CreateCollectionButton/CreateCollectionButton"
 import CollectionBubble from "@/components/CollectionBubble/CollectionBubble"
 import AvailableCollectionItems from "@/components/AvailableCollectionItems/AvailableCollectionItems"
+import { CollectionsContext } from "./CollectionsContext"
 import styles from "../../styles/collections.module.css"
 
 export default function Collections({ favorites }) {
   const [collections, setCollections] = useState([])
   const [createCollectionModal, setCreateCollectionModal] = useState(false)
-  const [collectionName, setCollectionName] = useState("")
-  const [selectFromFavorites, setSelectFromFavorites] = useState(false)
-  const [selectedItemCount, setSelectedItemCount] = useState(0)
-  const [selectedItems, setSelectedItems] = useState([])
   const [invalidCollectionName, setInvalidCollectionName] = useState(false)
-  const [isNewCollection, setIsNewCollection] = useState(true)
-  const [collectionId, setCollectionId] = useState(null)
   const createCollectionRef = useRef(null)
+
+  const {
+    isNewCollection,
+    setIsNewCollection,
+    selectedItems,
+    setSelectedItems,
+    selectFromFavorites,
+    setSelectFromFavorites,
+    selectedItemCount,
+    setSelectedItemCount,
+    collectionName,
+    setCollectionName,
+    collectionId,
+    setCollectionId,
+  } = useContext(CollectionsContext)
 
   function handleCloseModalButton() {
     setCreateCollectionModal(false)
