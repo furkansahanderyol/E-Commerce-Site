@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import { AiOutlineClose } from "react-icons/ai"
 import CreateCollectionButton from "../CreateCollectionButton/CreateCollectionButton"
 import Product from "../Product/Product"
@@ -6,6 +7,7 @@ import axios from "axios"
 import styles from "../../styles/availableCollectionItems.module.css"
 
 export default function AvailableCollectionItems({
+  isInsideOfCollection,
   isNewCollection,
   favorites,
   selectedItems,
@@ -18,6 +20,7 @@ export default function AvailableCollectionItems({
 }) {
   const [availableItems, setAvailableItems] = useState()
   const [updateItems, setUpdateItems] = useState([])
+  const router = useRouter()
 
   function handleSelectCollectionItemsCloseButton() {
     setSelectFromFavorites(false)
@@ -55,6 +58,8 @@ export default function AvailableCollectionItems({
     }
 
     setSelectFromFavorites(false)
+
+    isInsideOfCollection ? router.reload() : null
   }
 
   useEffect(() => {

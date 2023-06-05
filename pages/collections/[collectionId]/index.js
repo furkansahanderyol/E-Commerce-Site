@@ -1,12 +1,29 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
+import AvailableCollectionItems from "@/components/AvailableCollectionItems/AvailableCollectionItems"
 import styles from "../../../styles/collectionId.module.css"
+import { CollectionsContext } from "../CollectionsContext"
 import Product from "@/components/Product/Product"
 
-export default function Collection({ collections }) {
+export default function Collection({ collections, favorites }) {
   const [collection, setCollection] = useState([])
   const router = useRouter()
   const { collectionId } = router.query
+
+  const {
+    isNewCollection,
+    setIsNewCollection,
+    selectedItems,
+    setSelectedItems,
+    selectFromFavorites,
+    setSelectFromFavorites,
+    selectedItemCount,
+    setSelectedItemCount,
+    collectionName,
+    setCollectionName,
+    // collectionId,
+    // setCollectionId,
+  } = useContext(CollectionsContext)
 
   useEffect(() => {
     const selectedCollection = collections.filter((collection) => {
@@ -16,11 +33,20 @@ export default function Collection({ collections }) {
     setCollection(selectedCollection)
   }, [collectionId])
 
+  function test() {
+    setSelectFromFavorites(true)
+  }
+
   return (
     <div className={styles.collection_wrapper}>
-      <div
-        className={styles.collection_name}
-      >{`${collection[0]?.collectionName}`}</div>
+      <div className={styles.collection_header}>
+        <div
+          className={styles.collection_name}
+        >{`${collection[0]?.collectionName}`}</div>
+        <div onClick={test} className={styles.add_collection_button}>
+          <button>Add item</button>
+        </div>
+      </div>
       <div className={styles.collection_products_grid}>
         {collection[0]?.items.selectedItems.map((product) => {
           return (
@@ -42,17 +68,37 @@ export default function Collection({ collections }) {
           )
         })}
       </div>
+      {selectFromFavorites ? (
+        <AvailableCollectionItems
+          isInsideOfCollection={true}
+          isNewCollection={false}
+          favorites={favorites}
+          selectedItems={selectedItems}
+          setSelectedItems={setSelectedItems}
+          selectFromFavorites={selectFromFavorites}
+          setSelectFromFavorites={setSelectFromFavorites}
+          selectedItemCount={selectedItemCount}
+          collectionName={collectionName}
+          setCollectionName={setCollectionName}
+          collectionId={collectionId}
+        />
+      ) : null}
     </div>
   )
 }
 
 export async function getServerSideProps() {
-  const response = await fetch("http://localhost:3000/api/collections")
-  const data = await response.json()
+  const collectionResponse = await fetch(
+    "http://localhost:3000/api/collections"
+  )
+  const favoritesResponse = await fetch("http://localhost:3000/api/favorites")
+  const collectionsData = await collectionResponse.json()
+  const favoritesData = await favoritesResponse.json()
 
   return {
     props: {
-      collections: data.collections,
+      collections: collectionsData.collections,
+      favorites: favoritesData.favorites,
     },
   }
 }
