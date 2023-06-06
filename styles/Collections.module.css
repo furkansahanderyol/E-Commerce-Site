@@ -3,6 +3,10 @@
   overflow: hidden;
 }
 
+.modals {
+  z-index: 9999;
+}
+
 .collections_wrapper {
   display: flex;
   flex-direction: column;
@@ -33,7 +37,7 @@
   padding: 0.5rem 1rem;
   border: 1px solid black;
   background-color: white;
-  z-index: 2;
+  z-index: 9999;
 }
 
 .create_new_collection_modal button {

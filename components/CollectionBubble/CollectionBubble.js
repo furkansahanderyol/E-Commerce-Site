@@ -1,16 +1,18 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useContext } from "react"
 import { FaPlus } from "react-icons/fa"
 import Image from "next/image"
 import { BsThreeDots } from "react-icons/bs"
 import { useRouter } from "next/router"
 import { FaTrashAlt } from "react-icons/fa"
 import axios from "axios"
+import { OverlayContext } from "../OverlayContext/OverlayContext"
 import styles from "../../styles/collectionBubble.module.css"
 
 export default function CollectionBubble({
   id,
   isDefault,
   setCreateCollectionModal,
+  setOverlay,
   collectionName,
   collectionItems,
   setSelectFromFavorites,
@@ -23,8 +25,11 @@ export default function CollectionBubble({
   const collectionBubbleRef = useRef(null)
   const optionsRef = useRef(null)
 
+  // const { overlay, setOverlay } = useContext(OverlayContext)
+
   function handleCreateNewCollection() {
     setCreateCollectionModal(true)
+    setOverlay(true)
   }
 
   function handleCollectionBubbleClick(e) {

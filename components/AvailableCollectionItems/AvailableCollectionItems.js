@@ -17,6 +17,7 @@ export default function AvailableCollectionItems({
   collectionName,
   setCollectionName,
   collectionId,
+  setOverlay,
 }) {
   const [availableItems, setAvailableItems] = useState()
   const [updateItems, setUpdateItems] = useState([])
@@ -25,6 +26,7 @@ export default function AvailableCollectionItems({
   function handleSelectCollectionItemsCloseButton() {
     setSelectFromFavorites(false)
     setSelectedItems([])
+    setOverlay(false)
   }
 
   async function createNewCollection() {
@@ -41,11 +43,13 @@ export default function AvailableCollectionItems({
 
     setSelectFromFavorites(false)
     setCollectionName("")
+    setOverlay(false)
   }
 
   function handleSelectCollectionItemsCloseButton() {
     setSelectFromFavorites(false)
     setSelectedItems([])
+    setOverlay(false)
   }
 
   async function updateNewCollection() {
