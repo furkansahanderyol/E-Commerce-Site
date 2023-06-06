@@ -6,6 +6,7 @@ export const OverlayContext = React.createContext()
 export default function OverlayProvider({ children }) {
   const [overlay, setOverlay] = useState(false)
   const [createCollectionModal, setCreateCollectionModal] = useState(false)
+  const [collectionList, setCollectionList] = useState(false)
 
   return (
     <OverlayContext.Provider
@@ -14,6 +15,8 @@ export default function OverlayProvider({ children }) {
         setOverlay,
         createCollectionModal,
         setCreateCollectionModal,
+        collectionList,
+        setCollectionList,
       }}
     >
       {overlay && (
