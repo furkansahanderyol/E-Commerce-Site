@@ -103,7 +103,6 @@ export default function Product({ product = [], favorites }) {
         </div>
       </div>
       {collectionList ? <div className={styles.collection_list}></div> : null}
-      {collectionList ? <div className={styles.overlay}></div> : null}
     </div>
   )
 }

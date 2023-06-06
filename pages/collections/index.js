@@ -8,11 +8,11 @@ import CreateCollectionButton from "@/components/CreateCollectionButton/CreateCo
 import CollectionBubble from "@/components/CollectionBubble/CollectionBubble"
 import AvailableCollectionItems from "@/components/AvailableCollectionItems/AvailableCollectionItems"
 import { CollectionsContext } from "./CollectionsContext"
+import { OverlayContext } from "@/components/OverlayContext/OverlayContext"
 import styles from "../../styles/collections.module.css"
 
 export default function Collections({ favorites }) {
   const [collections, setCollections] = useState([])
-  const [createCollectionModal, setCreateCollectionModal] = useState(false)
   const [invalidCollectionName, setInvalidCollectionName] = useState(false)
   const createCollectionRef = useRef(null)
 
@@ -31,8 +31,16 @@ export default function Collections({ favorites }) {
     setCollectionId,
   } = useContext(CollectionsContext)
 
+  const {
+    overlay,
+    setOverlay,
+    createCollectionModal,
+    setCreateCollectionModal,
+  } = useContext(OverlayContext)
+
   function handleCloseModalButton() {
     setCreateCollectionModal(false)
+    setOverlay(false)
   }
 
   async function handleCreateCollectionButton() {
@@ -76,34 +84,8 @@ export default function Collections({ favorites }) {
   }, [selectedItems])
 
   return (
-    <div className={styles.container}>
-      <div className={styles.collections_wrapper}>
-        <FavoritesHeader />
-        <SectionHeader section={"collections"} />
-        <CollectionBubble
-          isDefault={true}
-          setCreateCollectionModal={setCreateCollectionModal}
-        />
-        <div className={styles.collections_grid}>
-          {collections.length > 0
-            ? collections.map((collection, index) => {
-                return (
-                  <CollectionBubble
-                    key={index}
-                    id={collection.id}
-                    isDefault={false}
-                    collectionName={collection.collectionName}
-                    collectionItems={collection.items.selectedItems}
-                    setSelectFromFavorites={setSelectFromFavorites}
-                    isNewCollection={isNewCollection}
-                    setIsNewCollection={setIsNewCollection}
-                    setCollectionId={setCollectionId}
-                  />
-                )
-              })
-            : null}
-        </div>
-        <div className={styles.collections}></div>
+    <>
+      <div className={styles.modals}>
         {createCollectionModal ? (
           <div className={styles.create_new_collection_modal}>
             <div
@@ -148,13 +130,41 @@ export default function Collections({ favorites }) {
             collectionName={collectionName}
             setCollectionName={setCollectionName}
             collectionId={collectionId}
+            setOverlay={setOverlay}
           />
         ) : null}
       </div>
-      {createCollectionModal || selectFromFavorites ? (
-        <div className={styles.overlay}></div>
-      ) : null}
-    </div>
+      <div className={styles.container}>
+        <div className={styles.collections_wrapper}>
+          <FavoritesHeader />
+          <SectionHeader section={"collections"} />
+          <CollectionBubble
+            isDefault={true}
+            setCreateCollectionModal={setCreateCollectionModal}
+            setOverlay={setOverlay}
+          />
+          <div className={styles.collections_grid}>
+            {collections.length > 0
+              ? collections.map((collection, index) => {
+                  return (
+                    <CollectionBubble
+                      key={index}
+                      id={collection.id}
+                      isDefault={false}
+                      collectionName={collection.collectionName}
+                      collectionItems={collection.items.selectedItems}
+                      setSelectFromFavorites={setSelectFromFavorites}
+                      isNewCollection={isNewCollection}
+                      setIsNewCollection={setIsNewCollection}
+                      setCollectionId={setCollectionId}
+                    />
+                  )
+                })
+              : null}
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
