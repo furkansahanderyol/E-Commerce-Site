@@ -1,0 +1,18 @@
+.default_collection,
+.collection_list_item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 1em;
+  border: 1px solid gray;
+  border-radius: 0.3em;
+}
+
+.collection_list_item {
+  width: 160px;
+  height: 80px;
+}
+
+.collection_list_item image {
+  border-radius: 0.3em;
+}
