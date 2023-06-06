@@ -3,12 +3,14 @@ import ProductImage from "@/components/ProductImage/ProductImage"
 import Stars from "@/components/Stars/Stars"
 import AddToCartButton from "@/components/AddToCartButton/AddToCartButton"
 import FavoriteButton from "@/components/FavoriteButton/FavoriteButton"
+import { FaBookmark } from "react-icons/fa"
 import styles from "../../../../styles/ProductPage.module.css"
 
 export default function Product({ product = [], favorites }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [productImage, setProductImage] = useState(0)
   const [imageZoom, setImageZoom] = useState(false)
+  const [collectionList, setCollectionList] = useState(false)
   const [zoomedImageStyles, setZoomedImageStyles] = useState({
     backgroundImage: "",
     backgroundPosition: "",
@@ -20,6 +22,10 @@ export default function Product({ product = [], favorites }) {
   const isFavorite = favorites.favorites.some((fav) => {
     return fav.product.id === product.id
   })
+
+  function addToCollection() {
+    setCollectionList(true)
+  }
 
   return (
     <div className={styles.product_page_wrapper}>
@@ -78,6 +84,10 @@ export default function Product({ product = [], favorites }) {
             </div>
             <div className={styles.point}>{`(${product.rating})`}</div>
           </div>
+          <div onClick={addToCollection} className={styles.add_to_collection}>
+            <FaBookmark />
+            <div>Add to collection</div>
+          </div>
           <div className={styles.buttons_container}>
             <div className={styles.add_to_cart_button}>
               <AddToCartButton />
@@ -92,6 +102,8 @@ export default function Product({ product = [], favorites }) {
           </div>
         </div>
       </div>
+      {collectionList ? <div className={styles.collection_list}></div> : null}
+      {collectionList ? <div className={styles.overlay}></div> : null}
     </div>
   )
 }
