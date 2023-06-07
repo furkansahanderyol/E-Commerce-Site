@@ -1,20 +1,16 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import FavoritesHeader from "@/components/FavoritesHeader/FavoritesHeader"
 import SectionHeader from "@/components/SectionHeader/SectionHeader"
-import { AiOutlineClose } from "react-icons/ai"
-import { FaBookmark } from "react-icons/fa"
 import axios from "axios"
-import CreateCollectionButton from "@/components/CreateCollectionButton/CreateCollectionButton"
 import CollectionBubble from "@/components/CollectionBubble/CollectionBubble"
 import AvailableCollectionItems from "@/components/AvailableCollectionItems/AvailableCollectionItems"
 import { CollectionsContext } from "./CollectionsContext"
 import { OverlayContext } from "@/components/OverlayContext/OverlayContext"
+import CreateNewCollectionModal from "@/components/CreateNewCollectionModal/CreateNewCollectionModal"
 import styles from "../../styles/collections.module.css"
 
 export default function Collections({ favorites }) {
   const [collections, setCollections] = useState([])
-  const [invalidCollectionName, setInvalidCollectionName] = useState(false)
-  const createCollectionRef = useRef(null)
 
   const {
     isNewCollection,
@@ -37,27 +33,6 @@ export default function Collections({ favorites }) {
     createCollectionModal,
     setCreateCollectionModal,
   } = useContext(OverlayContext)
-
-  function handleCloseModalButton() {
-    setCreateCollectionModal(false)
-    setOverlay(false)
-  }
-
-  async function handleCreateCollectionButton() {
-    setIsNewCollection(true)
-    const collectionName = createCollectionRef.current.value
-
-    if (collectionName.length === 0) {
-      setInvalidCollectionName(true)
-    } else {
-      setInvalidCollectionName(false)
-
-      setCollectionName(collectionName)
-
-      setCreateCollectionModal(false)
-      setSelectFromFavorites(true)
-    }
-  }
 
   useEffect(() => {
     try {
@@ -87,36 +62,13 @@ export default function Collections({ favorites }) {
     <>
       <div className={styles.modals}>
         {createCollectionModal ? (
-          <div className={styles.create_new_collection_modal}>
-            <div
-              onClick={handleCloseModalButton}
-              className={styles.modal_close_button}
-            >
-              <AiOutlineClose />
-            </div>
-            <div className={styles.bookmark_icon}>
-              <FaBookmark />
-            </div>
-            <div className={styles.modal_header_and_input_wrapper}>
-              <div className={styles.create_new_collection_header}>
-                Give a name to your collection
-              </div>
-              <input
-                ref={createCollectionRef}
-                className={styles.create_new_collection_input}
-                type={"text"}
-              />
-            </div>
-            {invalidCollectionName ? (
-              <div className={styles.invalid_collection_name}>
-                Invalid collection name, your collection name has to at least
-                one character.
-              </div>
-            ) : null}
-            <div onClick={handleCreateCollectionButton}>
-              <CreateCollectionButton isDisable={false} />
-            </div>
-          </div>
+          <CreateNewCollectionModal
+            setCollectionName={setCollectionName}
+            setOverlay={setOverlay}
+            setCreateCollectionModal={setCreateCollectionModal}
+            setIsNewCollection={setIsNewCollection}
+            setSelectFromFavorites={setSelectFromFavorites}
+          />
         ) : null}
         {selectFromFavorites ? (
           <AvailableCollectionItems

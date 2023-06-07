@@ -33,6 +33,10 @@ export default function Product({ product = [], favorites, collections }) {
     setOverlay(true)
   }
 
+  function handleCloseCollectionList() {
+    setCollectionList(false)
+    setOverlay(false)
+  }
   console.log(collections)
 
   return (
@@ -116,7 +120,7 @@ export default function Product({ product = [], favorites, collections }) {
         <div className={styles.collection_list}>
           <div className={styles.collection_list_header}>
             <div>Add to collection</div>
-            <div>
+            <div onClick={handleCloseCollectionList}>
               <AiOutlineClose />
             </div>
           </div>
