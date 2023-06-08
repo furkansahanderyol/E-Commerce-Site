@@ -22,6 +22,8 @@ export default function Product(props) {
     setUpdateItems,
     selectedItems,
     setSelectedItems,
+    notifications,
+    setNotifications,
   } = props
 
   const router = useRouter()
@@ -58,6 +60,8 @@ export default function Product(props) {
           product={product}
           square={false}
           isFavorite={isFavorite}
+          notifications={notifications}
+          setNotifications={setNotifications}
         />
       </div>
       <div className={styles.product_image_wrapper_collection}>
@@ -84,6 +88,8 @@ export default function Product(props) {
           product={product}
           square={false}
           isFavorite={isFavorite}
+          notifications={notifications}
+          setNotifications={setNotifications}
         />
       </div>
       <div className={styles.product_image_wrapper}>

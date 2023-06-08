@@ -5,7 +5,9 @@ import FilterListElement from "@/components/FilterListElement/FilterListElement"
 import FilterListHeader from "@/components/FilterListHeader/FilterListHeader"
 import { RiStarFill } from "react-icons/ri"
 import { RiStarLine } from "react-icons/ri"
+import Notification from "@/components/Notification/Notification"
 import styles from "../../styles/Home.module.css"
+import NotificationsWrapper from "@/components/NotificationsWrapper/NotificationsWrapper"
 
 export default function Home({ products, favorites }) {
   const router = useRouter()
@@ -21,6 +23,7 @@ export default function Home({ products, favorites }) {
   const [selectedBrands, setSelectedBrands] = useState([])
   const [favoriteProducts, setFavoriteProducts] = useState([])
   const [gender, setGender] = useState(false)
+  const [notifications, setNotifications] = useState([])
   const brandsFilterList = useRef()
 
   function handleFilterClick() {
@@ -105,153 +108,180 @@ export default function Home({ products, favorites }) {
     setFavoriteProducts(matchedProducts)
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (notifications.length > 0) {
+        const currentNotifications = [...notifications]
+        currentNotifications.pop()
+        console.log("current", currentNotifications)
+        setNotifications(currentNotifications)
+      }
+    }, 2000)
+
+    return () => {
+      clearInterval(interval)
+    }
+  }, [notifications])
+
+  useEffect(() => {
+    console.log(notifications)
+  }, [notifications])
+
   return (
-    <div className={styles.homepage_wrapper}>
-      <div className={styles.filters}>
-        <h3>Filters</h3>
-        <div>
-          <div onClick={handleFilterClick}>
-            <FilterListHeader header={"Featured brands"} list={brandsList} />
-          </div>
+    <>
+      <div className={styles.homepage_wrapper}>
+        <div className={styles.filters}>
+          <h3>Filters</h3>
           <div>
-            {brandsList ? (
-              <ul ref={brandsFilterList} className={styles.filter_list}>
-                {brands.map((brand, index) => {
-                  return (
-                    <li
-                      onClick={handleBrandFilterClick}
-                      className={styles.filter_list_element}
-                      key={index}
-                    >
-                      <FilterListElement
-                        brand={brand}
-                        selectedBrands={selectedBrands}
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
-            ) : null}
-          </div>
-          <div onClick={handlePriceListClick}>
-            <FilterListHeader header={"Price"} list={priceList} />
-          </div>
-          <div className={styles.price_list_wrapper}>
-            {priceList ? (
-              <>
-                <ul
-                  className={`${styles.filter_list} ${styles.filter_list_price}`}
-                >
-                  <li className={styles.price_list_element}>0$ to 25$</li>
-                  <li className={styles.price_list_element}>25$ to 50$</li>
-                  <li className={styles.price_list_element}>50$ to 100$</li>
-                  <li className={styles.price_list_element}>200$ & Above</li>
+            <div onClick={handleFilterClick}>
+              <FilterListHeader header={"Featured brands"} list={brandsList} />
+            </div>
+            <div>
+              {brandsList ? (
+                <ul ref={brandsFilterList} className={styles.filter_list}>
+                  {brands.map((brand, index) => {
+                    return (
+                      <li
+                        onClick={handleBrandFilterClick}
+                        className={styles.filter_list_element}
+                        key={index}
+                      >
+                        <FilterListElement
+                          brand={brand}
+                          selectedBrands={selectedBrands}
+                        />
+                      </li>
+                    )
+                  })}
                 </ul>
-                <div className={styles.price_i}>
-                  <span>
-                    <input
-                      ref={minPriceRef}
-                      className={styles.price_input}
-                      type="number"
-                      placeholder="Min $"
-                    />
-                  </span>
-                  <span>
-                    <input
-                      ref={maxPriceRef}
-                      className={styles.price_input}
-                      type="number"
-                      placeholder="Max $"
-                    />
-                    <button type="submit">Go</button>
-                  </span>
-                </div>
-              </>
-            ) : null}
-          </div>
-          <div onClick={handleAvgCustomerReviewClick}>
-            <FilterListHeader
-              header={"Average customer review"}
-              list={avgCustomerReview}
-            />
-          </div>
-          <div className={styles.average_customer_review_wrapper}>
-            {avgCustomerReview ? (
-              <ul className={styles.average_customer_review_list}>
-                <li>
-                  <RiStarFill />
-                  <RiStarFill />
-                  <RiStarFill />
-                  <RiStarFill />
-                  <RiStarLine />
-                  <span> & up</span>
-                </li>
-                <li>
-                  <RiStarFill />
-                  <RiStarFill />
-                  <RiStarFill />
-                  <RiStarLine />
-                  <RiStarLine />
-                  <span> & up</span>
-                </li>
-                <li>
-                  <RiStarFill />
-                  <RiStarFill />
-                  <RiStarLine />
-                  <RiStarLine />
-                  <RiStarLine />
-                  <span> & up</span>
-                </li>
-                <li>
-                  <RiStarFill />
-                  <RiStarLine />
-                  <RiStarLine />
-                  <RiStarLine />
-                  <RiStarLine />
-                  <span> & up</span>
-                </li>
-              </ul>
-            ) : null}
-          </div>
-          <div onClick={handleGenderListClick}>
-            <FilterListHeader header={"Gender"} list={gender} />
-          </div>
-          <div>
-            {gender ? (
-              <ul className={styles.gender_list}>
-                <li>
-                  <FilterListElement brand={"Male"} />
-                </li>
-                <li>
-                  <FilterListElement brand={"Female"} />
-                </li>
-              </ul>
-            ) : null}
+              ) : null}
+            </div>
+            <div onClick={handlePriceListClick}>
+              <FilterListHeader header={"Price"} list={priceList} />
+            </div>
+            <div className={styles.price_list_wrapper}>
+              {priceList ? (
+                <>
+                  <ul
+                    className={`${styles.filter_list} ${styles.filter_list_price}`}
+                  >
+                    <li className={styles.price_list_element}>0$ to 25$</li>
+                    <li className={styles.price_list_element}>25$ to 50$</li>
+                    <li className={styles.price_list_element}>50$ to 100$</li>
+                    <li className={styles.price_list_element}>200$ & Above</li>
+                  </ul>
+                  <div className={styles.price_i}>
+                    <span>
+                      <input
+                        ref={minPriceRef}
+                        className={styles.price_input}
+                        type="number"
+                        placeholder="Min $"
+                      />
+                    </span>
+                    <span>
+                      <input
+                        ref={maxPriceRef}
+                        className={styles.price_input}
+                        type="number"
+                        placeholder="Max $"
+                      />
+                      <button type="submit">Go</button>
+                    </span>
+                  </div>
+                </>
+              ) : null}
+            </div>
+            <div onClick={handleAvgCustomerReviewClick}>
+              <FilterListHeader
+                header={"Average customer review"}
+                list={avgCustomerReview}
+              />
+            </div>
+            <div className={styles.average_customer_review_wrapper}>
+              {avgCustomerReview ? (
+                <ul className={styles.average_customer_review_list}>
+                  <li>
+                    <RiStarFill />
+                    <RiStarFill />
+                    <RiStarFill />
+                    <RiStarFill />
+                    <RiStarLine />
+                    <span> & up</span>
+                  </li>
+                  <li>
+                    <RiStarFill />
+                    <RiStarFill />
+                    <RiStarFill />
+                    <RiStarLine />
+                    <RiStarLine />
+                    <span> & up</span>
+                  </li>
+                  <li>
+                    <RiStarFill />
+                    <RiStarFill />
+                    <RiStarLine />
+                    <RiStarLine />
+                    <RiStarLine />
+                    <span> & up</span>
+                  </li>
+                  <li>
+                    <RiStarFill />
+                    <RiStarLine />
+                    <RiStarLine />
+                    <RiStarLine />
+                    <RiStarLine />
+                    <span> & up</span>
+                  </li>
+                </ul>
+              ) : null}
+            </div>
+            <div onClick={handleGenderListClick}>
+              <FilterListHeader header={"Gender"} list={gender} />
+            </div>
+            <div>
+              {gender ? (
+                <ul className={styles.gender_list}>
+                  <li>
+                    <FilterListElement brand={"Male"} />
+                  </li>
+                  <li>
+                    <FilterListElement brand={"Female"} />
+                  </li>
+                </ul>
+              ) : null}
+            </div>
           </div>
         </div>
+        <div className={styles.home_grid}>
+          {data.map((product) => {
+            return (
+              <Product
+                key={product.id}
+                product={product}
+                id={product.id}
+                title={product.title}
+                brand={product.brand}
+                category={product.category}
+                thumbnail={product.thumbnail}
+                images={product.images}
+                rate={product.rating}
+                count={product.rating.count}
+                price={product.price}
+                isFavorite={favoriteProducts.includes(product)}
+                collection={false}
+                notifications={notifications}
+                setNotifications={setNotifications}
+              />
+            )
+          })}
+        </div>
       </div>
-      <div className={styles.home_grid}>
-        {data.map((product) => {
-          return (
-            <Product
-              key={product.id}
-              product={product}
-              id={product.id}
-              title={product.title}
-              brand={product.brand}
-              category={product.category}
-              thumbnail={product.thumbnail}
-              images={product.images}
-              rate={product.rating}
-              count={product.rating.count}
-              price={product.price}
-              isFavorite={favoriteProducts.includes(product)}
-              collection={false}
-            />
-          )
-        })}
-      </div>
-    </div>
+      <NotificationsWrapper
+        notifications={notifications}
+        setNotifications={setNotifications}
+      />
+    </>
   )
 }
 
