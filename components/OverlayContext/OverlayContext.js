@@ -7,6 +7,7 @@ export default function OverlayProvider({ children }) {
   const [overlay, setOverlay] = useState(false)
   const [createCollectionModal, setCreateCollectionModal] = useState(false)
   const [collectionList, setCollectionList] = useState(false)
+  const [isCollectionListUpdated, setIsCollectionListUpdated] = useState(false)
 
   return (
     <OverlayContext.Provider
@@ -17,6 +18,8 @@ export default function OverlayProvider({ children }) {
         setCreateCollectionModal,
         collectionList,
         setCollectionList,
+        isCollectionListUpdated,
+        setIsCollectionListUpdated,
       }}
     >
       {overlay && (

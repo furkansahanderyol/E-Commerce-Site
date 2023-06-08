@@ -2,15 +2,21 @@ import React, { useState, useRef } from "react"
 import { AiOutlineClose } from "react-icons/ai"
 import { FaBookmark } from "react-icons/fa"
 import CreateCollectionButton from "@/components/CreateCollectionButton/CreateCollectionButton"
+import axios from "axios"
 import styles from "../../styles/createNewCollectionModal.module.css"
 
 export default function CreateNewCollectionModal(props) {
   const {
+    isSpecific,
+    product,
     setCollectionName,
     setOverlay,
     setCreateCollectionModal,
     setIsNewCollection,
     setSelectFromFavorites,
+    setNewCollectionModal,
+    setCollectionList,
+    setIsCollectionListUpdated,
   } = props
   const [invalidCollectionName, setInvalidCollectionName] = useState(false)
   const createCollectionRef = useRef(null)
@@ -32,7 +38,19 @@ export default function CreateNewCollectionModal(props) {
       setCollectionName(collectionName)
 
       setCreateCollectionModal(false)
-      setSelectFromFavorites(true)
+      isSpecific ? setSelectFromFavorites(false) : setSelectFromFavorites(true)
+    }
+
+    if (isSpecific) {
+      axios.post("http://localhost:3000/api/collections", {
+        collectionName,
+        selectedItems: [product],
+      })
+
+      setOverlay(false)
+      setNewCollectionModal(false)
+      setCollectionList(false)
+      setIsCollectionListUpdated(true)
     }
   }
 

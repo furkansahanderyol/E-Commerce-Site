@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react"
+import React, { useState, useRef, useContext, useEffect } from "react"
 import { FaPlus } from "react-icons/fa"
 import Image from "next/image"
 import { BsThreeDots } from "react-icons/bs"
@@ -24,8 +24,6 @@ export default function CollectionBubble({
   const router = useRouter()
   const collectionBubbleRef = useRef(null)
   const optionsRef = useRef(null)
-
-  // const { overlay, setOverlay } = useContext(OverlayContext)
 
   function handleCreateNewCollection() {
     setCreateCollectionModal(true)
@@ -64,6 +62,10 @@ export default function CollectionBubble({
     collectionBubbleRef.current.style.display = "none"
     setOptionsMenu(false)
   }
+
+  useEffect(() => {
+    console.log("collectionItems", collectionItems)
+  }, [collectionItems])
 
   return isDefault ? (
     <div
