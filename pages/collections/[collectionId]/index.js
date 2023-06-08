@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import AvailableCollectionItems from "@/components/AvailableCollectionItems/AvailableCollectionItems"
 import styles from "../../../styles/collectionId.module.css"
 import { CollectionsContext } from "../CollectionsContext"
+import { OverlayContext } from "@/components/OverlayContext/OverlayContext"
 import Product from "@/components/Product/Product"
 
 export default function Collection({ collections, favorites }) {
@@ -11,19 +12,16 @@ export default function Collection({ collections, favorites }) {
   const { collectionId } = router.query
 
   const {
-    isNewCollection,
-    setIsNewCollection,
     selectedItems,
     setSelectedItems,
     selectFromFavorites,
     setSelectFromFavorites,
     selectedItemCount,
-    setSelectedItemCount,
     collectionName,
     setCollectionName,
-    // collectionId,
-    // setCollectionId,
   } = useContext(CollectionsContext)
+
+  const { overlay, setOverlay } = useContext(OverlayContext)
 
   useEffect(() => {
     const selectedCollection = collections.filter((collection) => {
@@ -36,6 +34,18 @@ export default function Collection({ collections, favorites }) {
   function test() {
     setSelectFromFavorites(true)
   }
+
+  useEffect(() => {
+    if (selectFromFavorites) {
+      setOverlay(true)
+    }
+  }, [selectFromFavorites])
+
+  useEffect(() => {
+    if (overlay) {
+      setSelectFromFavorites(true)
+    }
+  }, [overlay])
 
   return (
     <div className={styles.collection_wrapper}>
@@ -81,6 +91,7 @@ export default function Collection({ collections, favorites }) {
           collectionName={collectionName}
           setCollectionName={setCollectionName}
           collectionId={collectionId}
+          setOverlay={setOverlay}
         />
       ) : null}
     </div>

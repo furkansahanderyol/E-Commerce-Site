@@ -7,6 +7,9 @@ import { FaBookmark } from "react-icons/fa"
 import { OverlayContext } from "@/components/OverlayContext/OverlayContext"
 import CollectionListItem from "@/components/CollectionListItem/CollectionListItem"
 import { AiOutlineClose } from "react-icons/ai"
+import CreateNewCollectionModal from "@/components/CreateNewCollectionModal/CreateNewCollectionModal"
+import { CollectionsContext } from "@/pages/collections/CollectionsContext"
+import axios from "axios"
 import styles from "../../../../styles/ProductPage.module.css"
 
 export default function Product({ product = [], favorites, collections }) {
@@ -19,14 +22,25 @@ export default function Product({ product = [], favorites, collections }) {
     left: "",
     top: "",
   })
+  const [newCollectionModal, setNewCollectionModal] = useState(false)
+  const [collectionsData, setCollectionsData] = useState(collections)
   const zoomedImageRef = useRef(null)
   const productImages = product.images
   const isFavorite = favorites.favorites.some((fav) => {
     return fav.product.id === product.id
   })
 
-  const { setOverlay, collectionList, setCollectionList } =
-    useContext(OverlayContext)
+  const {
+    setOverlay,
+    collectionList,
+    setCollectionList,
+    setCreateCollectionModal,
+    isCollectionListUpdated,
+    setIsCollectionListUpdated,
+  } = useContext(OverlayContext)
+
+  const { setIsNewCollection, setSelectFromFavorites, setCollectionName } =
+    useContext(CollectionsContext)
 
   function addToCollection() {
     setCollectionList(true)
@@ -37,7 +51,17 @@ export default function Product({ product = [], favorites, collections }) {
     setCollectionList(false)
     setOverlay(false)
   }
-  console.log(collections)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("http://localhost:3000/api/collections")
+      const updatedData = await response.data
+      setCollectionsData(updatedData)
+      setIsCollectionListUpdated(false)
+    }
+
+    fetchData()
+  }, [isCollectionListUpdated])
 
   return (
     <>
@@ -125,18 +149,38 @@ export default function Product({ product = [], favorites, collections }) {
             </div>
           </div>
           <div className={styles.collection_list_container}>
-            <CollectionListItem isDefault={true} />
-            {collections?.collections?.map((collection) => {
+            <CollectionListItem
+              isDefault={true}
+              setNewCollectionModal={setNewCollectionModal}
+            />
+            {collectionsData?.collections?.map((collection, index) => {
               return (
                 <CollectionListItem
+                  key={index}
+                  collectionId={collection.id}
                   isDefault={false}
                   collectionName={collection.collectionName}
                   collectionImage={collection.items.selectedItems[0].images[0]}
+                  product={product}
                 />
               )
             })}
           </div>
         </div>
+      ) : null}
+      {newCollectionModal ? (
+        <CreateNewCollectionModal
+          isSpecific={true}
+          product={product}
+          setCollectionName={setCollectionName}
+          setOverlay={setOverlay}
+          setCreateCollectionModal={setCreateCollectionModal}
+          setIsNewCollection={setIsNewCollection}
+          setSelectFromFavorites={setSelectFromFavorites}
+          setNewCollectionModal={setNewCollectionModal}
+          setCollectionList={setCollectionList}
+          setIsCollectionListUpdated={setIsCollectionListUpdated}
+        />
       ) : null}
     </>
   )

@@ -50,6 +50,19 @@ router.post("/collections", (req, res) => {
   }
 })
 
+router.post("/collections/update", (req, res) => {
+  const selectedCollectionId = req.body.selectedCollectionId
+  const product = req.body.product
+
+  collections.forEach((collection) => {
+    if (collection.id === selectedCollectionId) {
+      collection.items.selectedItems.push(product)
+    }
+  })
+
+  res.json({ collections: collections })
+})
+
 router.delete("/collections", (req, res) => {
   const collectionId = req.query.id
 
