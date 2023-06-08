@@ -4,7 +4,13 @@ import { FaRegHeart } from "react-icons/fa"
 import axios from "axios"
 import styles from "../../styles/FavoriteButton.module.css"
 
-export default function FavoriteButton({ product, square, isFavorite }) {
+export default function FavoriteButton({
+  product,
+  square,
+  isFavorite,
+  notifications,
+  setNotifications,
+}) {
   const [checkFavorite, setCheckFavorite] = useState()
 
   useEffect(() => {
@@ -20,6 +26,7 @@ export default function FavoriteButton({ product, square, isFavorite }) {
         await axios.post("http://localhost:3000/api/favorites", {
           product,
         })
+        setNotifications([...notifications, true])
       } catch (error) {
         console.error(error)
       }
@@ -29,6 +36,7 @@ export default function FavoriteButton({ product, square, isFavorite }) {
         await axios.delete("http://localhost:3000/api/favorites", {
           data: product,
         })
+        setNotifications([...notifications, false])
       } catch (error) {
         console.log(error)
       }
