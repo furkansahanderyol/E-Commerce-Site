@@ -113,7 +113,7 @@ export default function Home({ products, favorites }) {
       if (notifications.length > 0) {
         const currentNotifications = [...notifications]
         currentNotifications.pop()
-        console.log("current", currentNotifications)
+
         setNotifications(currentNotifications)
       }
     }, 2000)

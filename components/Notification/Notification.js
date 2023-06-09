@@ -12,7 +12,6 @@ export default function Notification({
     const currentNotifications = [...notifications]
     currentNotifications.splice(notificationIndex, 1)
 
-    console.log("updated", currentNotifications)
     setNotifications(currentNotifications)
   }
 

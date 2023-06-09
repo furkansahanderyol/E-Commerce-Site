@@ -19,6 +19,12 @@
   top: 3%;
 }
 
+.favorite_button_wrapper_removable {
+  position: absolute;
+  right: 10%;
+  top: 3%;
+}
+
 .product_image_wrapper,
 .product_image_wrapper_collection {
   position: relative;
@@ -80,4 +86,26 @@
   padding: 0.5em;
 
   justify-self: flex-end;
+}
+
+.buttons_wrapper {
+  position: absolute;
+
+  z-index: 99999;
+
+  top: 0;
+  right: 5%;
+
+  display: flex;
+  justify-content: space-around;
+  gap: 60px;
+
+  cursor: pointer;
+}
+
+.options_button_wrapper {
+  font-size: 24px;
+  z-index: 99999;
+
+  align-self: flex-end;
 }

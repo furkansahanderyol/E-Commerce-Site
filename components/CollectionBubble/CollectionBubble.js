@@ -44,10 +44,6 @@ export default function CollectionBubble({
     setOptionsMenu(!optionsMenu)
   }
 
-  useEffect(() => {
-    console.log("collectionItems", collectionItems)
-  }, [collectionItems])
-
   return isDefault ? (
     <div
       onClick={handleCreateNewCollection}

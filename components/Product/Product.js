@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useState, useRef } from "react"
 import Image from "next/image"
 import Stars from "../Stars/Stars"
 import FavoriteButton from "../FavoriteButton/FavoriteButton"
 import { useRouter } from "next/router"
+import { BsThreeDots } from "react-icons/bs"
+import Options from "../Options/Options"
 import styles from "../../styles/product.module.css"
 
 export default function Product(props) {
@@ -24,12 +26,22 @@ export default function Product(props) {
     setSelectedItems,
     notifications,
     setNotifications,
+    isRemovable,
   } = props
 
+  const [collectionItemOptions, setCollectionItemOptions] = useState(false)
+  const optionsRef = useRef(null)
   const router = useRouter()
 
-  function handleProductClick() {
-    router.push(`/category/${category}/${id}`)
+  function handleProductClick(e) {
+    const target = e.target
+    const isValid = optionsRef?.current?.contains(target)
+
+    if (isValid) return
+
+    if (!e.target.matches("svg")) {
+      router.push(`/category/${category}/${id}`)
+    }
   }
 
   function handleSelectedItem() {
@@ -44,6 +56,10 @@ export default function Product(props) {
       setSelectedItems([...selectedItems, product])
       isUpdate ? setUpdateItems([...selectedItems, product]) : null
     }
+  }
+
+  function handleCollectionItemOptions() {
+    setCollectionItemOptions(!collectionItemOptions)
   }
 
   return collection ? (
@@ -83,15 +99,42 @@ export default function Product(props) {
     </div>
   ) : (
     <div onClick={handleProductClick} className={styles.product} id={id}>
-      <div className={styles.favorite_button_wrapper}>
-        <FavoriteButton
-          product={product}
-          square={false}
-          isFavorite={isFavorite}
-          notifications={notifications}
-          setNotifications={setNotifications}
-        />
-      </div>
+      {isRemovable ? (
+        <div className={styles.buttons_wrapper}>
+          <div>
+            <FavoriteButton
+              product={product}
+              square={false}
+              isFavorite={isFavorite}
+              notifications={notifications}
+              setNotifications={setNotifications}
+              isRemovable={isRemovable}
+            />
+          </div>
+          <div
+            onClick={handleCollectionItemOptions}
+            className={styles.options_button_wrapper}
+          >
+            <BsThreeDots />
+            <Options
+              isCollectionItem={true}
+              collectionItemOptions={collectionItemOptions}
+              setCollectionItemOptions={setCollectionItemOptions}
+              optionsRef={optionsRef}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className={styles.favorite_button_wrapper}>
+          <FavoriteButton
+            product={product}
+            square={false}
+            isFavorite={isFavorite}
+            notifications={notifications}
+            setNotifications={setNotifications}
+          />
+        </div>
+      )}
       <div className={styles.product_image_wrapper}>
         <Image src={images[0]} layout="fill" alt="Product image" />
       </div>

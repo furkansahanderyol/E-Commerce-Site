@@ -6,6 +6,7 @@ import axios from "axios"
 import styles from "../../styles/options.module.css"
 
 export default function Options({
+  isCollectionItem,
   optionsMenu,
   setOptionsMenu,
   id,
@@ -15,6 +16,8 @@ export default function Options({
   setCollectionId,
   optionsRef,
   collectionBubbleRef,
+  collectionItemOptions,
+  setCollectionItemOptions,
 }) {
   function handleAddItem() {
     setSelectFromFavorites(true)
@@ -34,7 +37,39 @@ export default function Options({
     setOptionsMenu(false)
   }
 
-  return optionsMenu ? (
+  return isCollectionItem ? (
+    collectionItemOptions ? (
+      <div>
+        <div ref={optionsRef} data-options className={styles.options}>
+          <div className={`${styles.option} ${styles.add_item}`}>
+            <FaPlus />
+            Add item to the another collection
+          </div>
+          <div className={`${styles.option} ${styles.remove_item}`}>
+            <FaTrashAlt />
+            Remove item from collection
+          </div>
+        </div>
+      </div>
+    ) : (
+      <div>
+        <div
+          ref={optionsRef}
+          data-options
+          className={`${styles.options_hidden}`}
+        >
+          <div className={`${styles.option} ${styles.add_item}`}>
+            <FaPlus />
+            Add item to the collection
+          </div>
+          <div className={`${styles.option} ${styles.remove_item}`}>
+            <FaTrashAlt />
+            Remove item from collection
+          </div>
+        </div>
+      </div>
+    )
+  ) : optionsMenu ? (
     <div>
       <div ref={optionsRef} data-options className={styles.options}>
         <div

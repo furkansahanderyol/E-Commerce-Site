@@ -10,6 +10,7 @@ export default function FavoriteButton({
   isFavorite,
   notifications,
   setNotifications,
+  isRemovable,
 }) {
   const [checkFavorite, setCheckFavorite] = useState()
 
@@ -59,7 +60,11 @@ export default function FavoriteButton({
       onClick={handleFavoriteButton}
       className={
         checkFavorite
-          ? styles.favorite_button_icon_selected
+          ? isRemovable
+            ? styles.favorite_button_icon_selected_removable
+            : styles.favorite_button_icon_selected
+          : isRemovable
+          ? styles.favorite_button_icon_removable
           : styles.favorite_button_icon
       }
     >
