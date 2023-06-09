@@ -3,9 +3,8 @@ import { FaPlus } from "react-icons/fa"
 import Image from "next/image"
 import { BsThreeDots } from "react-icons/bs"
 import { useRouter } from "next/router"
-import { FaTrashAlt } from "react-icons/fa"
-import axios from "axios"
 import { OverlayContext } from "../OverlayContext/OverlayContext"
+import Options from "../Options/Options"
 import styles from "../../styles/collectionBubble.module.css"
 
 export default function CollectionBubble({
@@ -45,28 +44,6 @@ export default function CollectionBubble({
     setOptionsMenu(!optionsMenu)
   }
 
-  function handleAddItem() {
-    setSelectFromFavorites(true)
-    setIsNewCollection(false)
-    setCollectionId(id)
-    setOptionsMenu(false)
-  }
-
-  async function handleRemoveCollection() {
-    try {
-      axios.delete(`http://localhost:3000/api/collections?id=${id}`)
-    } catch (error) {
-      console.log(error)
-    }
-
-    collectionBubbleRef.current.style.display = "none"
-    setOptionsMenu(false)
-  }
-
-  useEffect(() => {
-    console.log("collectionItems", collectionItems)
-  }, [collectionItems])
-
   return isDefault ? (
     <div
       onClick={handleCreateNewCollection}
@@ -84,43 +61,17 @@ export default function CollectionBubble({
       <div className={styles.collection_bubble_header}>
         <div className={styles.collection_name}>{collectionName}</div>
         <BsThreeDots onClick={handleOptionsMenuClick} />
-        {optionsMenu ? (
-          <div>
-            <div ref={optionsRef} data-options className={styles.options}>
-              <div
-                onClick={handleAddItem}
-                className={`${styles.option} ${styles.add_item}`}
-              >
-                <FaPlus />
-                Add item to the collection
-              </div>
-              <div
-                onClick={handleRemoveCollection}
-                className={`${styles.option} ${styles.remove_item}`}
-              >
-                <FaTrashAlt />
-                Remove item from collection
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div
-              ref={optionsRef}
-              data-options
-              className={`${styles.options_hidden}`}
-            >
-              <div className={`${styles.option} ${styles.add_item}`}>
-                <FaPlus />
-                Add item to the collection
-              </div>
-              <div className={`${styles.option} ${styles.remove_item}`}>
-                <FaTrashAlt />
-                Remove item from collection
-              </div>
-            </div>
-          </div>
-        )}
+        <Options
+          optionsMenu={optionsMenu}
+          setOptionsMenu={setOptionsMenu}
+          id={id}
+          setSelectFromFavorites={setSelectFromFavorites}
+          isNewCollection={isNewCollection}
+          setIsNewCollection={setIsNewCollection}
+          setCollectionId={setCollectionId}
+          optionsRef={optionsRef}
+          collectionBubbleRef={collectionBubbleRef}
+        />
       </div>
       <div className={styles.collection}>
         <div className={styles.collection_images}>

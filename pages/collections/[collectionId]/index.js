@@ -74,6 +74,7 @@ export default function Collection({ collections, favorites }) {
               price={product.price}
               isFavorite={true}
               collection={false}
+              isRemovable={true}
             />
           )
         })}

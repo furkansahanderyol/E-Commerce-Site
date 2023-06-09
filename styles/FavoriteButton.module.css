@@ -1,5 +1,7 @@
 .favorite_button_icon,
-.favorite_button_icon_selected {
+.favorite_button_icon_selected,
+.favorite_button_icon_removable,
+.favorite_button_icon_selected_removable {
   width: 40px;
   height: 40px;
 
@@ -16,7 +18,13 @@
   z-index: 1;
 }
 
-.favorite_button_icon_selected {
+.favorite_button_icon_removable,
+.favorite_button_icon_selected_removable {
+  right: 40%;
+}
+
+.favorite_button_icon_selected,
+.favorite_button_icon_selected_removable {
   color: #477519;
 }
 
@@ -42,6 +50,7 @@
   color: white;
 }
 
-.favorite_button_icon:hover {
+.favorite_button_icon:hover,
+.favorite_button_icon_removable:hover {
   color: green;
 }

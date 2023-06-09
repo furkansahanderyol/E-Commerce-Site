@@ -1,0 +1,53 @@
+.options,
+.options_hidden {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  white-space: nowrap;
+
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+
+  opacity: 1;
+  pointer-events: all;
+  user-select: auto;
+
+  transition: opacity 0.2s ease-in-out;
+
+  border: 1px solid black;
+  border-radius: 0.3em;
+}
+
+.options_hidden {
+  opacity: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.option {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  gap: 20px;
+  border-bottom: 1px solid black;
+  padding: 1em 0.5em;
+  border-radius: 0.3em;
+}
+
+.option svg {
+  pointer-events: none;
+}
+
+.option:last-child {
+  border-bottom: none;
+  padding-bottom: none;
+}
+
+.option:hover {
+  background-color: lightgreen;
+  color: white;
+  cursor: pointer;
+}
