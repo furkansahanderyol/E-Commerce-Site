@@ -11,6 +11,7 @@ import CreateNewCollectionModal from "@/components/CreateNewCollectionModal/Crea
 import { CollectionsContext } from "@/pages/collections/CollectionsContext"
 import axios from "axios"
 import styles from "../../../../styles/ProductPage.module.css"
+import CollectionList from "@/components/CollectionList/CollectionList"
 
 export default function Product({ product = [], favorites, collections }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -45,11 +46,6 @@ export default function Product({ product = [], favorites, collections }) {
   function addToCollection() {
     setCollectionList(true)
     setOverlay(true)
-  }
-
-  function handleCloseCollectionList() {
-    setCollectionList(false)
-    setOverlay(false)
   }
 
   useEffect(() => {
@@ -141,32 +137,13 @@ export default function Product({ product = [], favorites, collections }) {
         </div>
       </div>
       {collectionList ? (
-        <div className={styles.collection_list}>
-          <div className={styles.collection_list_header}>
-            <div>Add to collection</div>
-            <div onClick={handleCloseCollectionList}>
-              <AiOutlineClose />
-            </div>
-          </div>
-          <div className={styles.collection_list_container}>
-            <CollectionListItem
-              isDefault={true}
-              setNewCollectionModal={setNewCollectionModal}
-            />
-            {collectionsData?.collections?.map((collection, index) => {
-              return (
-                <CollectionListItem
-                  key={index}
-                  collectionId={collection.id}
-                  isDefault={false}
-                  collectionName={collection.collectionName}
-                  collectionImage={collection.items.selectedItems[0].images[0]}
-                  product={product}
-                />
-              )
-            })}
-          </div>
-        </div>
+        <CollectionList
+          setNewCollectionModal={setNewCollectionModal}
+          product={product}
+          setOverlay={setOverlay}
+          collectionsData={collectionsData}
+          setCollectionList={setCollectionList}
+        />
       ) : null}
       {newCollectionModal ? (
         <CreateNewCollectionModal
