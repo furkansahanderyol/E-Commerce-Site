@@ -2,6 +2,7 @@ import React from "react"
 import { FaPlus } from "react-icons/fa"
 import Image from "next/image"
 import axios from "axios"
+import { useRouter } from "next/router"
 import styles from "../../styles/collectionListItem.module.css"
 
 export default function CollectionListItem(props) {
@@ -14,7 +15,11 @@ export default function CollectionListItem(props) {
     collectionImage,
     product,
     setShowCreateNewCollectionModal,
+    selectedProduct,
   } = props
+
+  const router = useRouter()
+  const currentCollectionId = router.query.collectionId
 
   function handleCreateNewCollection() {
     isRemovable
@@ -23,10 +28,16 @@ export default function CollectionListItem(props) {
   }
 
   function handleCollectionListItemClick() {
-    axios.post("http://localhost:3000/api/collections/update", {
-      selectedCollectionId: collectionId,
-      product: product,
-    })
+    isRemovable
+      ? axios.post("http://localhost:3000/api/collections/transfer", {
+          selectedCollectionId: collectionId,
+          currentCollectionId,
+          product: selectedProduct,
+        })
+      : axios.post("http://localhost:3000/api/collections/update", {
+          selectedCollectionId: collectionId,
+          product: product,
+        })
   }
 
   return isDefault ? (

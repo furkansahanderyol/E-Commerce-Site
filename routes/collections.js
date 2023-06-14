@@ -63,6 +63,28 @@ router.post("/collections/update", (req, res) => {
   res.json({ collections: collections })
 })
 
+router.post("/collections/transfer", (req, res) => {
+  const selectedCollectionId = req.body.selectedCollectionId
+  const currentCollectionId = req.body.currentCollectionId
+  const product = req.body.product
+
+  collections.forEach((collection) => {
+    if (collection.id === currentCollectionId) {
+      collection.items.selectedItems = collection.items.selectedItems.filter(
+        (item) => {
+          return item.id !== product.id
+        }
+      )
+    }
+
+    if (collection.id === selectedCollectionId) {
+      collection.items.selectedItems.push(product)
+    }
+  })
+
+  res.json({ collections: collections })
+})
+
 router.post("/collections/modify", (req, res) => {
   const currentCollectionId = req.body.collectionId
   const collectionName = req.body.collectionName

@@ -76,6 +76,7 @@ export default function CollectionBubble({
       <div className={styles.collection}>
         <div className={styles.collection_images}>
           {collectionItems.map((item, index) => {
+            console.log("collectionItems", collectionItems)
             while (index < 5) {
               return (
                 <Image
