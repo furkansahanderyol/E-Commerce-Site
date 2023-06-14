@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { FaPlus } from "react-icons/fa"
 import { FaTrashAlt } from "react-icons/fa"
 import axios from "axios"
@@ -11,13 +11,15 @@ export default function Options({
   setOptionsMenu,
   id,
   setSelectFromFavorites,
-  isNewCollection,
   setIsNewCollection,
   setCollectionId,
   optionsRef,
   collectionBubbleRef,
   collectionItemOptions,
-  setCollectionItemOptions,
+  setCollectionList,
+  setOverlay,
+  product,
+  setSelectedProduct,
 }) {
   function handleAddItem() {
     setSelectFromFavorites(true)
@@ -37,10 +39,22 @@ export default function Options({
     setOptionsMenu(false)
   }
 
+  function addItemToAnotherCollection() {
+    setCollectionList(true)
+    setOverlay(true)
+    console.log("product", product)
+    setSelectedProduct(product)
+  }
+
   return isCollectionItem ? (
     collectionItemOptions ? (
       <div>
-        <div ref={optionsRef} data-options className={styles.options}>
+        <div
+          onClick={addItemToAnotherCollection}
+          ref={optionsRef}
+          data-options
+          className={styles.options}
+        >
           <div className={`${styles.option} ${styles.add_item}`}>
             <FaPlus />
             Add item to the another collection

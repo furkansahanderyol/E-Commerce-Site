@@ -5,15 +5,19 @@ import styles from "../../styles/collectionList.module.css"
 
 export default function CollectionList(props) {
   const {
+    isCollectionItem,
     setNewCollectionModal,
     product,
     collectionsData,
     setCollectionList,
     setOverlay,
+    isRemovable,
+    setShowCreateNewCollectionModal,
   } = props
 
   function handleCloseCollectionList() {
-    setCollectionList(false)
+    isCollectionItem ? setCollectionList(false) : setCollectionList(false)
+
     setOverlay(false)
   }
 
@@ -28,7 +32,9 @@ export default function CollectionList(props) {
       <div className={styles.collection_list_container}>
         <CollectionListItem
           isDefault={true}
+          isRemovable={isRemovable}
           setNewCollectionModal={setNewCollectionModal}
+          setShowCreateNewCollectionModal={setShowCreateNewCollectionModal}
         />
         {collectionsData?.collections?.map((collection, index) => {
           return (

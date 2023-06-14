@@ -63,6 +63,33 @@ router.post("/collections/update", (req, res) => {
   res.json({ collections: collections })
 })
 
+router.post("/collections/modify", (req, res) => {
+  const currentCollectionId = req.body.collectionId
+  const collectionName = req.body.collectionName
+  const selectedProduct = req.body.selectedProduct
+
+  let newCollection = {
+    id: uuid.v4(),
+    collectionName,
+    items: { collectionName, selectedItems: [selectedProduct] },
+  }
+
+  collections.forEach((collection) => {
+    if (collection.id === currentCollectionId) {
+      const newItems = collection.items.selectedItems.filter((item) => {
+        return item.id !== selectedProduct.id
+      })
+
+      collection.items.selectedItems = newItems
+    }
+  })
+
+  collections.push(newCollection)
+  newCollection = []
+
+  res.json({ collections: collections })
+})
+
 router.delete("/collections", (req, res) => {
   const collectionId = req.query.id
 
