@@ -12,22 +12,19 @@ export default function AvailableCollectionItems({
   favorites,
   selectedItems,
   setSelectedItems,
+  selectFromFavorites,
   setSelectFromFavorites,
   selectedItemCount,
   collectionName,
   setCollectionName,
   collectionId,
   setOverlay,
+  setShowFavorites,
+  isRemovable,
 }) {
   const [availableItems, setAvailableItems] = useState()
   const [updateItems, setUpdateItems] = useState([])
   const router = useRouter()
-
-  function handleSelectCollectionItemsCloseButton() {
-    setSelectFromFavorites(false)
-    setSelectedItems([])
-    setOverlay(false)
-  }
 
   async function createNewCollection() {
     if (favorites.length === 0) return
@@ -44,12 +41,14 @@ export default function AvailableCollectionItems({
     setSelectFromFavorites(false)
     setCollectionName("")
     setOverlay(false)
+    isRemovable ? setShowFavorites(false) : null
   }
 
   function handleSelectCollectionItemsCloseButton() {
     setSelectFromFavorites(false)
     setSelectedItems([])
     setOverlay(false)
+    isRemovable ? setShowFavorites(false) : null
   }
 
   async function updateNewCollection() {
@@ -62,6 +61,7 @@ export default function AvailableCollectionItems({
     }
 
     setSelectFromFavorites(false)
+    isRemovable ? setShowFavorites(false) : null
 
     isInsideOfCollection ? router.reload() : null
   }

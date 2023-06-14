@@ -17,40 +17,57 @@ export default function CreateNewCollectionModal(props) {
     setNewCollectionModal,
     setCollectionList,
     setIsCollectionListUpdated,
+    isRemovable,
+    setShowCreateNewCollectionModal,
+    selectedProduct,
+    collectionId,
   } = props
   const [invalidCollectionName, setInvalidCollectionName] = useState(false)
   const createCollectionRef = useRef(null)
 
   function handleCloseModalButton() {
-    setCreateCollectionModal(false)
     setOverlay(false)
+    isRemovable
+      ? setShowCreateNewCollectionModal(false)
+      : setCreateCollectionModal(false)
   }
 
   async function handleCreateCollectionButton() {
-    setIsNewCollection(true)
     const collectionName = createCollectionRef.current.value
 
-    if (collectionName.length === 0) {
-      setInvalidCollectionName(true)
-    } else {
-      setInvalidCollectionName(false)
-
-      setCollectionName(collectionName)
-
-      setCreateCollectionModal(false)
-      isSpecific ? setSelectFromFavorites(false) : setSelectFromFavorites(true)
-    }
-
-    if (isSpecific) {
-      axios.post("http://localhost:3000/api/collections", {
+    if (isRemovable) {
+      axios.post("http://localhost:3000/api/collections/modify", {
+        collectionId,
         collectionName,
-        selectedItems: [product],
+        selectedProduct,
       })
+    } else {
+      setIsNewCollection(true)
 
-      setOverlay(false)
-      setNewCollectionModal(false)
-      setCollectionList(false)
-      setIsCollectionListUpdated(true)
+      if (collectionName.length === 0) {
+        setInvalidCollectionName(true)
+      } else {
+        setInvalidCollectionName(false)
+
+        setCollectionName(collectionName)
+
+        setCreateCollectionModal(false)
+        isSpecific
+          ? setSelectFromFavorites(false)
+          : setSelectFromFavorites(true)
+      }
+
+      if (isSpecific) {
+        axios.post("http://localhost:3000/api/collections", {
+          collectionName,
+          selectedItems: [product],
+        })
+
+        setOverlay(false)
+        setNewCollectionModal(false)
+        setCollectionList(false)
+        setIsCollectionListUpdated(true)
+      }
     }
   }
 

@@ -8,14 +8,18 @@ export default function CollectionListItem(props) {
   const {
     collectionId,
     isDefault,
+    isRemovable,
     setNewCollectionModal,
     collectionName,
     collectionImage,
     product,
+    setShowCreateNewCollectionModal,
   } = props
 
   function handleCreateNewCollection() {
-    setNewCollectionModal(true)
+    isRemovable
+      ? setShowCreateNewCollectionModal(true)
+      : setNewCollectionModal(true)
   }
 
   function handleCollectionListItemClick() {

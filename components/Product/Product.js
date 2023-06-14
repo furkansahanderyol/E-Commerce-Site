@@ -27,6 +27,10 @@ export default function Product(props) {
     notifications,
     setNotifications,
     isRemovable,
+    setCollectionList,
+    showCreateNewCollectionModal,
+    setOverlay,
+    setSelectedProduct,
   } = props
 
   const [collectionItemOptions, setCollectionItemOptions] = useState(false)
@@ -121,6 +125,11 @@ export default function Product(props) {
               collectionItemOptions={collectionItemOptions}
               setCollectionItemOptions={setCollectionItemOptions}
               optionsRef={optionsRef}
+              setCollectionList={setCollectionList}
+              setOverlay={setOverlay}
+              showCreateNewCollectionModal={showCreateNewCollectionModal}
+              product={product}
+              setSelectedProduct={setSelectedProduct}
             />
           </div>
         </div>

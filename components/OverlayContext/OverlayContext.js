@@ -7,7 +7,9 @@ export default function OverlayProvider({ children }) {
   const [overlay, setOverlay] = useState(false)
   const [createCollectionModal, setCreateCollectionModal] = useState(false)
   const [collectionList, setCollectionList] = useState(false)
+  const [showFavorites, setShowFavorites] = useState(false)
   const [isCollectionListUpdated, setIsCollectionListUpdated] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
   return (
     <OverlayContext.Provider
@@ -20,6 +22,10 @@ export default function OverlayProvider({ children }) {
         setCollectionList,
         isCollectionListUpdated,
         setIsCollectionListUpdated,
+        showFavorites,
+        setShowFavorites,
+        selectedProduct,
+        setSelectedProduct,
       }}
     >
       {overlay && (
