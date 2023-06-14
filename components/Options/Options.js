@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { FaPlus } from "react-icons/fa"
 import { FaTrashAlt } from "react-icons/fa"
 import axios from "axios"
@@ -42,7 +42,6 @@ export default function Options({
   function addItemToAnotherCollection() {
     setCollectionList(true)
     setOverlay(true)
-    console.log("product", product)
     setSelectedProduct(product)
   }
 

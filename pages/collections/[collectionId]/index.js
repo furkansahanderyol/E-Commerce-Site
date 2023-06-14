@@ -49,10 +49,6 @@ export default function Collection({ collections, favorites }) {
     setShowFavorites(true)
   }
 
-  useEffect(() => {
-    console.log("selectedProduct", selectedProduct)
-  }, [selectedProduct])
-
   return (
     <>
       <div className={styles.collection_wrapper}>
@@ -104,7 +100,7 @@ export default function Collection({ collections, favorites }) {
             collectionId={collectionId}
             setOverlay={setOverlay}
             setShowFavorites={setShowFavorites}
-            isRemovable={isRemovable}
+            isRemovable={true}
           />
         ) : null}
       </div>
@@ -113,8 +109,10 @@ export default function Collection({ collections, favorites }) {
           isCollectionItem={true}
           setOverlay={setOverlay}
           isRemovable={true}
+          collectionsData={collections}
           setCollectionList={setCollectionList}
           setShowCreateNewCollectionModal={setShowCreateNewCollectionModal}
+          selectedProduct={selectedProduct}
         />
       ) : null}
       {showCreateNewCollectionModal ? (
