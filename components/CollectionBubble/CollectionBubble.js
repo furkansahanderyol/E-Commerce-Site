@@ -3,7 +3,7 @@ import { FaPlus } from "react-icons/fa"
 import Image from "next/image"
 import { BsThreeDots } from "react-icons/bs"
 import { useRouter } from "next/router"
-import { OverlayContext } from "../OverlayContext/OverlayContext"
+import { FaBookmark } from "react-icons/fa"
 import Options from "../Options/Options"
 import styles from "../../styles/collectionBubble.module.css"
 
@@ -75,20 +75,25 @@ export default function CollectionBubble({
       </div>
       <div className={styles.collection}>
         <div className={styles.collection_images}>
-          {collectionItems.map((item, index) => {
-            console.log("collectionItems", collectionItems)
-            while (index < 5) {
-              return (
-                <Image
-                  key={index}
-                  src={item.images[0]}
-                  width="30"
-                  height="40"
-                  alt="Product image"
-                />
-              )
-            }
-          })}
+          {collectionItems.length > 0 ? (
+            collectionItems.map((item, index) => {
+              while (index < 5) {
+                return (
+                  <Image
+                    key={index}
+                    src={item.images[0]}
+                    width="30"
+                    height="40"
+                    alt="Product image"
+                  />
+                )
+              }
+            })
+          ) : (
+            <div className={styles.empty_collection_images}>
+              <FaBookmark />
+            </div>
+          )}
         </div>
         <button>Go to collection</button>
       </div>
