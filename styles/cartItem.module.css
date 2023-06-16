@@ -1,0 +1,16 @@
+.cart_item_wrapper {
+  background-color: #ccc;
+  width: 70%;
+  padding: 1em;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quantity_settings {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}

@@ -28,10 +28,12 @@ export default function Header() {
               Favorites
             </li>
           </Link>
-          <li className={styles.list_item}>
-            <FaShoppingCart />
-            Cart
-          </li>
+          <Link href={"/cart"}>
+            <li className={styles.list_item}>
+              <FaShoppingCart />
+              Cart
+            </li>
+          </Link>
         </ul>
       </nav>
     </header>

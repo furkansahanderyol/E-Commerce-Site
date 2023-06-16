@@ -123,7 +123,7 @@ export default function Product({ product = [], favorites, collections }) {
             </div>
             <div className={styles.buttons_container}>
               <div className={styles.add_to_cart_button}>
-                <AddToCartButton />
+                <AddToCartButton product={product} />
               </div>
               <div className={styles.add_to_favorites_button}>
                 <FavoriteButton
