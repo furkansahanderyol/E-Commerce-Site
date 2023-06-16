@@ -28,6 +28,9 @@ app.prepare().then(() => {
   const collectionsRouter = require("./routes/collections")
   server.use("/api", collectionsRouter)
 
+  const cart = require("./routes/cart")
+  server.use("/api", cart)
+
   server.all("*", (req, res) => {
     return handle(req, res)
   })
