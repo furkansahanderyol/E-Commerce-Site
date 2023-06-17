@@ -43,4 +43,15 @@ router.delete("/cart", (req, res) => {
   res.json({ cart: cart })
 })
 
+router.post("/cart/increase", (req, res) => {
+  const productId = req.body.product.id
+  const product = req.body.product
+
+  cart.forEach((item) => {
+    item.id === productId ? item.items.push(product) : null
+  })
+
+  res.json({ cart: cart })
+})
+
 module.exports = router

@@ -5,7 +5,14 @@ import axios from "axios"
 import styles from "../../styles/cartItem.module.css"
 
 export default function CartItem(props) {
-  const { product, productImage, productName, productPrice } = props
+  const {
+    product,
+    productImage,
+    productName,
+    productPrice,
+    productQuantity,
+    setCartItems,
+  } = props
   const [quantity, setQuantity] = useState(0)
   const cartItemRef = useRef(null)
 
@@ -17,9 +24,13 @@ export default function CartItem(props) {
     })
   }
 
-  function increaseQuantity() {
-    setQuantity((previousQuantity) => {
-      return previousQuantity + 1
+  async function increaseQuantity() {
+    axios.post("http://localhost:3000/api/cart/increase", {
+      product,
+    })
+
+    axios.get("http://localhost:3000/api/cart").then((response) => {
+      setCartItems(response.data.cart)
     })
   }
 
@@ -41,12 +52,12 @@ export default function CartItem(props) {
         <div className={styles.minus_button}>
           <button onClick={decreaseQuantity}>-</button>
         </div>
-        <div className={styles.unit}>{quantity}</div>
+        <div className={styles.unit}>{productQuantity}</div>
         <div className={styles.plus_button}>
           <button onClick={increaseQuantity}>+</button>
         </div>
       </div>
-      <div className={styles.price}>{productPrice}</div>
+      <div className={styles.price}>{`${productPrice * productQuantity}$`}</div>
       <div onClick={handleRemoveItem} className={styles.remove_item_button}>
         <FaTrashAlt />
       </div>
