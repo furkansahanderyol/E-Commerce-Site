@@ -19,4 +19,14 @@ router.post("/cart", (req, res) => {
   res.json({ cart: cart })
 })
 
+router.delete("/cart", (req, res) => {
+  const deletedItemId = req.query.id
+
+  cart = cart.filter((item) => {
+    return item.id != deletedItemId
+  })
+
+  res.json({ cart: cart })
+})
+
 module.exports = router

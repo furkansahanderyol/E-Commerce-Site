@@ -4,13 +4,20 @@ import axios from "axios"
 import styles from "../../styles/cart.module.css"
 
 export default function Cart({ cart = [] }) {
-  useEffect(() => {
-    console.log("cart", cart)
-  }, [cart])
-
   return (
     <div className={styles.cart_wrapper}>
-      <div className={styles.added_items}></div>
+      <div className={styles.added_items}>
+        {cart.map((item) => {
+          return (
+            <CartItem
+              product={item}
+              productImage={item.thumbnail}
+              productName={item.title}
+              productPrice={item.price}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }
@@ -21,7 +28,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      cart: data,
+      cart: data.cart,
     },
   }
 }
