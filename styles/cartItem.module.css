@@ -1,11 +1,18 @@
 .cart_item_wrapper {
   background-color: #ccc;
-  width: 40%;
+  width: 100%;
   padding: 1em;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1;
+  place-items: center;
+
+  border-bottom: 1px solid black;
+}
+
+.cart_item_wrapper:last-child {
+  border: none;
 }
 
 .product_image {
