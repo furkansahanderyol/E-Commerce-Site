@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useRef } from "react"
 import Image from "next/image"
 import { FaTrashAlt } from "react-icons/fa"
 import axios from "axios"
@@ -40,13 +40,17 @@ export default function CartItem(props) {
       product,
     })
 
+    axios.get("http://localhost:3000/api/cart").then((response) => {
+      setCartItems(response.data.cart)
+    })
+
     cartItemRef.current.style.display = "none"
   }
 
   return (
     <div ref={cartItemRef} className={styles.cart_item_wrapper}>
       <div className={styles.product_image}>
-        <Image layout="fill" src={productImage} />
+        <Image layout="fill" objectFit="cover" src={productImage} />
       </div>
       <div className={styles.product_name}>{productName}</div>
       <div className={styles.quantity_settings}>
