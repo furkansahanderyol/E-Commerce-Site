@@ -13,8 +13,22 @@ router.get("/cart", (req, res) => {
 
 router.post("/cart", (req, res) => {
   const product = req.body.product
+  const newItem = {
+    id: product.id,
+    items: [product],
+  }
 
-  cart.push(product)
+  const isAlreadyAdded = cart.some((item) => {
+    return item.id === product.id
+  })
+
+  if (isAlreadyAdded) {
+    cart.forEach((item) => {
+      item.id === product.id ? item.items.push(product) : null
+    })
+  } else {
+    cart.push(newItem)
+  }
 
   res.json({ cart: cart })
 })

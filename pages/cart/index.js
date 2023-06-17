@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import CartItem from "@/components/CartItem/CartItem"
 import axios from "axios"
 import styles from "../../styles/cart.module.css"
@@ -10,10 +10,10 @@ export default function Cart({ cart = [] }) {
         {cart.map((item) => {
           return (
             <CartItem
-              product={item}
-              productImage={item.thumbnail}
-              productName={item.title}
-              productPrice={item.price}
+              product={item.items[0]}
+              productImage={item.items[0].thumbnail}
+              productName={item.items[0].title}
+              productPrice={item.items[0].price}
             />
           )
         })}
