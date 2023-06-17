@@ -13,8 +13,22 @@ router.get("/cart", (req, res) => {
 
 router.post("/cart", (req, res) => {
   const product = req.body.product
+  const newItem = {
+    id: product.id,
+    items: [product],
+  }
 
-  cart.push(product)
+  const isAlreadyAdded = cart.some((item) => {
+    return item.id === product.id
+  })
+
+  if (isAlreadyAdded) {
+    cart.forEach((item) => {
+      item.id === product.id ? item.items.push(product) : null
+    })
+  } else {
+    cart.push(newItem)
+  }
 
   res.json({ cart: cart })
 })
@@ -24,6 +38,33 @@ router.delete("/cart", (req, res) => {
 
   cart = cart.filter((item) => {
     return item.id != deletedItemId
+  })
+
+  res.json({ cart: cart })
+})
+
+router.post("/cart/increase", (req, res) => {
+  const productId = req.body.product.id
+  const product = req.body.product
+
+  cart.forEach((item) => {
+    item.id === productId ? item.items.push(product) : null
+  })
+
+  res.json({ cart: cart })
+})
+
+router.post("/cart/decrease", (req, res) => {
+  const productId = req.body.product.id
+
+  cart.forEach((item) => {
+    item.id === productId ? item.items.pop() : null
+
+    if (item.items.length <= 0) {
+      cart = cart.filter((item) => {
+        return item.id !== productId
+      })
+    }
   })
 
   res.json({ cart: cart })
