@@ -13,14 +13,15 @@ export default function CartItem(props) {
     productQuantity,
     setCartItems,
   } = props
-  const [quantity, setQuantity] = useState(0)
   const cartItemRef = useRef(null)
 
   function decreaseQuantity() {
-    if (quantity === 0) return
+    axios.post("http://localhost:3000/api/cart/decrease", {
+      product,
+    })
 
-    setQuantity((previousQuantity) => {
-      return previousQuantity - 1
+    axios.get("http://localhost:3000/api/cart").then((response) => {
+      setCartItems(response.data.cart)
     })
   }
 

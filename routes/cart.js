@@ -54,4 +54,20 @@ router.post("/cart/increase", (req, res) => {
   res.json({ cart: cart })
 })
 
+router.post("/cart/decrease", (req, res) => {
+  const productId = req.body.product.id
+
+  cart.forEach((item) => {
+    item.id === productId ? item.items.pop() : null
+
+    if (item.items.length <= 0) {
+      cart = cart.filter((item) => {
+        return item.id !== productId
+      })
+    }
+  })
+
+  res.json({ cart: cart })
+})
+
 module.exports = router
