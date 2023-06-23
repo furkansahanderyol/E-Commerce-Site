@@ -2,36 +2,45 @@ const server = require("express")
 const router = server.Router()
 const axios = require("axios")
 
-router.get("/:category", (req, res) => {
-  const selectedCategory = req.params.category
-  const { brand } = req.query
+router.use(server.json())
+router.use(server.urlencoded({ extended: false }))
 
-  const searchedBrands = brand && brand.split(",")
+let filteredProducts = []
 
-  if (!searchedBrands || searchedBrands.length === 0) {
-    axios.get("https:dummyjson.com/products?limit=100").then((response) => {
-      const products = response.data.products
-      const searchedProducts = products.filter((product) => {
-        return product.category === selectedCategory
-      })
+router.get("/:category", async (req, res) => {
+  const category = req.params.category
+  const brands = req.query.brand
+  const minPrice = req.query.minPrice
+  const maxPrice = req.query.maxPrice
 
-      res.json({ products: searchedProducts })
-    })
-  } else {
-    axios.get("https:dummyjson.com/products?limit=100").then((response) => {
-      const products = response.data.products
-      const matchedProducts = products.filter((product) => {
-        if (
-          selectedCategory === product.category &&
-          searchedBrands.includes(product.brand)
-        ) {
-          return product
-        }
-      })
+  const response = await axios.get("https:dummyjson.com/products?limit=100")
+  const data = await response.data.products
 
-      res.json({ products: matchedProducts })
+  filteredProducts = data.filter((product) => {
+    return product.category === category
+  })
+
+  if (brands) {
+    const brandNames = brands.split(",")
+
+    filteredProducts = filteredProducts.filter((product) => {
+      return brandNames.includes(product.brand)
     })
   }
+
+  if (minPrice && maxPrice) {
+    filteredProducts = filteredProducts.filter((product) => {
+      const productPrice = parseInt(product.price)
+
+      return (
+        parseInt(minPrice) <= productPrice && productPrice < parseInt(maxPrice)
+      )
+    })
+
+    console.log(filteredProducts)
+  }
+
+  res.json({ products: filteredProducts })
 })
 
 module.exports = router
