@@ -7,24 +7,27 @@ import { RiStarFill } from "react-icons/ri"
 import { RiStarLine } from "react-icons/ri"
 import Notification from "@/components/Notification/Notification"
 import styles from "../../styles/Home.module.css"
+import axios from "axios"
 import NotificationsWrapper from "@/components/NotificationsWrapper/NotificationsWrapper"
 
 export default function Home({ products, favorites }) {
   const router = useRouter()
-  const [data, setData] = useState(
-    products.filter((product) => {
-      return product.category === router.query.category[0]
-    })
-  )
+  const [data, setData] = useState(products)
   const [brandsList, setBrandsList] = useState(false)
   const [priceList, setPriceList] = useState(false)
   const [avgCustomerReview, setAvgCustomerReview] = useState(false)
   const [brands, setBrands] = useState([])
   const [selectedBrands, setSelectedBrands] = useState([])
   const [favoriteProducts, setFavoriteProducts] = useState([])
-  const [gender, setGender] = useState(false)
   const [notifications, setNotifications] = useState([])
+  const [queryParameters, setQueryParameters] = useState({
+    brand: null,
+    minPrice: null,
+    maxPrice: null,
+  })
   const brandsFilterList = useRef()
+  const minPriceRef = useRef()
+  const maxPriceRef = useRef()
 
   function handleFilterClick() {
     setBrandsList(!brandsList)
@@ -36,10 +39,6 @@ export default function Home({ products, favorites }) {
 
   function handleAvgCustomerReviewClick() {
     setAvgCustomerReview(!avgCustomerReview)
-  }
-
-  function handleGenderListClick() {
-    setGender(!gender)
   }
 
   function handleBrandFilterClick(e) {
@@ -57,39 +56,57 @@ export default function Home({ products, favorites }) {
       })
       .join(",")
 
+    setQueryParameters((prevParameters) => ({
+      ...prevParameters,
+      brand: selectedFilters,
+    }))
+  }
+
+  function selectPriceRange(e) {
+    const clickedElement = e.target
+    const dataPrice = clickedElement.getAttribute("data-price")
+    const selectedPrice = dataPrice.split(",").map(Number)
+
+    setQueryParameters((prevParameters) => ({
+      ...prevParameters,
+      minPrice: selectedPrice[0],
+      maxPrice: selectedPrice[1],
+    }))
+
+    console.log(queryParameters)
+  }
+
+  useEffect(() => {
     router.push(
       {
         pathname: `/category/${router.query.category[0]}`,
-        query: { brand: selectedFilters },
+        query: queryParameters,
       },
       undefined,
       { shallow: true }
     )
-  }
+  }, [queryParameters])
 
   useEffect(() => {
     const relativeBrands = products.filter((product) => {
       return product.category === router.query.category[0]
     })
-
     const brandNames = relativeBrands.map((product) => {
       return product.brand
     })
-
     const filteredBrandNames = [...new Set(brandNames)]
 
     setBrands(filteredBrandNames)
   }, [router.query.category])
 
   useEffect(() => {
-    if (router.query.brand) {
-      fetch(
-        `/api/category/${router.query.category[0]}?brand=${router.query.brand}`
-      )
-        .then((response) => response.json())
-        .then((data) => setData(data.products))
-        .catch((error) => console.error(error))
-    }
+    axios
+      .get(`http://localhost:3000/api/category/${router.query.category[0]}`, {
+        params: queryParameters,
+      })
+      .then((response) => {
+        return setData(response.data.products)
+      })
   }, [router.query])
 
   useEffect(() => {
@@ -124,8 +141,8 @@ export default function Home({ products, favorites }) {
   }, [notifications])
 
   useEffect(() => {
-    console.log(notifications)
-  }, [notifications])
+    console.log("data", data)
+  }, [data])
 
   return (
     <>
@@ -163,12 +180,39 @@ export default function Home({ products, favorites }) {
               {priceList ? (
                 <>
                   <ul
+                    onClick={selectPriceRange}
                     className={`${styles.filter_list} ${styles.filter_list_price}`}
                   >
-                    <li className={styles.price_list_element}>0$ to 25$</li>
-                    <li className={styles.price_list_element}>25$ to 50$</li>
-                    <li className={styles.price_list_element}>50$ to 100$</li>
-                    <li className={styles.price_list_element}>200$ & Above</li>
+                    <li
+                      data-price={[0, 25]}
+                      className={styles.price_list_element}
+                    >
+                      0$ to 25$
+                    </li>
+                    <li
+                      data-price={[25, 50]}
+                      className={styles.price_list_element}
+                    >
+                      25$ to 50$
+                    </li>
+                    <li
+                      data-price={[50, 100]}
+                      className={styles.price_list_element}
+                    >
+                      50$ to 100$
+                    </li>
+                    <li
+                      data-price={[100, 200]}
+                      className={styles.price_list_element}
+                    >
+                      100$ to 200$
+                    </li>
+                    <li
+                      data-price={[200, 201]}
+                      className={styles.price_list_element}
+                    >
+                      200$ & Above
+                    </li>
                   </ul>
                   <div className={styles.price_i}>
                     <span>
@@ -236,25 +280,10 @@ export default function Home({ products, favorites }) {
                 </ul>
               ) : null}
             </div>
-            <div onClick={handleGenderListClick}>
-              <FilterListHeader header={"Gender"} list={gender} />
-            </div>
-            <div>
-              {gender ? (
-                <ul className={styles.gender_list}>
-                  <li>
-                    <FilterListElement brand={"Male"} />
-                  </li>
-                  <li>
-                    <FilterListElement brand={"Female"} />
-                  </li>
-                </ul>
-              ) : null}
-            </div>
           </div>
         </div>
         <div className={styles.home_grid}>
-          {data.map((product) => {
+          {data?.map((product) => {
             return (
               <Product
                 key={product.id}
