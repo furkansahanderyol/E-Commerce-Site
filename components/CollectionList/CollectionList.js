@@ -51,11 +51,13 @@ export default function CollectionList(props) {
                     isDefault={false}
                     collectionName={collection.collectionName}
                     collectionImage={
-                      collection.items.selectedItems[0].images[0]
+                      collection.items?.selectedItems[0]?.images[0]
                     }
                     product={product}
                     isRemovable={true}
                     selectedProduct={selectedProduct}
+                    setCollectionList={setCollectionList}
+                    setOverlay={setOverlay}
                   />
                 )
               }
@@ -67,8 +69,12 @@ export default function CollectionList(props) {
                   collectionId={collection.id}
                   isDefault={false}
                   collectionName={collection.collectionName}
-                  collectionImage={collection.items.selectedItems[0].images[0]}
+                  collectionImage={
+                    collection.items?.selectedItems[0]?.images[0]
+                  }
                   product={product}
+                  setCollectionList={setCollectionList}
+                  setOverlay={setOverlay}
                 />
               )
             })}

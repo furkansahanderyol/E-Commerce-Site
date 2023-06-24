@@ -22,7 +22,6 @@
 }
 
 .filter_list,
-.average_customer_review_list,
 .gender_list {
   text-decoration: none;
   list-style: none;
@@ -33,18 +32,11 @@
 }
 
 .filter_list_price,
-.average_customer_review_list,
 .gender_list {
   height: fit-content;
 }
 
-.average_customer_review_list svg {
-  color: orange;
-  font-size: 1.2em;
-}
-
-.price_list_wrapper,
-.average_customer_review_wrapper {
+.price_list_wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;

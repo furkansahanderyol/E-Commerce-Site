@@ -1,10 +1,10 @@
-import React, { useState, useRef, useContext, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import { FaPlus } from "react-icons/fa"
 import Image from "next/image"
 import { BsThreeDots } from "react-icons/bs"
 import { useRouter } from "next/router"
-import { FaBookmark } from "react-icons/fa"
 import Options from "../Options/Options"
+import EmptyCollectionImage from "../EmptyCollectionImage/EmptyCollectionImage"
 import styles from "../../styles/collectionBubble.module.css"
 
 export default function CollectionBubble({
@@ -90,9 +90,7 @@ export default function CollectionBubble({
               }
             })
           ) : (
-            <div className={styles.empty_collection_images}>
-              <FaBookmark />
-            </div>
+            <EmptyCollectionImage />
           )}
         </div>
         <button>Go to collection</button>

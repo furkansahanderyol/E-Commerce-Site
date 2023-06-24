@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa"
 import Image from "next/image"
 import axios from "axios"
 import { useRouter } from "next/router"
+import EmptyCollectionImage from "../EmptyCollectionImage/EmptyCollectionImage"
 import styles from "../../styles/collectionListItem.module.css"
 
 export default function CollectionListItem(props) {
@@ -16,6 +17,8 @@ export default function CollectionListItem(props) {
     product,
     setShowCreateNewCollectionModal,
     selectedProduct,
+    setCollectionList,
+    setOverlay,
   } = props
 
   const router = useRouter()
@@ -38,8 +41,13 @@ export default function CollectionListItem(props) {
           selectedCollectionId: collectionId,
           product: product,
         })
+
+    setCollectionList(false)
+    setOverlay(false)
+    router.reload()
   }
 
+  console.log(collectionImage)
   return isDefault ? (
     <div
       onClick={handleCreateNewCollection}
@@ -54,12 +62,16 @@ export default function CollectionListItem(props) {
       className={styles.collection_list_item}
     >
       <div>
-        <Image
-          src={collectionImage}
-          width={40}
-          height={40}
-          alt="Collection image"
-        />
+        {collectionImage ? (
+          <Image
+            src={collectionImage}
+            width={40}
+            height={40}
+            alt="Collection image"
+          />
+        ) : (
+          <EmptyCollectionImage />
+        )}
       </div>
       <div>{collectionName}</div>
     </div>

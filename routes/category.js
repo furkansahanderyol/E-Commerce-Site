@@ -12,6 +12,7 @@ router.get("/:category", async (req, res) => {
   const brands = req.query.brand
   const minPrice = req.query.minPrice
   const maxPrice = req.query.maxPrice
+  const rating = req.query.rating?.split(",")
 
   const response = await axios.get("https:dummyjson.com/products?limit=100")
   const data = await response.data.products
@@ -36,8 +37,19 @@ router.get("/:category", async (req, res) => {
         parseInt(minPrice) <= productPrice && productPrice < parseInt(maxPrice)
       )
     })
+  }
 
-    console.log(filteredProducts)
+  if (rating) {
+    const minRate = rating[0]
+    const maxRate = rating[1]
+
+    filteredProducts = filteredProducts.filter((product) => {
+      const productRating = parseFloat(product.rating)
+
+      return (
+        parseInt(minRate) <= productRating && productRating <= parseInt(maxRate)
+      )
+    })
   }
 
   res.json({ products: filteredProducts })
