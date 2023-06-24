@@ -138,10 +138,6 @@ export default function Home({ products, favorites }) {
     }
   }, [notifications])
 
-  useEffect(() => {
-    console.log("data", data)
-  }, [data])
-
   return (
     <>
       <div className={styles.homepage_wrapper}>
@@ -157,9 +153,9 @@ export default function Home({ products, favorites }) {
                   {brands.map((brand, index) => {
                     return (
                       <li
+                        key={index}
                         onClick={handleBrandFilterClick}
                         className={styles.filter_list_element}
-                        key={index}
                       >
                         <FilterListElement
                           brand={brand}
