@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/api/*"
+  to = "http://localhost:PORT/:splat"
+  status = 200
