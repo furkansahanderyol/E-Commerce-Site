@@ -9,7 +9,7 @@ export default function Cart({ cart = [] }) {
 
   useEffect(() => {
     setCartItems(cart)
-  }, [])
+  }, [cart])
 
   useEffect(() => {
     const calculateTotalPrice = cartItems.reduce((accumulator, value) => {
@@ -31,9 +31,10 @@ export default function Cart({ cart = [] }) {
       </div>
       <div className={styles.cart_information}>
         <div className={styles.added_items}>
-          {cartItems?.map((item) => {
+          {cartItems?.map((item, index) => {
             return (
               <CartItem
+                key={index}
                 product={item?.items[0]}
                 productImage={item?.items[0].thumbnail}
                 productName={item?.items[0].title}
