@@ -7,7 +7,7 @@ import AvailableCollectionItems from "@/components/AvailableCollectionItems/Avai
 import { CollectionsContext } from "./CollectionsContext"
 import { OverlayContext } from "@/components/OverlayContext/OverlayContext"
 import CreateNewCollectionModal from "@/components/CreateNewCollectionModal/CreateNewCollectionModal"
-import styles from "../../styles/collections.module.css"
+import styles from "../../styles/collectionsStyle.module.css"
 
 export default function Collections({ favorites }) {
   const [collections, setCollections] = useState([])
