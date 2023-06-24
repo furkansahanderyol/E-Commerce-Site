@@ -48,13 +48,11 @@ export default function Options({
   return isCollectionItem ? (
     collectionItemOptions ? (
       <div>
-        <div
-          onClick={addItemToAnotherCollection}
-          ref={optionsRef}
-          data-options
-          className={styles.options}
-        >
-          <div className={`${styles.option} ${styles.add_item}`}>
+        <div ref={optionsRef} data-options className={styles.options}>
+          <div
+            onClick={addItemToAnotherCollection}
+            className={`${styles.option} ${styles.add_item}`}
+          >
             <FaPlus />
             Add item to the another collection
           </div>

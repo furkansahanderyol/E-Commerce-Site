@@ -3,12 +3,11 @@ import { useRouter } from "next/router"
 import Product from "@/components/Product/Product"
 import FilterListElement from "@/components/FilterListElement/FilterListElement"
 import FilterListHeader from "@/components/FilterListHeader/FilterListHeader"
-import { RiStarFill } from "react-icons/ri"
-import { RiStarLine } from "react-icons/ri"
 import Notification from "@/components/Notification/Notification"
-import styles from "../../styles/Home.module.css"
+import AverageReview from "@/components/AverageReview/AverageReview"
 import axios from "axios"
 import NotificationsWrapper from "@/components/NotificationsWrapper/NotificationsWrapper"
+import styles from "../../styles/Home.module.css"
 
 export default function Home({ products, favorites }) {
   const router = useRouter()
@@ -24,6 +23,7 @@ export default function Home({ products, favorites }) {
     brand: null,
     minPrice: null,
     maxPrice: null,
+    rating: null,
   })
   const brandsFilterList = useRef()
   const minPriceRef = useRef()
@@ -72,8 +72,6 @@ export default function Home({ products, favorites }) {
       minPrice: selectedPrice[0],
       maxPrice: selectedPrice[1],
     }))
-
-    console.log(queryParameters)
   }
 
   useEffect(() => {
@@ -244,40 +242,10 @@ export default function Home({ products, favorites }) {
             </div>
             <div className={styles.average_customer_review_wrapper}>
               {avgCustomerReview ? (
-                <ul className={styles.average_customer_review_list}>
-                  <li>
-                    <RiStarFill />
-                    <RiStarFill />
-                    <RiStarFill />
-                    <RiStarFill />
-                    <RiStarLine />
-                    <span> & up</span>
-                  </li>
-                  <li>
-                    <RiStarFill />
-                    <RiStarFill />
-                    <RiStarFill />
-                    <RiStarLine />
-                    <RiStarLine />
-                    <span> & up</span>
-                  </li>
-                  <li>
-                    <RiStarFill />
-                    <RiStarFill />
-                    <RiStarLine />
-                    <RiStarLine />
-                    <RiStarLine />
-                    <span> & up</span>
-                  </li>
-                  <li>
-                    <RiStarFill />
-                    <RiStarLine />
-                    <RiStarLine />
-                    <RiStarLine />
-                    <RiStarLine />
-                    <span> & up</span>
-                  </li>
-                </ul>
+                <AverageReview
+                  queryParameters={queryParameters}
+                  setQueryParameters={setQueryParameters}
+                />
               ) : null}
             </div>
           </div>

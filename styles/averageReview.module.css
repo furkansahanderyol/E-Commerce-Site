@@ -1,0 +1,17 @@
+.average_customer_review_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.average_customer_review_list {
+  height: fit-content;
+  list-style: none;
+}
+
+.average_customer_review_list svg {
+  color: orange;
+  font-size: 1.2em;
+  pointer-events: none;
+}
