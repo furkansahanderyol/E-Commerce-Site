@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa"
 import { FaHeart } from "react-icons/fa"
 import { FaShoppingCart } from "react-icons/fa"
 import Link from "next/link"
-import styles from "../../styles/Header.module.css"
+import styles from "../../styles/header.module.css"
 
 export default function Header() {
   return (
