@@ -5,7 +5,7 @@ import FavoriteButton from "../FavoriteButton/FavoriteButton"
 import { useRouter } from "next/router"
 import { BsThreeDots } from "react-icons/bs"
 import Options from "../Options/Options"
-import styles from "../../styles/product.module.css"
+import styles from "../../styles/productStyles.module.css"
 
 export default function Product(props) {
   const {
