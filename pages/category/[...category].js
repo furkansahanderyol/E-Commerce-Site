@@ -9,9 +9,9 @@ import axios from "axios"
 import NotificationsWrapper from "@/components/NotificationsWrapper/NotificationsWrapper"
 import styles from "../../styles/Home.module.css"
 
-export default function Home({ products, favorites }) {
+export default function Home({ products, favorites, previousQueryParameters }) {
   const router = useRouter()
-  const [data, setData] = useState(products)
+  const [data, setData] = useState(null)
   const [brandsList, setBrandsList] = useState(false)
   const [priceList, setPriceList] = useState(false)
   const [avgCustomerReview, setAvgCustomerReview] = useState(false)
@@ -19,12 +19,10 @@ export default function Home({ products, favorites }) {
   const [selectedBrands, setSelectedBrands] = useState([])
   const [favoriteProducts, setFavoriteProducts] = useState([])
   const [notifications, setNotifications] = useState([])
-  const [queryParameters, setQueryParameters] = useState({
-    brand: null,
-    minPrice: null,
-    maxPrice: null,
-    rating: null,
-  })
+  const [queryParameters, setQueryParameters] = useState(
+    previousQueryParameters
+  )
+  const [filterHistory, setFilterHistory] = useState({})
   const brandsFilterList = useRef()
   const minPriceRef = useRef()
   const maxPriceRef = useRef()
@@ -56,10 +54,12 @@ export default function Home({ products, favorites }) {
       })
       .join(",")
 
-    setQueryParameters((prevParameters) => ({
-      ...prevParameters,
-      brand: selectedFilters,
-    }))
+    setQueryParameters((prevParameters) => {
+      return {
+        ...prevParameters,
+        brand: selectedFilters,
+      }
+    })
   }
 
   function selectPriceRange(e) {
@@ -73,6 +73,23 @@ export default function Home({ products, favorites }) {
       maxPrice: selectedPrice[1],
     }))
   }
+
+  useEffect(() => {
+    setFilterHistory(queryParameters)
+  }, [])
+
+  useEffect(() => {
+    const isNull = Object.values(filterHistory).every((value) => {
+      return value === null
+    })
+
+    if (!isNull) {
+      setQueryParameters(filterHistory)
+      setSelectedBrands(filterHistory.brand)
+    }
+  }, [filterHistory])
+
+  useEffect(() => {}, [])
 
   useEffect(() => {
     router.push(
@@ -98,6 +115,10 @@ export default function Home({ products, favorites }) {
   }, [router.query.category])
 
   useEffect(() => {
+    const isNull = Object.values(previousQueryParameters).every((value) => {
+      return value === null
+    })
+
     axios
       .get(`http://localhost:3000/api/category/${router.query.category[0]}`, {
         params: queryParameters,
@@ -105,7 +126,7 @@ export default function Home({ products, favorites }) {
       .then((response) => {
         return setData(response.data.products)
       })
-  }, [router.query])
+  }, [queryParameters])
 
   useEffect(() => {
     const matchedProducts = []
@@ -280,6 +301,14 @@ export default function Home({ products, favorites }) {
 
 export async function getServerSideProps(context) {
   const { params } = context
+  const { query } = context
+
+  const queryParameters = {
+    brand: query.brand || null,
+    minPrice: query.minPrice || null,
+    maxPrice: query.maxPrice || null,
+    rating: query.rating || null,
+  }
   const category = params.category[0]
 
   const categoryResponse = await fetch(
@@ -293,6 +322,7 @@ export async function getServerSideProps(context) {
     props: {
       products: categoryProductsData.products,
       favorites: favoriteProductsData,
+      previousQueryParameters: queryParameters,
     },
   }
 }

@@ -6,9 +6,11 @@ export default function FilterListElement({ brand, selectedBrands }) {
   const checkboxRef = useRef()
 
   useEffect(() => {
-    selectedBrands.includes(filterText.current.textContent)
-      ? (checkboxRef.current.checked = true)
-      : (checkboxRef.current.checked = false)
+    if (selectedBrands.length > 0) {
+      selectedBrands.split(",").includes(filterText.current.textContent)
+        ? (checkboxRef.current.checked = true)
+        : (checkboxRef.current.checked = false)
+    }
   }, [selectedBrands])
 
   return (
