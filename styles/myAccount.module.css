@@ -1,0 +1,46 @@
+.my_account_wrapper {
+  padding: 1.5rem;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+
+  overflow: hidden;
+
+  z-index: 1;
+}
+
+.section_container {
+  border: 1px solid black;
+
+  width: 80%;
+  height: 70%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.my_account_headers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 0.5em 1em;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.section_header {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+}

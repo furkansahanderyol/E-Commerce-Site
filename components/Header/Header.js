@@ -18,10 +18,12 @@ export default function Header() {
       />
       <nav className="x">
         <ul className={styles.navigation_list}>
-          <li className={styles.list_item}>
-            <FaUser />
-            My Account
-          </li>
+          <Link href={"/myAccount"}>
+            <li className={styles.list_item}>
+              <FaUser />
+              My Account
+            </li>
+          </Link>
           <Link href={"/favorites"}>
             <li className={styles.list_item}>
               <FaHeart />
