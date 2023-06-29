@@ -31,6 +31,9 @@ app.prepare().then(() => {
   const cart = require("./routes/cart")
   server.use("/api", cart)
 
+  const accountInformation = require("./routes/accountInformation")
+  server.use("/api", accountInformation)
+
   server.all("*", (req, res) => {
     return handle(req, res)
   })

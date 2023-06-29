@@ -1,0 +1,78 @@
+.account_information_wrapper {
+  width: 100%;
+  height: 100%;
+
+  padding: 1.5em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.update_button,
+.update_button_active {
+  align-self: center;
+
+  cursor: not-allowed;
+}
+
+.update_button button,
+.update_button_active button {
+  width: 120px;
+  height: 40px;
+
+  outline: 1px solid gray;
+  border: 1px solid gray;
+  color: #ccc;
+
+  font-weight: bold;
+
+  border-radius: 0.3em;
+
+  pointer-events: none;
+  cursor: not-allowed;
+
+  opacity: 1;
+  background-color: #444;
+}
+
+.update_button_active button {
+  background-color: #588620;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.update_button_active button:hover {
+  background-color: #51ff14;
+  color: #fcfcfc;
+}
+
+.cellphone_number_input input {
+  width: 160px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0.3em;
+
+  padding: 0.1em 0.3em;
+
+  border: 1px solid black;
+
+  font-size: 18px;
+
+  appearance: textfield;
+  overflow: hidden;
+}
+
+.cellphone_number_input input::-webkit-inner-spin-button,
+.cellphone_number_input input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cellphone_number_input input {
+  -moz-appearance: textfield;
+}
