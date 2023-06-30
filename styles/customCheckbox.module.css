@@ -11,6 +11,10 @@
   opacity: 0;
 }
 
+.custom_checkbox_label {
+  pointer-events: none;
+}
+
 .custom_checkbox_label::before {
   content: "";
   position: absolute;
@@ -24,6 +28,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  pointer-events: auto;
 }
 
 .checkbox_wrapper

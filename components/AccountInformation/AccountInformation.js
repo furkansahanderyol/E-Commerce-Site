@@ -23,8 +23,6 @@ export default function AccountInformation({ data, setData }) {
     data?.cellphoneNumber
   )
   const [updateGender, setUpdateGender] = useState(data?.gender)
-  const maleGenderRef = useRef(null)
-  const femaleGenderRef = useRef(null)
 
   const router = useRouter()
 
@@ -45,13 +43,18 @@ export default function AccountInformation({ data, setData }) {
     const isDialCodeUpdated = dialCode !== updateDialCode
     const isCellphoneNumberUpdated =
       parseInt(cellphoneNumber) !== parseInt(updateCellphoneNumber)
+    const isGenderUpdated = gender !== updateGender
+
+    console.log("gender", gender)
+    console.log("updateGender", updateGender)
 
     if (
       isNameUpdated ||
       isSurnameUpdated ||
       isEmailUpdated ||
       isDialCodeUpdated ||
-      isCellphoneNumberUpdated
+      isCellphoneNumberUpdated ||
+      isGenderUpdated
     ) {
       setUpdateButtonActive(true)
     } else {
@@ -63,6 +66,7 @@ export default function AccountInformation({ data, setData }) {
     updateEmail,
     updateDialCode,
     updateCellphoneNumber,
+    updateGender,
   ])
 
   async function handleUpdateAccountInformation() {
@@ -70,6 +74,7 @@ export default function AccountInformation({ data, setData }) {
       updateName,
       updateSurname,
       updateEmail,
+      updateGender,
     })
 
     axios
@@ -85,23 +90,9 @@ export default function AccountInformation({ data, setData }) {
     setUpdateCellphoneNumber(e.target.value)
   }
 
-  function handleMaleGenderSelection(e) {
-    const checkboxWrapper = maleGenderRef.current
-    console.log("x1", checkboxWrapper)
-    const checkbox = checkboxWrapper.querySelector("input")
-    setUpdateGender("male")
+  function handleMaleGenderSelection() {}
 
-    checkbox.checked = true
-  }
-
-  function handleFemaleGenderSelection() {
-    const checkboxWrapper = femaleGenderRef.current
-    console.log("x2", checkboxWrapper)
-    const checkbox = checkboxWrapper.querySelector("input")
-    setUpdateGender("female")
-
-    checkbox.checked = true
-  }
+  function handleFemaleGenderSelection() {}
 
   return (
     <div className={styles.account_information_wrapper}>
@@ -155,10 +146,18 @@ export default function AccountInformation({ data, setData }) {
       </div>
       <div className={styles.gender_selection}>
         <div onClick={handleMaleGenderSelection} className={styles.male}>
-          <CustomCheckbox gender={"Male"} maleGenderRef={maleGenderRef} />
+          <CustomCheckbox
+            gender={"Male"}
+            updateGender={updateGender}
+            setUpdateGender={setUpdateGender}
+          />
         </div>
         <div onClick={handleFemaleGenderSelection} className={styles.female}>
-          <CustomCheckbox gender={"Female"} femaleGenderRef={femaleGenderRef} />
+          <CustomCheckbox
+            gender={"Female"}
+            updateGender={updateGender}
+            setUpdateGender={setUpdateGender}
+          />
         </div>
       </div>
       <div

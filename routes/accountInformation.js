@@ -31,10 +31,12 @@ router.post("/accountInformation/update", (req, res) => {
   const updatedName = req.body.updateName
   const updatedSurname = req.body.updateSurname
   const updatedEmail = req.body.updateEmail
+  const updatedGender = req.body.updateGender
 
   accountInformation.name = updatedName
   accountInformation.surname = updatedSurname
   accountInformation.email = updatedEmail
+  accountInformation.gender = updatedGender
 
   res.json({ accountInformation })
 })
