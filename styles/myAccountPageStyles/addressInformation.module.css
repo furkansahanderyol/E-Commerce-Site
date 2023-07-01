@@ -1,0 +1,5 @@
+.create_address_form {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}

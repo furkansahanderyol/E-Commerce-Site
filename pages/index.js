@@ -1,5 +1,6 @@
 import React from "react"
 import Link from "next/link"
+import styles from "../styles/homePageStyles/home.module.css"
 
 export default function index() {
   return (

@@ -1,8 +1,8 @@
 import React from "react"
-import Product from "@/components/Product/Product"
-import FavoritesHeader from "@/components/FavoritesHeader/FavoritesHeader"
-import SectionHeader from "@/components/SectionHeader/SectionHeader"
-import styles from "../../styles/FavoritePage.module.css"
+import Product from "@/components/CommonComponents/Product/Product"
+import FavoritesHeader from "@/components/FavoritesPageComponents/FavoritesHeader/FavoritesHeader"
+import SectionHeader from "@/components/CommonComponents/SectionHeader/SectionHeader"
+import styles from "../../styles/favoritesPageStyles/favoritePage.module.css"
 
 export default function Favorites({ favorites }) {
   return (

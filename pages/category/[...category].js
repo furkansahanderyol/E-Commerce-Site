@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/router"
-import Product from "@/components/Product/Product"
-import FilterListElement from "@/components/FilterListElement/FilterListElement"
-import FilterListHeader from "@/components/FilterListHeader/FilterListHeader"
-import Notification from "@/components/Notification/Notification"
-import AverageReview from "@/components/AverageReview/AverageReview"
+import Product from "@/components/CommonComponents/Product/Product"
+import FilterListElement from "@/components/CategoryPageComponents/FilterListElement/FilterListElement"
+import FilterListHeader from "@/components/CategoryPageComponents/FilterListHeader/FilterListHeader"
+import Notification from "@/components/CommonComponents/Notification/Notification"
+import AverageReview from "@/components/CategoryPageComponents/AverageReview/AverageReview"
 import axios from "axios"
-import NotificationsWrapper from "@/components/NotificationsWrapper/NotificationsWrapper"
-import styles from "../../styles/Home.module.css"
+import NotificationsWrapper from "@/components/CommonComponents/NotificationsWrapper/NotificationsWrapper"
+import styles from "../../styles/categoryPageStyles/category.module.css"
 
 export default function Home({ products, favorites, previousQueryParameters }) {
   const router = useRouter()
