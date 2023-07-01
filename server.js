@@ -34,6 +34,9 @@ app.prepare().then(() => {
   const accountInformation = require("./routes/accountInformation")
   server.use("/api", accountInformation)
 
+  const addressInformation = require("./routes/addressInformation")
+  server.use("/api", addressInformation)
+
   server.all("*", (req, res) => {
     return handle(req, res)
   })

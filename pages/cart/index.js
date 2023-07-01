@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
-import CartItem from "@/components/CartItem/CartItem"
-import axios from "axios"
-import styles from "../../styles/cart.module.css"
+import CartItem from "@/components/CartPageComponents/CartItem/CartItem"
+import styles from "../../styles/cartPageStyles/cart.module.css"
 
 export default function Cart({ cart = [] }) {
   const [cartItems, setCartItems] = useState([])

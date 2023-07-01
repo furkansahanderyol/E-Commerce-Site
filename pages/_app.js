@@ -1,6 +1,6 @@
-import Header from "@/components/Header/Header"
+import Header from "@/components/CommonComponents/Header/Header"
 import CollectionsProvider from "./collections/CollectionsContext"
-import OverlayProvider from "@/components/OverlayContext/OverlayContext"
+import OverlayProvider from "@/components/CommonComponents/OverlayContext/OverlayContext"
 import "@/styles/globals.css"
 
 export default function App({ Component, pageProps }) {

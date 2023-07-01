@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from "react"
-import FavoritesHeader from "@/components/FavoritesHeader/FavoritesHeader"
-import SectionHeader from "@/components/SectionHeader/SectionHeader"
+import FavoritesHeader from "@/components/FavoritesPageComponents/FavoritesHeader/FavoritesHeader"
+import SectionHeader from "@/components/CommonComponents/SectionHeader/SectionHeader"
 import axios from "axios"
-import CollectionBubble from "@/components/CollectionBubble/CollectionBubble"
-import AvailableCollectionItems from "@/components/AvailableCollectionItems/AvailableCollectionItems"
+import CollectionBubble from "@/components/CollectionsPageComponents/CollectionBubble/CollectionBubble"
+import AvailableCollectionItems from "@/components/CollectionsPageComponents/AvailableCollectionItems/AvailableCollectionItems"
 import { CollectionsContext } from "./CollectionsContext"
-import { OverlayContext } from "@/components/OverlayContext/OverlayContext"
-import CreateNewCollectionModal from "@/components/CreateNewCollectionModal/CreateNewCollectionModal"
-import styles from "../../styles/collectionsStyle.module.css"
+import { OverlayContext } from "@/components/CommonComponents/OverlayContext/OverlayContext"
+import CreateNewCollectionModal from "@/components/CollectionsPageComponents/CreateNewCollectionModal/CreateNewCollectionModal"
+import styles from "../../styles/collectionsPageStyles/collectionsStyle.module.css"
 
 export default function Collections({ favorites }) {
   const [collections, setCollections] = useState([])

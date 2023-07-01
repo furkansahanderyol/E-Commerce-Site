@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react"
-import AccountInformation from "@/components/AccountInformation/AccountInformation"
+import React, { useState } from "react"
+import AccountInformation from "@/components/MyAccountPageComponents/AccountInformation/AccountInformation"
+import AddressInformation from "@/components/MyAccountPageComponents/AddressInformation/AddressInformation"
 import axios from "axios"
-import styles from "../../styles/myAccount.module.css"
+import styles from "../../styles/myAccountPageStyles/myAccount.module.css"
 
 export default function index({ accountData }) {
   const [data, setData] = useState(accountData)
@@ -45,7 +46,9 @@ export default function index({ accountData }) {
           </div>
         ) : null}
         {section === "address" ? (
-          <div className={`${styles.section} ${styles.address}`}>Address</div>
+          <div className={`${styles.section} ${styles.address}`}>
+            <AddressInformation />
+          </div>
         ) : null}
         {section === "order" ? (
           <div className={`${styles.section} ${styles.orders}`}>Orders</div>

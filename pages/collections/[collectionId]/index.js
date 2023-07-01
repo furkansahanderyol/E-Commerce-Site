@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
-import AvailableCollectionItems from "@/components/AvailableCollectionItems/AvailableCollectionItems"
+import AvailableCollectionItems from "@/components/CollectionsPageComponents/AvailableCollectionItems/AvailableCollectionItems"
 import { CollectionsContext } from "../CollectionsContext"
-import { OverlayContext } from "@/components/OverlayContext/OverlayContext"
-import CollectionList from "@/components/CollectionList/CollectionList"
-import Product from "@/components/Product/Product"
-import CreateNewCollectionModal from "@/components/CreateNewCollectionModal/CreateNewCollectionModal"
-import styles from "../../../styles/collectionId.module.css"
+import { OverlayContext } from "@/components/CommonComponents/OverlayContext/OverlayContext"
+import CollectionList from "@/components/CollectionsPageComponents/CollectionList/CollectionList"
+import Product from "@/components/CommonComponents/Product/Product"
+import CreateNewCollectionModal from "@/components/CollectionsPageComponents/CreateNewCollectionModal/CreateNewCollectionModal"
+import styles from "../../../styles/collectionsPageStyles/collectionId.module.css"
 
 export default function Collection({ collections, favorites }) {
   const [collection, setCollection] = useState([])

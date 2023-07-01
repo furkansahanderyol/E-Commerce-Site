@@ -1,0 +1,40 @@
+.checkbox_wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+.custom_checkbox {
+  position: absolute;
+  left: -99999px;
+  opacity: 0;
+}
+
+.custom_checkbox_label {
+  pointer-events: none;
+}
+
+.custom_checkbox_label::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 0.3em;
+
+  left: -20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: auto;
+}
+
+.checkbox_wrapper
+  input[type="checkbox"]:checked
+  + .custom_checkbox_label::before {
+  content: "\2713";
+  background-color: red;
+}
