@@ -1,5 +1,36 @@
-.create_address_form {
+.address_information_wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+}
+
+.addresses {
   position: absolute;
-  opacity: 0;
-  pointer-events: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100%;
+  background-color: red;
+
+  padding: 1.5em;
+}
+
+.saved_address_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+
+  gap: 20px;
+
+  max-height: 90%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.create_address_button {
+  align-self: center;
 }

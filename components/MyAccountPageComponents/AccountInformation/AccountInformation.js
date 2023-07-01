@@ -128,6 +128,7 @@ export default function AccountInformation({ data, setData }) {
         <div>Cellphone: </div>
         <div>
           <DropdownMenu
+            type={"dial"}
             value={updateDialCode}
             options={areaCodes}
             setUpdateDialCode={setUpdateDialCode}
