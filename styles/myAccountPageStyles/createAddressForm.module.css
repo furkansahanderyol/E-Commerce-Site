@@ -1,0 +1,13 @@
+.create_address_form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translateX(-50%) translateY(-50%);
+
+  z-index: 100;
+
+  width: 600px;
+  height: 600px;
+  background-color: yellow;
+}

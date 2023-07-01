@@ -4,7 +4,12 @@ import AddressInformation from "@/components/MyAccountPageComponents/AddressInfo
 import axios from "axios"
 import styles from "../../styles/myAccountPageStyles/myAccount.module.css"
 
-export default function index({ accountData }) {
+export default function index({
+  accountData,
+  addressData,
+  countryData,
+  API_KEY,
+}) {
   const [data, setData] = useState(accountData)
   const [section, setSection] = useState("info")
 
@@ -47,7 +52,11 @@ export default function index({ accountData }) {
         ) : null}
         {section === "address" ? (
           <div className={`${styles.section} ${styles.address}`}>
-            <AddressInformation />
+            <AddressInformation
+              addressData={addressData}
+              countryData={countryData}
+              API_KEY={API_KEY}
+            />
           </div>
         ) : null}
         {section === "order" ? (
@@ -62,11 +71,23 @@ export async function getServerSideProps() {
   const accountInformationResponse = await axios.get(
     "http://localhost:3000/api/accountInformation"
   )
+  const addressResponse = await axios.get(
+    "http://localhost:3000/api/addressInformation"
+  )
+  const countryInformation = await axios.get(
+    "http://localhost:3000/api/countryInformation"
+  )
   const accountInformationData = await accountInformationResponse.data
+  const addressData = await addressResponse.data
+  const countryInformationData = await countryInformation.data
+  const API_KEY = "plac1dusax"
 
   return {
     props: {
       accountData: accountInformationData,
+      addressData: addressData,
+      countryData: countryInformationData.countryInformation,
+      API_KEY,
     },
   }
 }
