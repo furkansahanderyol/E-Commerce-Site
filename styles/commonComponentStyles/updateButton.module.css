@@ -1,0 +1,37 @@
+.update_button,
+.update_button_active {
+  align-self: center;
+
+  cursor: not-allowed;
+}
+
+.update_button button,
+.update_button_active button {
+  width: 120px;
+  height: 40px;
+
+  outline: 1px solid gray;
+  border: 1px solid gray;
+  color: #ccc;
+
+  font-weight: bold;
+
+  border-radius: 0.3em;
+
+  pointer-events: none;
+  cursor: not-allowed;
+
+  opacity: 1;
+  background-color: #444;
+}
+
+.update_button_active button {
+  background-color: #588620;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.update_button_active button:hover {
+  background-color: #51ff14;
+  color: #fcfcfc;
+}

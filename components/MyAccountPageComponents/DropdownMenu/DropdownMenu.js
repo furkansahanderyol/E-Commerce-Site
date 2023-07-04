@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { MdKeyboardArrowDown } from "react-icons/md"
 import { MdKeyboardArrowUp } from "react-icons/md"
 import axios from "axios"
@@ -13,6 +13,7 @@ export default function DropdownMenu(props) {
     setSelectedCountryName,
     setSelectedCountryCode,
     setSelectedProvince,
+    danger,
   } = props
   const [dropdown, setDropdown] = useState(false)
 
@@ -79,14 +80,18 @@ export default function DropdownMenu(props) {
     return (
       <div
         onClick={handleDropdownClick}
-        className={styles.dropdown_menu_wrapper}
+        className={
+          danger
+            ? styles.dropdown_menu_wrapper_danger
+            : styles.dropdown_menu_wrapper
+        }
       >
         {value}
         <MdKeyboardArrowUp />
         <div
           className={
             dropdown
-              ? `${styles.dropdown_menu_list} ${styles.dropdown_menu_list_active}`
+              ? ` ${styles.dropdown_menu_list} ${styles.dropdown_menu_list_active}`
               : styles.dropdown_menu_list
           }
         >
@@ -108,7 +113,15 @@ export default function DropdownMenu(props) {
     return (
       <div
         onClick={handleDropdownClick}
-        className={styles.dropdown_menu_wrapper}
+        className={
+          options.length > 0
+            ? `${
+                danger
+                  ? styles.dropdown_menu_wrapper_danger
+                  : styles.dropdown_menu_wrapper
+              } ${styles.dropdown_menu_wrapper_province}`
+            : styles.dropdown_menu_wrapper_disabled
+        }
       >
         {value}
         <MdKeyboardArrowUp />
@@ -119,7 +132,7 @@ export default function DropdownMenu(props) {
               : styles.dropdown_menu_list
           }
         >
-          {options?.geonames?.map((option, index) => {
+          {options.map((option, index) => {
             return (
               <div
                 key={index}

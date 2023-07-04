@@ -8,7 +8,7 @@ router.use(server.urlencoded({ extended: false }))
 let filteredProducts = []
 
 router.get("/:category", async (req, res) => {
-  const category = req.params.category
+  const { category } = req.params
   const brands = req.query.brand
   const minPrice = req.query.minPrice
   const maxPrice = req.query.maxPrice

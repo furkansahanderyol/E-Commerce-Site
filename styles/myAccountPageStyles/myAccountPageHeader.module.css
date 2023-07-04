@@ -1,0 +1,19 @@
+.my_account_headers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 0.5em 1em;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.section_header,
+.section_header_active {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.section_header_active {
+  border-bottom: 1px solid red;
+}
