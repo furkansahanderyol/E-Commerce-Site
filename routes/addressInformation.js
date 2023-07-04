@@ -6,52 +6,17 @@ const axios = require("axios")
 router.use(server.json())
 router.use(server.urlencoded({ extended: false }))
 
-const addressInformation = [
-  {
-    id: uuid.v4(),
-    name: "Home",
-    street: "1234 Main St",
-    city: "Cityville, State 5678",
-    country: "USA",
-  },
-  {
-    id: uuid.v4(),
-    name: "Home",
-    street: "1234 Main St",
-    city: "Cityville, State 5678",
-    country: "USA",
-  },
-  {
-    id: uuid.v4(),
-    name: "Home",
-    street: "1234 Main St",
-    city: "Cityville, State 5678",
-    country: "USA",
-  },
-  {
-    id: uuid.v4(),
-    name: "Home",
-    street: "1234 Main St",
-    city: "Cityville, State 5678",
-    country: "USA",
-  },
-  {
-    id: uuid.v4(),
-    name: "Home",
-    street: "1234 Main St",
-    city: "Cityville, State 5678",
-    country: "USA",
-  },
-  {
-    id: uuid.v4(),
-    name: "Home",
-    street: "1234 Main St",
-    city: "Cityville, State 5678",
-    country: "USA",
-  },
-]
+const addressInformation = []
 
 router.get("/addressInformation", (req, res) => {
+  res.json({ addressInformation })
+})
+
+router.post("/addressInformation", (req, res) => {
+  const { newAddress } = req.body
+
+  addressInformation.push(newAddress)
+
   res.json({ addressInformation })
 })
 

@@ -20,23 +20,20 @@ router.get("/accountInformation", (req, res) => {
 })
 
 router.post("/accountInformation/dialCode", (req, res) => {
-  const newDialCode = req.body.selectedDialCode
+  const selectedDialCode = req.body
 
-  accountInformation.dialCode = newDialCode
+  accountInformation.dialCode = selectedDialCode
 
   res.json({ accountInformation })
 })
 
 router.post("/accountInformation/update", (req, res) => {
-  const updatedName = req.body.updateName
-  const updatedSurname = req.body.updateSurname
-  const updatedEmail = req.body.updateEmail
-  const updatedGender = req.body.updateGender
+  const { updateName, updateSurname, updateEmail, updateGender } = req.body
 
-  accountInformation.name = updatedName
-  accountInformation.surname = updatedSurname
-  accountInformation.email = updatedEmail
-  accountInformation.gender = updatedGender
+  accountInformation.name = updateName
+  accountInformation.surname = updateSurname
+  accountInformation.email = updateEmail
+  accountInformation.gender = updateGender
 
   res.json({ accountInformation })
 })

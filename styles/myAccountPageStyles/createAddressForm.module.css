@@ -10,4 +10,74 @@
   width: 600px;
   height: 600px;
   background-color: yellow;
+
+  padding: 1.5em;
+}
+
+.form_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.input_wrapper,
+.input_wrapper_danger {
+  display: flex;
+  flex-direction: column;
+}
+
+.input_wrapper input,
+.input_wrapper_danger input {
+  height: 20px;
+  border-radius: 0.3em;
+  outline: none;
+  border: 1px solid green;
+}
+
+.input_wrapper_danger input {
+  border: 1px solid red;
+}
+
+.input_wrapper input {
+  box-shadow: 0 0 5px 0 green;
+}
+
+.input_wrapper_danger input {
+  box-shadow: 0 0 5px 0 red;
+}
+
+.name_and_surname_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.country_and_province_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.address_input textarea,
+.address_input_danger textarea {
+  height: 200px;
+  resize: none;
+  border-radius: 0.3em;
+  outline: none;
+  border: 1px solid green;
+}
+
+.address_input_danger textarea {
+  border: 1px solid red;
+}
+
+.address_input textarea:focus {
+  box-shadow: 0 0 5px 0 green;
+}
+
+.address_input_danger textarea:focus {
+  box-shadow: 0 0 5px 0 red;
 }

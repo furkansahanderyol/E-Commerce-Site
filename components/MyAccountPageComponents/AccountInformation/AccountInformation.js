@@ -67,6 +67,12 @@ export default function AccountInformation({ data, setData }) {
   ])
 
   async function handleUpdateAccountInformation() {
+    console.log(updateName)
+    console.log(updateSurname)
+    console.log(updateEmail)
+    console.log(updateDialCode)
+    console.log(updateCellphoneNumber)
+    console.log(updateGender)
     axios.post("http://localhost:3000/api/accountInformation/update", {
       updateName,
       updateSurname,
@@ -86,10 +92,6 @@ export default function AccountInformation({ data, setData }) {
   function handleCellphoneNumber(e) {
     setUpdateCellphoneNumber(e.target.value)
   }
-
-  function handleMaleGenderSelection() {}
-
-  function handleFemaleGenderSelection() {}
 
   return (
     <div className={styles.account_information_wrapper}>
@@ -143,14 +145,14 @@ export default function AccountInformation({ data, setData }) {
         </div>
       </div>
       <div className={styles.gender_selection}>
-        <div onClick={handleMaleGenderSelection} className={styles.male}>
+        <div className={styles.male}>
           <CustomCheckbox
             gender={"Male"}
             updateGender={updateGender}
             setUpdateGender={setUpdateGender}
           />
         </div>
-        <div onClick={handleFemaleGenderSelection} className={styles.female}>
+        <div className={styles.female}>
           <CustomCheckbox
             gender={"Female"}
             updateGender={updateGender}
