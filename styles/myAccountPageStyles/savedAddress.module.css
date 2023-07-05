@@ -1,8 +1,37 @@
 .saved_address_wrapper {
+  position: relative;
   background-color: yellow;
 
   border: 1px solid black;
   border-radius: 0.3em;
 
   max-height: 200px;
+}
+
+.edit_address {
+  position: absolute;
+  right: -5%;
+
+  opacity: 0;
+  pointer-events: none;
+
+  cursor: pointer;
+
+  transition: right 0.2s ease-in-out;
+}
+
+.saved_address_wrapper:hover .edit_address {
+  animation: edit 0.2s alternate forwards;
+}
+
+@keyframes edit {
+  0% {
+    right: 0%;
+  }
+
+  100% {
+    opacity: 1;
+    pointer-events: all;
+    right: 5%;
+  }
 }

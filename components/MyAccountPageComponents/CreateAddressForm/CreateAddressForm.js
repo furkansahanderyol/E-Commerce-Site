@@ -1,15 +1,28 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import { AiOutlineClose } from "react-icons/ai"
 import axios from "axios"
 import { useRouter } from "next/router"
 import styles from "../../../styles/myAccountPageStyles/createAddressForm.module.css"
 
-export default function CreateAddressForm({
-  countryData,
-  API_KEY,
-  setCreateAddressForm,
-}) {
+export default function CreateAddressForm(props) {
+  const {
+    countryData,
+    API_KEY,
+    setCreateAddressForm,
+    selectedAddressId,
+    selectedAddressName,
+    setSelectedAddressName,
+    selectedAddressStreet,
+    setSelectedAddressStreet,
+    selectedAddressProvince,
+    setSelectedAddressProvince,
+    selectedAddressCountry,
+    setSelectedAddressCountry,
+    editAddress,
+    setEditAddress,
+  } = props
+
   const [countries, setCountries] = useState()
   const [selectedCountryName, setSelectedCountryName] = useState("")
   const [selectedCountryCode, setSelectedCountryCode] = useState("")
@@ -30,8 +43,22 @@ export default function CreateAddressForm({
   const [isSelectedProvinceEmpty, setIsSelectedProvinceEmpty] = useState(null)
   const [isFormReady, setIsFormReady] = useState(false)
   const [error, setError] = useState(false)
+  const nameInputRef = useRef(null)
+  const streetInputRef = useRef(null)
 
   const router = useRouter()
+
+  useEffect(() => {
+    if (editAddress) {
+      nameInputRef.current.value = selectedAddressName
+      streetInputRef.current.value = selectedAddressStreet
+
+      setNameInput(selectedAddressName)
+      setStreetInput(selectedAddressStreet)
+    }
+
+    setSelectedAddressName(null)
+  }, [])
 
   useEffect(() => {
     const countryNames = countryData?.countryInformation.geonames.map(
@@ -131,11 +158,13 @@ export default function CreateAddressForm({
 
     setIsFormReady(false)
     setCreateAddressForm(false)
+    setEditAddress(false)
     router.reload()
   }, [isFormReady])
 
   function handleCloseForm() {
     setCreateAddressForm(false)
+    setEditAddress(false)
   }
 
   function handleSubmit(e) {
@@ -173,6 +202,7 @@ export default function CreateAddressForm({
         >
           <label htmlFor="name">Name:</label>
           <input
+            ref={nameInputRef}
             onChange={(e) => setNameInput(e.target.value)}
             type="text"
             id="name"
@@ -228,6 +258,7 @@ export default function CreateAddressForm({
         >
           <label htmlFor="street">Street:</label>
           <input
+            ref={streetInputRef}
             onChange={(e) => setStreetInput(e.target.value)}
             type="text"
             id="street"
