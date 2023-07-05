@@ -11,6 +11,12 @@ export default function AddressInformation({
   API_KEY,
 }) {
   const [createAddressForm, setCreateAddressForm] = useState(false)
+  const [selectedAddressId, setSelectedAddressId] = useState(null)
+  const [selectedAddressName, setSelectedAddressName] = useState(null)
+  const [selectedAddressStreet, setSelectedAddressStreet] = useState(null)
+  const [selectedAddressProvince, setSelectedAddressProvince] = useState(null)
+  const [selectedAddressCountry, setSelectedAddressCountry] = useState(null)
+  const [editAddress, setEditAddress] = useState(false)
 
   function handleCreateAddressButtonClick() {
     setCreateAddressForm(true)
@@ -26,11 +32,19 @@ export default function AddressInformation({
               {addressData.addressInformation.map((address) => {
                 return (
                   <SavedAddress
+                    location={"addressInformation"}
                     key={address.id}
                     name={address.name}
                     street={address.street}
                     city={address.city}
                     country={address.country}
+                    setCreateAddressForm={setCreateAddressForm}
+                    setSelectedAddressId={setSelectedAddressId}
+                    setSelectedAddressName={setSelectedAddressName}
+                    setSelectedAddressStreet={setSelectedAddressStreet}
+                    setSelectedAddressProvince={setSelectedAddressProvince}
+                    setSelectedAddressCountry={setSelectedAddressCountry}
+                    setEditAddress={setEditAddress}
                   />
                 )
               })}
@@ -49,6 +63,17 @@ export default function AddressInformation({
           countryData={countryData}
           API_KEY={API_KEY}
           setCreateAddressForm={setCreateAddressForm}
+          selectedAddressId={selectedAddressId}
+          selectedAddressName={selectedAddressName}
+          setSelectedAddressName={setSelectedAddressName}
+          selectedAddressStreet={selectedAddressStreet}
+          setSelectedAddressStreet={setSelectedAddressStreet}
+          selectedAddressProvince={selectedAddressProvince}
+          setSelectedAddressProvince={setSelectedAddressProvince}
+          selectedAddressCountry={selectedAddressCountry}
+          setSelectedAddressCountry={setSelectedAddressCountry}
+          editAddress={editAddress}
+          setEditAddress={setEditAddress}
         />
       ) : null}
     </>
