@@ -21,6 +21,8 @@ export default function SavedAddress(props) {
     setEditAddress,
     setSelectedAddressId,
     setAddresses,
+    selectedAddress,
+    setSelectedAddress,
   } = props
 
   const router = useRouter()
@@ -47,8 +49,21 @@ export default function SavedAddress(props) {
       })
   }
 
+  function handleAddressClick() {
+    setSelectedAddress(id)
+  }
+
   return (
-    <div className={styles.saved_address_wrapper}>
+    <div
+      onClick={location === "cart" ? handleAddressClick : null}
+      className={
+        location === "cart"
+          ? selectedAddress === id
+            ? styles.saved_address_wrapper_cart_selected
+            : styles.saved_address_wrapper_cart
+          : styles.saved_address_wrapper
+      }
+    >
       {location === "addressInformation" ? (
         <div className={styles.address_options}>
           <div onClick={handleEditAddress} className={styles.edit_address}>

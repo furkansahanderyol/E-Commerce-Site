@@ -22,14 +22,11 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
   const [cartItems, setCartItems] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [chooseAddressModal, setChooseAddressModal] = useState(false)
+  const [selectedAddress, setSelectedAddress] = useState(null)
 
   useEffect(() => {
     setAddresses(addressData)
   }, [])
-
-  useEffect(() => {
-    console.log("addresses", addresses)
-  }, [addresses])
 
   useEffect(() => {
     setCartItems(cart)
@@ -100,12 +97,15 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
                 <SavedAddress
                   location={"cart"}
                   key={address.id}
+                  id={address.id}
                   name={address.name}
                   street={address.street}
                   city={address.city}
                   country={address.country}
                   setEditAddressForm={setEditAddressForm}
                   setEditAddress={setEditAddress}
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
                 />
               )
             })}
