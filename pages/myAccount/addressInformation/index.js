@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import MyAccountPageHeader from "@/components/MyAccountPageComponents/MyAccountpAgeHeader/MyAccountPageHeader"
 import SavedAddress from "@/components/MyAccountPageComponents/SavedAddress/SavedAddress"
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
 import axios from "axios"
+import { AddressFormContext } from "@/components/CommonComponents/AddressFormContext/AddressFormContext"
 import styles from "../../../styles/myAccountPageStyles/addressInformation.module.css"
 
 export default function AddressInformation({
@@ -10,14 +11,26 @@ export default function AddressInformation({
   countryData,
   API_KEY,
 }) {
-  const [createAddressForm, setCreateAddressForm] = useState(false)
-  const [editAddress, setEditAddress] = useState(null)
-  const [editAddressForm, setEditAddressForm] = useState(false)
+  const {
+    createAddressForm,
+    setCreateAddressForm,
+    editAddress,
+    setEditAddress,
+    editAddressForm,
+    setEditAddressForm,
+    addresses,
+    setAddresses,
+  } = useContext(AddressFormContext)
+
   const [selectedAddressId, setSelectedAddressId] = useState(null)
 
   function handleCreateAddressButtonClick() {
     setCreateAddressForm(true)
   }
+
+  useEffect(() => {
+    setAddresses(addressData)
+  }, [])
 
   return (
     <>
@@ -26,7 +39,7 @@ export default function AddressInformation({
           <MyAccountPageHeader section={"addressInformation"} />
           <div className={styles.grid_wrapper}>
             <div className={styles.saved_address_grid}>
-              {addressData.addressInformation.map((address) => {
+              {addresses?.addressInformation?.map((address) => {
                 return (
                   <SavedAddress
                     location={"addressInformation"}
@@ -43,6 +56,7 @@ export default function AddressInformation({
                     setEditAddressForm={setEditAddressForm}
                     setEditAddress={setEditAddress}
                     setSelectedAddressId={setSelectedAddressId}
+                    setAddresses={setAddresses}
                   />
                 )
               })}
@@ -65,6 +79,7 @@ export default function AddressInformation({
           setEditAddressForm={setEditAddressForm}
           editAddress={editAddress}
           selectedAddressId={selectedAddressId}
+          setAddresses={setAddresses}
         />
       ) : null}
     </>

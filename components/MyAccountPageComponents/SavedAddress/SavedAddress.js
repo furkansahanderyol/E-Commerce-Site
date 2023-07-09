@@ -20,6 +20,7 @@ export default function SavedAddress(props) {
     setEditAddressForm,
     setEditAddress,
     setSelectedAddressId,
+    setAddresses,
   } = props
 
   const router = useRouter()
@@ -38,7 +39,12 @@ export default function SavedAddress(props) {
 
   async function handleRemoveAddress() {
     axios.delete(`http://localhost:3000/api/addressInformation/${id}`)
-    router.reload()
+
+    axios
+      .get("http://localhost:3000/api/addressInformation")
+      .then((response) => {
+        setAddresses(response.data)
+      })
   }
 
   return (
