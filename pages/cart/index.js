@@ -1,16 +1,32 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import CartItem from "@/components/CartPageComponents/CartItem/CartItem"
 import axios from "axios"
 import SavedAddress from "@/components/MyAccountPageComponents/SavedAddress/SavedAddress"
 import CreateAddressButton from "@/components/CartPageComponents/CreateAddressButton/CreateAddressButton"
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
+import { AddressFormContext } from "@/components/CommonComponents/AddressFormContext/AddressFormContext"
 import styles from "../../styles/cartPageStyles/cart.module.css"
 
-export default function Cart({ cart = [], addresses, countryData, API_KEY }) {
+export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
+  const {
+    createAddressForm,
+    setCreateAddressForm,
+    editAddress,
+    setEditAddress,
+    editAddressForm,
+    setEditAddressForm,
+    addresses,
+    setAddresses,
+  } = useContext(AddressFormContext)
+
   const [cartItems, setCartItems] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [chooseAddressModal, setChooseAddressModal] = useState(false)
-  const [createAddressForm, setCreateAddressForm] = useState(false)
+  const [selectedAddress, setSelectedAddress] = useState(null)
+
+  useEffect(() => {
+    setAddresses(addressData)
+  }, [])
 
   useEffect(() => {
     setCartItems(cart)
@@ -76,15 +92,20 @@ export default function Cart({ cart = [], addresses, countryData, API_KEY }) {
           </div>
           <div className={styles.choose_address_grid}>
             <CreateAddressButton setCreateAddressForm={setCreateAddressForm} />
-            {addresses.map((address) => {
+            {addresses?.addressInformation?.map((address) => {
               return (
                 <SavedAddress
                   location={"cart"}
                   key={address.id}
+                  id={address.id}
                   name={address.name}
                   street={address.street}
                   city={address.city}
                   country={address.country}
+                  setEditAddressForm={setEditAddressForm}
+                  setEditAddress={setEditAddress}
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
                 />
               )
             })}
@@ -96,6 +117,11 @@ export default function Cart({ cart = [], addresses, countryData, API_KEY }) {
           countryData={countryData}
           API_KEY={API_KEY}
           setCreateAddressForm={setCreateAddressForm}
+          editAddressForm={editAddressForm}
+          setEditAddressForm={setEditAddressForm}
+          editAddress={editAddress}
+          setEditAddress={setEditAddress}
+          setAddresses={setAddresses}
         />
       ) : null}
     </>
@@ -118,7 +144,7 @@ export async function getServerSideProps() {
   return {
     props: {
       cart: cartData.cart,
-      addresses: addressData.addressInformation,
+      addressData: addressData.addressInformation,
       countryData: countryData,
       API_KEY,
     },

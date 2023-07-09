@@ -15,6 +15,7 @@ export default function CreateAddressForm(props) {
     setEditAddressForm,
     editAddress,
     selectedAddressId,
+    setAddresses,
   } = props
 
   const [countries, setCountries] = useState()
@@ -42,8 +43,6 @@ export default function CreateAddressForm(props) {
   const streetInputRef = useRef(null)
   const addressNameInputRef = useRef(null)
   const addressInputRef = useRef(null)
-
-  const router = useRouter()
 
   useEffect(() => {
     if (editAddressForm) {
@@ -158,7 +157,12 @@ export default function CreateAddressForm(props) {
     setIsFormReady(false)
     setCreateAddressForm(false)
     setEditAddressForm(false)
-    router.reload()
+
+    axios
+      .get("http://localhost:3000/api/addressInformation")
+      .then((response) => {
+        setAddresses(response.data)
+      })
   }, [isFormReady])
 
   function handleCloseForm() {

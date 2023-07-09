@@ -20,6 +20,9 @@ export default function SavedAddress(props) {
     setEditAddressForm,
     setEditAddress,
     setSelectedAddressId,
+    setAddresses,
+    selectedAddress,
+    setSelectedAddress,
   } = props
 
   const router = useRouter()
@@ -38,11 +41,29 @@ export default function SavedAddress(props) {
 
   async function handleRemoveAddress() {
     axios.delete(`http://localhost:3000/api/addressInformation/${id}`)
-    router.reload()
+
+    axios
+      .get("http://localhost:3000/api/addressInformation")
+      .then((response) => {
+        setAddresses(response.data)
+      })
+  }
+
+  function handleAddressClick() {
+    setSelectedAddress(id)
   }
 
   return (
-    <div className={styles.saved_address_wrapper}>
+    <div
+      onClick={location === "cart" ? handleAddressClick : null}
+      className={
+        location === "cart"
+          ? selectedAddress === id
+            ? styles.saved_address_wrapper_cart_selected
+            : styles.saved_address_wrapper_cart
+          : styles.saved_address_wrapper
+      }
+    >
       {location === "addressInformation" ? (
         <div className={styles.address_options}>
           <div onClick={handleEditAddress} className={styles.edit_address}>
