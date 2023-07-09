@@ -67,12 +67,6 @@ export default function AccountInformation({ data, setData }) {
   ])
 
   async function handleUpdateAccountInformation() {
-    console.log(updateName)
-    console.log(updateSurname)
-    console.log(updateEmail)
-    console.log(updateDialCode)
-    console.log(updateCellphoneNumber)
-    console.log(updateGender)
     axios.post("http://localhost:3000/api/accountInformation/update", {
       updateName,
       updateSurname,

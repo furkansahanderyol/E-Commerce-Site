@@ -1,5 +1,6 @@
 import React from "react"
 import { AiFillEdit } from "react-icons/ai"
+import axios from "axios"
 import styles from "../../../styles/myAccountPageStyles/savedAddress.module.css"
 
 export default function SavedAddress(props) {
@@ -7,26 +8,28 @@ export default function SavedAddress(props) {
     location,
     id,
     name,
+    surname,
     street,
-    city,
+    addressName,
+    address,
+    province,
     country,
     setCreateAddressForm,
-    setSelectedAddressId,
-    setSelectedAddressName,
-    setSelectedAddressStreet,
-    setSelectedAddressProvince,
-    setSelectedAddressCountry,
+    setEditAddressForm,
     setEditAddress,
+    setSelectedAddressId,
   } = props
 
-  function handleEditAddress() {
-    setSelectedAddressId(id)
-    setSelectedAddressName(name)
-    setSelectedAddressStreet(street)
-    setSelectedAddressProvince(city)
-    setSelectedAddressCountry(country)
+  async function handleEditAddress() {
     setCreateAddressForm(true)
-    setEditAddress(true)
+    setEditAddressForm(true)
+    setSelectedAddressId(id)
+
+    axios
+      .get(`http://localhost:3000/api/addressInformation/${id}`)
+      .then((response) => {
+        setEditAddress(response.data.selectedAddress)
+      })
   }
 
   return (
@@ -37,8 +40,11 @@ export default function SavedAddress(props) {
         </div>
       ) : null}
       <div>{name}</div>
+      <div>{surname}</div>
       <div>{street}</div>
-      <div>{city}</div>
+      <div>{addressName}</div>
+      <div>{address}</div>
+      <div>{province}</div>
       <div>{country}</div>
     </div>
   )

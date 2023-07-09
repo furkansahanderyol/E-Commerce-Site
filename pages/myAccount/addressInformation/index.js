@@ -11,12 +11,9 @@ export default function AddressInformation({
   API_KEY,
 }) {
   const [createAddressForm, setCreateAddressForm] = useState(false)
+  const [editAddress, setEditAddress] = useState(null)
+  const [editAddressForm, setEditAddressForm] = useState(false)
   const [selectedAddressId, setSelectedAddressId] = useState(null)
-  const [selectedAddressName, setSelectedAddressName] = useState(null)
-  const [selectedAddressStreet, setSelectedAddressStreet] = useState(null)
-  const [selectedAddressProvince, setSelectedAddressProvince] = useState(null)
-  const [selectedAddressCountry, setSelectedAddressCountry] = useState(null)
-  const [editAddress, setEditAddress] = useState(false)
 
   function handleCreateAddressButtonClick() {
     setCreateAddressForm(true)
@@ -34,17 +31,18 @@ export default function AddressInformation({
                   <SavedAddress
                     location={"addressInformation"}
                     key={address.id}
+                    id={address.id}
                     name={address.name}
+                    surname={address.surname}
                     street={address.street}
-                    city={address.city}
+                    addressName={address.addressName}
+                    address={address.address}
+                    province={address.city}
                     country={address.country}
                     setCreateAddressForm={setCreateAddressForm}
-                    setSelectedAddressId={setSelectedAddressId}
-                    setSelectedAddressName={setSelectedAddressName}
-                    setSelectedAddressStreet={setSelectedAddressStreet}
-                    setSelectedAddressProvince={setSelectedAddressProvince}
-                    setSelectedAddressCountry={setSelectedAddressCountry}
+                    setEditAddressForm={setEditAddressForm}
                     setEditAddress={setEditAddress}
+                    setSelectedAddressId={setSelectedAddressId}
                   />
                 )
               })}
@@ -63,17 +61,10 @@ export default function AddressInformation({
           countryData={countryData}
           API_KEY={API_KEY}
           setCreateAddressForm={setCreateAddressForm}
-          selectedAddressId={selectedAddressId}
-          selectedAddressName={selectedAddressName}
-          setSelectedAddressName={setSelectedAddressName}
-          selectedAddressStreet={selectedAddressStreet}
-          setSelectedAddressStreet={setSelectedAddressStreet}
-          selectedAddressProvince={selectedAddressProvince}
-          setSelectedAddressProvince={setSelectedAddressProvince}
-          selectedAddressCountry={selectedAddressCountry}
-          setSelectedAddressCountry={setSelectedAddressCountry}
+          editAddressForm={editAddressForm}
+          setEditAddressForm={setEditAddressForm}
           editAddress={editAddress}
-          setEditAddress={setEditAddress}
+          selectedAddressId={selectedAddressId}
         />
       ) : null}
     </>
