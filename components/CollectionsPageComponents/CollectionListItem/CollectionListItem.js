@@ -47,7 +47,6 @@ export default function CollectionListItem(props) {
     router.reload()
   }
 
-  console.log(collectionImage)
   return isDefault ? (
     <div
       onClick={handleCreateNewCollection}

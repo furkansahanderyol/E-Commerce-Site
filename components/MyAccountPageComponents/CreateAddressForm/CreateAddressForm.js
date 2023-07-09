@@ -3,6 +3,7 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import { AiOutlineClose } from "react-icons/ai"
 import axios from "axios"
 import { useRouter } from "next/router"
+import { v4 } from "uuid"
 import styles from "../../../styles/myAccountPageStyles/createAddressForm.module.css"
 
 export default function CreateAddressForm(props) {
@@ -10,17 +11,10 @@ export default function CreateAddressForm(props) {
     countryData,
     API_KEY,
     setCreateAddressForm,
-    selectedAddressId,
-    selectedAddressName,
-    setSelectedAddressName,
-    selectedAddressStreet,
-    setSelectedAddressStreet,
-    selectedAddressProvince,
-    setSelectedAddressProvince,
-    selectedAddressCountry,
-    setSelectedAddressCountry,
+    editAddressForm,
+    setEditAddressForm,
     editAddress,
-    setEditAddress,
+    selectedAddressId,
   } = props
 
   const [countries, setCountries] = useState()
@@ -33,32 +27,45 @@ export default function CreateAddressForm(props) {
   const [streetInput, setStreetInput] = useState("")
   const [addressNameInput, setAddressNameInput] = useState("")
   const [addressInput, setAddressInput] = useState("")
-  const [isNameInputEmpty, setIsNameInputEmpty] = useState(null)
-  const [isSurnameInputEmpty, setIsSurnameInputEmpty] = useState(null)
-  const [isStreetInputEmpty, setIsStreetInputEmpty] = useState(null)
-  const [isAddressNameInputEmpty, setIsAddressNameInputEmpty] = useState(null)
-  const [isAddressInputEmpty, setIsAddressInputEmpty] = useState(null)
+  const [isNameInputEmpty, setIsNameInputEmpty] = useState(false)
+  const [isSurnameInputEmpty, setIsSurnameInputEmpty] = useState(false)
+  const [isStreetInputEmpty, setIsStreetInputEmpty] = useState(false)
+  const [isAddressNameInputEmpty, setIsAddressNameInputEmpty] = useState(false)
+  const [isAddressInputEmpty, setIsAddressInputEmpty] = useState(false)
   const [isSelectedCountryNameEmpty, setIsSelectedCountryNameEmpty] =
-    useState(null)
-  const [isSelectedProvinceEmpty, setIsSelectedProvinceEmpty] = useState(null)
+    useState(false)
+  const [isSelectedProvinceEmpty, setIsSelectedProvinceEmpty] = useState(false)
   const [isFormReady, setIsFormReady] = useState(false)
   const [error, setError] = useState(false)
   const nameInputRef = useRef(null)
+  const surnameInputRef = useRef(null)
   const streetInputRef = useRef(null)
+  const addressNameInputRef = useRef(null)
+  const addressInputRef = useRef(null)
 
   const router = useRouter()
 
   useEffect(() => {
-    if (editAddress) {
-      nameInputRef.current.value = selectedAddressName
-      streetInputRef.current.value = selectedAddressStreet
+    if (editAddressForm) {
+      !nameInput ? setNameInput(editAddress?.[0].name || "") : null
+      !surnameInput ? setSurnameInput(editAddress?.[0].surname || "") : null
+      !streetInput ? setStreetInput(editAddress?.[0].street || "") : null
+      !addressNameInput
+        ? setAddressNameInput(editAddress?.[0].addressName || "")
+        : null
+      !addressInput ? setAddressInput(editAddress?.[0].address || "") : null
 
-      setNameInput(selectedAddressName)
-      setStreetInput(selectedAddressStreet)
+      nameInputRef.current.value = editAddress?.[0].name
+      surnameInputRef.current.value = editAddress?.[0].surname
+      streetInputRef.current.value = editAddress?.[0].street
+      addressNameInputRef.current.value = editAddress?.[0].addressName
+      addressInputRef.current.value = editAddress?.[0].address
+
+      setSelectedCountryCode(editAddress?.[0].countryCode)
+      setSelectedCountryName(editAddress?.[0].country)
+      setSelectedProvince(editAddress?.[0].province)
     }
-
-    setSelectedAddressName(null)
-  }, [])
+  }, [editAddress])
 
   useEffect(() => {
     const countryNames = countryData?.countryInformation.geonames.map(
@@ -86,10 +93,6 @@ export default function CreateAddressForm(props) {
         })
     }
   }, [selectedCountryCode])
-
-  useEffect(() => {
-    if (selectedCountryCode) setSelectedProvince("")
-  }, [selectedCountryName])
 
   useEffect(() => {
     if (error) {
@@ -122,22 +125,14 @@ export default function CreateAddressForm(props) {
     selectedCountryName,
     selectedProvince,
     error,
+    isFormReady,
   ])
-
-  useEffect(() => {
-    setIsNameInputEmpty(null)
-    setIsSurnameInputEmpty(null)
-    setIsStreetInputEmpty(null)
-    setIsAddressNameInputEmpty(null)
-    setIsAddressInputEmpty(null)
-    setIsSelectedCountryNameEmpty(null)
-    setIsSelectedProvinceEmpty(null)
-  }, [])
 
   useEffect(() => {
     if (!isFormReady) return
 
     const newAddress = {
+      id: editAddressForm ? selectedAddressId : v4(),
       name: nameInput,
       surname: surnameInput,
       street: streetInput,
@@ -149,40 +144,44 @@ export default function CreateAddressForm(props) {
     }
 
     try {
-      axios.post("http://localhost:3000/api/addressInformation", {
-        newAddress,
-      })
+      editAddressForm
+        ? axios.post("http://localhost:3000/api/addressInformation/update", {
+            newAddress,
+          })
+        : axios.post("http://localhost:3000/api/addressInformation", {
+            newAddress,
+          })
     } catch (error) {
       console.log(error)
     }
 
     setIsFormReady(false)
     setCreateAddressForm(false)
-    setEditAddress(false)
+    setEditAddressForm(false)
     router.reload()
   }, [isFormReady])
 
   function handleCloseForm() {
     setCreateAddressForm(false)
-    setEditAddress(false)
+    setEditAddressForm(false)
   }
 
   function handleSubmit(e) {
     e.preventDefault()
 
     if (
-      isNameInputEmpty === false &&
-      isSurnameInputEmpty === false &&
-      isStreetInputEmpty === false &&
-      isAddressNameInputEmpty === false &&
-      isAddressInputEmpty === false &&
-      isSelectedCountryNameEmpty === false &&
-      isSelectedProvinceEmpty === false
+      nameInput === "" ||
+      surnameInput === "" ||
+      streetInput === "" ||
+      addressNameInput === "" ||
+      addressInput === "" ||
+      selectedCountryName === "" ||
+      selectedProvince === ""
     ) {
+      setError(true)
+    } else {
       setError(false)
       setIsFormReady(true)
-    } else {
-      setError(true)
     }
   }
 
@@ -207,6 +206,7 @@ export default function CreateAddressForm(props) {
             type="text"
             id="name"
             name="name"
+            value={nameInput}
           />
         </div>
         <div
@@ -218,6 +218,7 @@ export default function CreateAddressForm(props) {
         >
           <label htmlFor="surname">Surname:</label>
           <input
+            ref={surnameInputRef}
             onChange={(e) => setSurnameInput(e.target.value)}
             type="text"
             id="surname"
@@ -276,6 +277,7 @@ export default function CreateAddressForm(props) {
         >
           <label htmlFor="addressName">Address name:</label>
           <input
+            ref={addressNameInputRef}
             onChange={(e) => setAddressNameInput(e.target.value)}
             type="text"
             id="addressName"
@@ -291,6 +293,7 @@ export default function CreateAddressForm(props) {
         >
           <label htmlFor="address">Address:</label>
           <textarea
+            ref={addressInputRef}
             onChange={(e) => setAddressInput(e.target.value)}
             id="address"
             name="address"
@@ -299,7 +302,11 @@ export default function CreateAddressForm(props) {
       </div>
       {error ? <div>Please fill in the marked fields</div> : null}
       <div className={styles.create_new_address_button}>
-        <button type="submit">Create new address</button>
+        {editAddressForm ? (
+          <button type="submit">Update address</button>
+        ) : (
+          <button type="submit">Create new address</button>
+        )}
       </div>
     </form>
   )
