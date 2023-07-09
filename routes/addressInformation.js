@@ -6,7 +6,7 @@ const axios = require("axios")
 router.use(server.json())
 router.use(server.urlencoded({ extended: false }))
 
-const addressInformation = []
+let addressInformation = []
 
 router.get("/addressInformation", (req, res) => {
   res.json({ addressInformation })
@@ -37,6 +37,16 @@ router.post("/addressInformation/update", (req, res) => {
     if (address.id === newAddress.id) {
       addressInformation[index] = newAddress
     }
+  })
+
+  res.json({ addressInformation })
+})
+
+router.delete("/addressInformation/:id", (req, res) => {
+  const { id } = req.params
+
+  addressInformation = addressInformation.filter((address) => {
+    return address.id !== id
   })
 
   res.json({ addressInformation })

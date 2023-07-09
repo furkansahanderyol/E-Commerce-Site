@@ -8,7 +8,7 @@
   max-height: 200px;
 }
 
-.edit_address {
+.address_options {
   position: absolute;
   right: -5%;
 
@@ -18,9 +18,14 @@
   cursor: pointer;
 
   transition: right 0.2s ease-in-out;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
 }
 
-.saved_address_wrapper:hover .edit_address {
+.saved_address_wrapper:hover .address_options {
   animation: edit 0.2s alternate forwards;
 }
 
