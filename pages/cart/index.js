@@ -44,6 +44,14 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
     setChooseAddressModal(true)
   }
 
+  function handleOrder() {
+    if (selectedAddress) {
+      axios.post("http://localhost:3000/api/orders", {
+        selectedAddress,
+      })
+    }
+  }
+
   return (
     <>
       <div className={styles.cart_wrapper}>
@@ -98,17 +106,24 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
                   location={"cart"}
                   key={address.id}
                   id={address.id}
-                  name={address.name}
+                  addressName={address.name}
+                  surname={address.surname}
                   street={address.street}
-                  city={address.city}
+                  province={address.province}
                   country={address.country}
                   setEditAddressForm={setEditAddressForm}
                   setEditAddress={setEditAddress}
                   selectedAddress={selectedAddress}
                   setSelectedAddress={setSelectedAddress}
+                  items={cartItems}
                 />
               )
             })}
+          </div>
+          <div>
+            <button onClick={handleOrder} type="click">
+              Order
+            </button>
           </div>
         </div>
       ) : null}

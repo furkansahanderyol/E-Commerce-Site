@@ -23,6 +23,7 @@ export default function SavedAddress(props) {
     setAddresses,
     selectedAddress,
     setSelectedAddress,
+    cartItems,
   } = props
 
   const router = useRouter()
@@ -50,7 +51,15 @@ export default function SavedAddress(props) {
   }
 
   function handleAddressClick() {
-    setSelectedAddress(id)
+    setSelectedAddress({
+      id,
+      addressName,
+      surname,
+      street,
+      province,
+      country,
+      items: cartItems,
+    })
   }
 
   return (
@@ -58,7 +67,7 @@ export default function SavedAddress(props) {
       onClick={location === "cart" ? handleAddressClick : null}
       className={
         location === "cart"
-          ? selectedAddress === id
+          ? selectedAddress?.id === id
             ? styles.saved_address_wrapper_cart_selected
             : styles.saved_address_wrapper_cart
           : styles.saved_address_wrapper
