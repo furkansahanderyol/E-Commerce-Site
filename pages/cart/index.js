@@ -5,6 +5,7 @@ import SavedAddress from "@/components/MyAccountPageComponents/SavedAddress/Save
 import CreateAddressButton from "@/components/CartPageComponents/CreateAddressButton/CreateAddressButton"
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
 import { AddressFormContext } from "@/components/CommonComponents/AddressFormContext/AddressFormContext"
+import { useRouter } from "next/router"
 import styles from "../../styles/cartPageStyles/cart.module.css"
 
 export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
@@ -24,6 +25,8 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
   const [chooseAddressModal, setChooseAddressModal] = useState(false)
   const [selectedAddress, setSelectedAddress] = useState(null)
 
+  const router = useRouter()
+
   useEffect(() => {
     setAddresses(addressData)
   }, [])
@@ -41,7 +44,9 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
   }, [cartItems])
 
   function handleCompleteOrder() {
-    setChooseAddressModal(true)
+    if (cartItems.length > 0) {
+      setChooseAddressModal(true)
+    }
   }
 
   function handleOrder() {
@@ -49,6 +54,8 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
       axios.post("http://localhost:3000/api/orders", {
         selectedAddress,
       })
+
+      router.push("/cart/OrderConfirmed")
     }
   }
 

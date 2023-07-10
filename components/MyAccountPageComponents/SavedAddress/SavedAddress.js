@@ -23,7 +23,7 @@ export default function SavedAddress(props) {
     setAddresses,
     selectedAddress,
     setSelectedAddress,
-    cartItems,
+    items,
   } = props
 
   const router = useRouter()
@@ -58,7 +58,7 @@ export default function SavedAddress(props) {
       street,
       province,
       country,
-      items: cartItems,
+      items,
     })
   }
 
