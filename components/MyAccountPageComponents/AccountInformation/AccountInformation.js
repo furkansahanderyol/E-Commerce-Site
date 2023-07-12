@@ -89,69 +89,76 @@ export default function AccountInformation({ data, setData }) {
 
   return (
     <div className={styles.account_information_wrapper}>
-      <div className={styles.name_and_surname_container}>
-        <div className={styles.name}>
-          <div>Name:</div>
-          <AccountInformationInput
-            type={"text"}
-            area={"name"}
-            value={name}
-            setUpdateName={setUpdateName}
-          />
-        </div>
-        <div className={styles.surname}>
-          <div>Surname:</div>
-          <AccountInformationInput
-            type={"text"}
-            area={"surname"}
-            value={surname}
-            setUpdateSurname={setUpdateSurname}
-          />
-        </div>
-      </div>
-      <div className={styles.email_container}>
-        <div className={styles.email}>
-          <div>Email:</div>
-          <AccountInformationInput
-            type={"email"}
-            area={"email"}
-            value={email}
-            setUpdateEmail={setUpdateEmail}
-          />
-        </div>
-      </div>
-      <div className={styles.cellphone_number}>
-        <div>Cellphone: </div>
-        <div>
-          <DropdownMenu
-            type={"dial"}
-            value={updateDialCode}
-            options={areaCodes}
-            setUpdateDialCode={setUpdateDialCode}
-          />
-          <div className={styles.cellphone_number_input}>
-            <input
-              onChange={handleCellphoneNumber}
-              type="number"
-              defaultValue={updateCellphoneNumber}
+      <div className={styles.information_container_columns}>
+        <div className={styles.information_container}>
+          <div className={styles.input_container}>
+            <div className={styles.header}>Name:</div>
+            <AccountInformationInput
+              type={"text"}
+              area={"name"}
+              value={name}
+              setUpdateName={setUpdateName}
             />
+          </div>
+          <div className={styles.email_container}>
+            <div className={styles.input_container}>
+              <div className={styles.header}>Email:</div>
+              <AccountInformationInput
+                type={"email"}
+                area={"email"}
+                value={email}
+                setUpdateEmail={setUpdateEmail}
+              />
+            </div>
+          </div>
+        </div>
+        <div className={styles.information_container}>
+          <div className={styles.input_container}>
+            <div className={styles.header}>Surname:</div>
+            <AccountInformationInput
+              type={"text"}
+              area={"surname"}
+              value={surname}
+              setUpdateSurname={setUpdateSurname}
+            />
+          </div>
+          <div className={styles.cellphone_number}>
+            <div className={styles.header}>Cellphone: </div>
+            <div className={styles.cellphone_number_inputs}>
+              <DropdownMenu
+                type={"dial"}
+                value={updateDialCode}
+                options={areaCodes}
+                setUpdateDialCode={setUpdateDialCode}
+              />
+              <div className={styles.cellphone_number_input}>
+                <input
+                  onChange={handleCellphoneNumber}
+                  type="number"
+                  defaultValue={updateCellphoneNumber}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div className={styles.gender_selection}>
-        <div className={styles.male}>
-          <CustomCheckbox
-            gender={"Male"}
-            updateGender={updateGender}
-            setUpdateGender={setUpdateGender}
-          />
-        </div>
-        <div className={styles.female}>
-          <CustomCheckbox
-            gender={"Female"}
-            updateGender={updateGender}
-            setUpdateGender={setUpdateGender}
-          />
+        <div className={styles.header}>Gender:</div>
+        <div className={styles.gender_selection_checkboxes}>
+          <div className={styles.male}>
+            <CustomCheckbox
+              gender={"Male"}
+              updateGender={updateGender}
+              setUpdateGender={setUpdateGender}
+            />
+          </div>
+          <div className={styles.female}>
+            <CustomCheckbox
+              gender={"Female"}
+              updateGender={updateGender}
+              setUpdateGender={setUpdateGender}
+            />
+          </div>
         </div>
       </div>
       <div

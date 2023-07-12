@@ -12,8 +12,13 @@
 .section_header_active {
   font-weight: bold;
   font-size: 24px;
+  font-family: "Roboto", sans-serif;
 }
 
 .section_header_active {
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid #477519;
+  border-bottom-width: 5px;
+  border-radius: 0.3em;
+
+  padding: 0 0.5em;
 }

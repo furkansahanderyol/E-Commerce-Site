@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import AccountInformation from "@/components/MyAccountPageComponents/AccountInformation/AccountInformation"
-import MyAccountPageHeader from "@/components/MyAccountPageComponents/MyAccountpAgeHeader/MyAccountPageHeader"
+import MyAccountPageHeader from "@/components/MyAccountPageComponents/MyAccountPageHeader/MyAccountPageHeader"
 import axios from "axios"
 import styles from "../../styles/myAccountPageStyles/myAccount.module.css"
 

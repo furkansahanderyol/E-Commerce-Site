@@ -9,6 +9,34 @@
   justify-content: space-between;
 }
 
+.information_container_columns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.information_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 40px;
+}
+
+.input_container {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.header {
+  font-size: 18px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+
 .update_button,
 .update_button_active {
   align-self: center;
@@ -47,6 +75,20 @@
   color: #fcfcfc;
 }
 
+.cellphone_number {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.cellphone_number_inputs {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
 .cellphone_number_input input {
   width: 160px;
   height: 40px;
@@ -75,4 +117,30 @@
 
 .cellphone_number_input input {
   -moz-appearance: textfield;
+}
+
+.gender_selection {
+  align-self: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.gender_selection_checkboxes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.male,
+.female {
+  width: 50px;
+  cursor: pointer;
 }
