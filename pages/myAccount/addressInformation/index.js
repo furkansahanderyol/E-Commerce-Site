@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"
-import MyAccountPageHeader from "@/components/MyAccountPageComponents/MyAccountpAgeHeader/MyAccountPageHeader"
+import MyAccountPageHeader from "@/components/MyAccountPageComponents/MyAccountPageHeader/MyAccountPageHeader"
 import SavedAddress from "@/components/MyAccountPageComponents/SavedAddress/SavedAddress"
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
 import axios from "axios"

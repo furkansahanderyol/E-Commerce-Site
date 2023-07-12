@@ -19,5 +19,16 @@ export default function AccountInformationInput(props) {
     }
   }
 
-  return <input onChange={handleInputChange} type={type} defaultValue={value} />
+  return (
+    <input
+      className={
+        area === "email"
+          ? styles.account_information_input_email
+          : styles.account_information_input
+      }
+      onChange={handleInputChange}
+      type={type}
+      defaultValue={value}
+    />
+  )
 }

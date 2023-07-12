@@ -1,0 +1,14 @@
+.account_information_input,
+.account_information_input_email {
+  width: 150px;
+  height: 30px;
+
+  border-radius: 0.3em;
+
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+}
+
+.account_information_input_email {
+  width: 300px;
+}
