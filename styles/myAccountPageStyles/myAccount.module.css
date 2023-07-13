@@ -22,6 +22,8 @@
   width: 60%;
   height: 70%;
 
+  transition: width ease-in-out 0.2s;
+
   display: flex;
   flex-direction: column;
 }

@@ -22,3 +22,24 @@
 
   padding: 0 0.5em;
 }
+
+@media all and (max-width: 1280px) {
+  .section_header,
+  .section_header_active {
+    font-size: 20px;
+  }
+}
+
+@media all and (max-width: 980px) {
+  .section_header,
+  .section_header_active {
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width: 640px) {
+  .section_header,
+  .section_header_active {
+    font-size: 10px;
+  }
+}
