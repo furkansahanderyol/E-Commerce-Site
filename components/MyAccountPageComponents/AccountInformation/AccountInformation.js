@@ -83,45 +83,33 @@ export default function AccountInformation({ data, setData }) {
     router.reload()
   }
 
-  function handleCellphoneNumber(e) {
-    setUpdateCellphoneNumber(e.target.value)
-  }
-
   return (
     <div className={styles.account_information_wrapper}>
       <div className={styles.information_container_columns}>
         <div className={styles.information_container}>
-          <div className={styles.input_container}>
-            <div className={styles.header}>Name:</div>
-            <AccountInformationInput
-              type={"text"}
-              area={"name"}
-              value={name}
-              setUpdateName={setUpdateName}
-            />
-          </div>
-          <div className={styles.email_container}>
-            <div className={styles.input_container}>
-              <div className={styles.header}>Email:</div>
-              <AccountInformationInput
-                type={"email"}
-                area={"email"}
-                value={email}
-                setUpdateEmail={setUpdateEmail}
-              />
-            </div>
-          </div>
+          <AccountInformationInput
+            type={"text"}
+            area={"name"}
+            header={"Name:"}
+            value={name}
+            setUpdateName={setUpdateName}
+          />
+          <AccountInformationInput
+            type={"text"}
+            area={"surname"}
+            header={"Surname:"}
+            value={surname}
+            setUpdateSurname={setUpdateSurname}
+          />
         </div>
         <div className={styles.information_container}>
-          <div className={styles.input_container}>
-            <div className={styles.header}>Surname:</div>
-            <AccountInformationInput
-              type={"text"}
-              area={"surname"}
-              value={surname}
-              setUpdateSurname={setUpdateSurname}
-            />
-          </div>
+          <AccountInformationInput
+            type={"email"}
+            area={"email"}
+            header={"Email:"}
+            value={email}
+            setUpdateEmail={setUpdateEmail}
+          />
           <div className={styles.cellphone_number}>
             <div className={styles.header}>Cellphone: </div>
             <div className={styles.cellphone_number_inputs}>
@@ -131,13 +119,12 @@ export default function AccountInformation({ data, setData }) {
                 options={areaCodes}
                 setUpdateDialCode={setUpdateDialCode}
               />
-              <div className={styles.cellphone_number_input}>
-                <input
-                  onChange={handleCellphoneNumber}
-                  type="number"
-                  defaultValue={updateCellphoneNumber}
-                />
-              </div>
+              <AccountInformationInput
+                type={"number"}
+                area={"cellphone"}
+                value={updateCellphoneNumber}
+                setUpdateCellphoneNumber={setUpdateCellphoneNumber}
+              />
             </div>
           </div>
         </div>

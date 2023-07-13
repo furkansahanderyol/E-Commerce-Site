@@ -36,5 +36,17 @@
   input[type="checkbox"]:checked
   + .custom_checkbox_label::before {
   content: "\2713";
-  background-color: red;
+  background-color: #477519;
+  color: white;
+}
+
+@media all and (max-width: 820px) {
+  .custom_checkbox_label::before {
+    width: 14px;
+    height: 14px;
+
+    left: -20px;
+
+    font-size: 9px;
+  }
 }
