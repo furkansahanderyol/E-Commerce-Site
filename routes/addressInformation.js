@@ -39,6 +39,8 @@ router.post("/addressInformation/update", (req, res) => {
     }
   })
 
+  console.log("newAddress", newAddress)
+  console.log(addressInformation)
   res.json({ addressInformation })
 })
 

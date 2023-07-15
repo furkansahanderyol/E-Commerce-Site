@@ -18,7 +18,6 @@ export default function CollectionListItem(props) {
     setShowCreateNewCollectionModal,
     selectedProduct,
     setCollectionList,
-    setOverlay,
   } = props
 
   const router = useRouter()
@@ -43,7 +42,6 @@ export default function CollectionListItem(props) {
         })
 
     setCollectionList(false)
-    setOverlay(false)
     router.reload()
   }
 

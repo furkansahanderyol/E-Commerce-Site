@@ -1,12 +1,21 @@
 .saved_address_wrapper,
 .saved_address_wrapper_cart {
   position: relative;
-  background-color: yellow;
+  background-color: white;
 
   border: 1px solid black;
   border-radius: 0.3em;
 
-  max-height: 200px;
+  width: 280px;
+  height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 5px;
+
+  padding: 0 1em;
 }
 
 .saved_address_wrapper_cart {
@@ -20,6 +29,7 @@
 .address_options {
   position: absolute;
   right: -5%;
+  top: 5%;
 
   opacity: 0;
   pointer-events: none;
@@ -36,6 +46,45 @@
 
 .saved_address_wrapper:hover .address_options {
   animation: edit 0.2s alternate forwards;
+}
+
+.edit_address,
+.remove_address {
+  transition: color 0.2 ease-in-out;
+}
+
+.edit_address:hover,
+.remove_address:hover {
+  color: #477519;
+}
+
+.address_header {
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  border-bottom: 1px solid black;
+}
+
+.address_name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.user_name_and_surname,
+.street,
+.address,
+.province,
+.country {
+  font-size: 12px;
+}
+
+.user_name_and_surname {
+  font-weight: bold;
+  font-size: 14px;
 }
 
 @keyframes edit {

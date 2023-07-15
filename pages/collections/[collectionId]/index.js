@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react"
 import { useRouter } from "next/router"
 import AvailableCollectionItems from "@/components/CollectionsPageComponents/AvailableCollectionItems/AvailableCollectionItems"
 import { CollectionsContext } from "../CollectionsContext"
-import { OverlayContext } from "@/components/CommonComponents/OverlayContext/OverlayContext"
 import CollectionList from "@/components/CollectionsPageComponents/CollectionList/CollectionList"
 import Product from "@/components/CommonComponents/Product/Product"
 import CreateNewCollectionModal from "@/components/CollectionsPageComponents/CreateNewCollectionModal/CreateNewCollectionModal"
@@ -12,6 +11,7 @@ export default function Collection({ collections, favorites }) {
   const [collection, setCollection] = useState([])
   const [showCreateNewCollectionModal, setShowCreateNewCollectionModal] =
     useState(false)
+  const [showFavorites, setShowFavorites] = useState(false)
   const router = useRouter()
   const { collectionId } = router.query
 
@@ -23,18 +23,11 @@ export default function Collection({ collections, favorites }) {
     selectedItemCount,
     collectionName,
     setCollectionName,
-  } = useContext(CollectionsContext)
-
-  const {
-    overlay,
-    setOverlay,
     collectionList,
     setCollectionList,
-    showFavorites,
-    setShowFavorites,
     selectedProduct,
     setSelectedProduct,
-  } = useContext(OverlayContext)
+  } = useContext(CollectionsContext)
 
   useEffect(() => {
     const selectedCollection = collections.filter((collection) => {
@@ -45,7 +38,6 @@ export default function Collection({ collections, favorites }) {
   }, [collectionId])
 
   function handleAddItemClick() {
-    setOverlay(true)
     setShowFavorites(true)
   }
 
@@ -78,7 +70,6 @@ export default function Collection({ collections, favorites }) {
                 isFavorite={true}
                 collection={false}
                 isRemovable={true}
-                setOverlay={setOverlay}
                 setCollectionList={setCollectionList}
                 setSelectedProduct={setSelectedProduct}
               />
@@ -98,7 +89,6 @@ export default function Collection({ collections, favorites }) {
             collectionName={collectionName}
             setCollectionName={setCollectionName}
             collectionId={collectionId}
-            setOverlay={setOverlay}
             setShowFavorites={setShowFavorites}
             isRemovable={true}
           />
@@ -107,7 +97,6 @@ export default function Collection({ collections, favorites }) {
       {collectionList ? (
         <CollectionList
           isCollectionItem={true}
-          setOverlay={setOverlay}
           isRemovable={true}
           collectionsData={collections}
           setCollectionList={setCollectionList}
@@ -118,7 +107,6 @@ export default function Collection({ collections, favorites }) {
       {showCreateNewCollectionModal ? (
         <CreateNewCollectionModal
           isRemovable={true}
-          setOverlay={setOverlay}
           setShowCreateNewCollectionModal={setShowCreateNewCollectionModal}
           selectedProduct={selectedProduct}
           collectionId={collectionId}

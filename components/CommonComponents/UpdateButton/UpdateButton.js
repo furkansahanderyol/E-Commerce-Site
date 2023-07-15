@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import axios from "axios"
 import styles from "../../../styles/commonComponentStyles/updateButton.module.css"
 
@@ -10,6 +10,8 @@ export default function UpdateButton(props) {
     updateSurname,
     updateEmail,
     updateGender,
+    createAddressForm,
+    setCreateAddressForm,
   } = props
 
   async function handleUpdateAccountInformation() {
@@ -29,7 +31,19 @@ export default function UpdateButton(props) {
     router.reload()
   }
 
-  return (
+  function handleCreateAddressButtonClick() {
+    setCreateAddressForm(true)
+  }
+
+  useEffect(() => {}, [createAddressForm])
+
+  return location === "addressInformation" ? (
+    <div className={styles.create_address_button}>
+      <button onClick={handleCreateAddressButtonClick} type="submit">
+        Create address
+      </button>
+    </div>
+  ) : (
     <div
       className={
         updateButtonActive ? styles.update_button_active : styles.update_button

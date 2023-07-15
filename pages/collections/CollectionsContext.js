@@ -9,6 +9,10 @@ export default function CollectionsProvider({ children }) {
   const [selectedItemCount, setSelectedItemCount] = useState(0)
   const [collectionName, setCollectionName] = useState("")
   const [collectionId, setCollectionId] = useState(null)
+  const [createCollectionModal, setCreateCollectionModal] = useState(false)
+  const [collectionList, setCollectionList] = useState(false)
+  const [isCollectionListUpdated, setIsCollectionListUpdated] = useState(false)
+  const [selectedProduct, setSelectedProduct] = useState(null)
 
   return (
     <CollectionsContext.Provider
@@ -25,6 +29,14 @@ export default function CollectionsProvider({ children }) {
         setCollectionName,
         collectionId,
         setCollectionId,
+        createCollectionModal,
+        setCreateCollectionModal,
+        collectionList,
+        setCollectionList,
+        isCollectionListUpdated,
+        setIsCollectionListUpdated,
+        selectedProduct,
+        setSelectedProduct,
       }}
     >
       {children}

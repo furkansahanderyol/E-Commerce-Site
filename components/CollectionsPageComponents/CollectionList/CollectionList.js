@@ -11,7 +11,6 @@ export default function CollectionList(props) {
     product,
     collectionsData,
     setCollectionList,
-    setOverlay,
     isRemovable,
     setShowCreateNewCollectionModal,
     selectedProduct,
@@ -22,8 +21,6 @@ export default function CollectionList(props) {
 
   function handleCloseCollectionList() {
     isCollectionItem ? setCollectionList(false) : setCollectionList(false)
-
-    setOverlay(false)
   }
 
   return (
@@ -57,7 +54,6 @@ export default function CollectionList(props) {
                     isRemovable={true}
                     selectedProduct={selectedProduct}
                     setCollectionList={setCollectionList}
-                    setOverlay={setOverlay}
                   />
                 )
               }
@@ -74,7 +70,6 @@ export default function CollectionList(props) {
                   }
                   product={product}
                   setCollectionList={setCollectionList}
-                  setOverlay={setOverlay}
                 />
               )
             })}
