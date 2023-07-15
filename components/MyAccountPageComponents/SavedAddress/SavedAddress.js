@@ -23,6 +23,7 @@ export default function SavedAddress(props) {
     selectedAddress,
     setSelectedAddress,
     items,
+    totalPrice,
   } = props
 
   async function handleEditAddress() {
@@ -47,14 +48,31 @@ export default function SavedAddress(props) {
   }
 
   function handleAddressClick() {
+    const currentDate = new Date()
+
+    const time = {
+      day: currentDate.getDate(),
+      month: currentDate.getMonth() + 1,
+      year: currentDate.getFullYear(),
+      hour: currentDate.getHours(),
+      minute: currentDate.getMinutes(),
+    }
+
     setSelectedAddress({
       id,
       addressName,
+      name,
       surname,
       street,
       province,
       country,
       items,
+      day: time.day,
+      month: time.month,
+      year: time.year,
+      hour: time.hour,
+      minute: time.minute,
+      totalPrice,
     })
   }
 

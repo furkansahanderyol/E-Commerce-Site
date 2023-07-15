@@ -1,0 +1,35 @@
+.order_wrapper {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 0.3em;
+
+  width: 90%;
+
+  padding: 0.5em;
+}
+
+.order_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+
+  border-bottom: 1px solid black;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  font-weight: bold;
+}
+
+.value {
+  font-weight: 300;
+  color: gray;
+}
