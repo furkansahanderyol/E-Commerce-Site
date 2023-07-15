@@ -70,4 +70,10 @@ router.post("/cart/decrease", (req, res) => {
   res.json({ cart: cart })
 })
 
+router.delete("/cart/clear", (req, res) => {
+  cart = []
+
+  res.json({ cart })
+})
+
 module.exports = router

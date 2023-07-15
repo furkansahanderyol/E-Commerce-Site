@@ -15,6 +15,8 @@ router.get("/orders", (req, res) => {
 router.post("/orders", (req, res) => {
   const { selectedAddress } = req.body
 
+  console.log(selectedAddress)
+
   const isContained = orders.some((order) => order.id === selectedAddress.id)
 
   isContained ? null : orders.push(selectedAddress)

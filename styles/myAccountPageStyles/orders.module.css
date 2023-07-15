@@ -1,0 +1,38 @@
+.orders_wrapper {
+  padding: 1.5rem;
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100vh;
+
+  z-index: 1;
+}
+
+.section_container {
+  width: 60%;
+  height: 70%;
+
+  position: relative;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+.orders {
+  background-color: rgb(202, 201, 201);
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 10px;
+
+  gap: 10px;
+}

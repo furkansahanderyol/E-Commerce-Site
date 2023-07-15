@@ -3,6 +3,7 @@ import { AiOutlineClose } from "react-icons/ai"
 import { FaBookmark } from "react-icons/fa"
 import CreateCollectionButton from "../CreateCollectionButton/CreateCollectionButton"
 import axios from "axios"
+import Overlay from "@/components/CommonComponents/Overlay/Overlay"
 import styles from "../../../styles/collectionsPageStyles/createNewCollectionModal.module.css"
 
 export default function CreateNewCollectionModal(props) {
@@ -69,35 +70,38 @@ export default function CreateNewCollectionModal(props) {
   }
 
   return (
-    <div className={styles.create_new_collection_modal}>
-      <div
-        onClick={handleCloseModalButton}
-        className={styles.modal_close_button}
-      >
-        <AiOutlineClose />
-      </div>
-      <div className={styles.bookmark_icon}>
-        <FaBookmark />
-      </div>
-      <div className={styles.modal_header_and_input_wrapper}>
-        <div className={styles.create_new_collection_header}>
-          Give a name to your collection
+    <>
+      <div className={styles.create_new_collection_modal}>
+        <div
+          onClick={handleCloseModalButton}
+          className={styles.modal_close_button}
+        >
+          <AiOutlineClose />
         </div>
-        <input
-          ref={createCollectionRef}
-          className={styles.create_new_collection_input}
-          type={"text"}
-        />
-      </div>
-      {invalidCollectionName ? (
-        <div className={styles.invalid_collection_name}>
-          Invalid collection name, your collection name has to at least one
-          character.
+        <div className={styles.bookmark_icon}>
+          <FaBookmark />
         </div>
-      ) : null}
-      <div onClick={handleCreateCollectionButton}>
-        <CreateCollectionButton isDisable={false} />
+        <div className={styles.modal_header_and_input_wrapper}>
+          <div className={styles.create_new_collection_header}>
+            Give a name to your collection
+          </div>
+          <input
+            ref={createCollectionRef}
+            className={styles.create_new_collection_input}
+            type={"text"}
+          />
+        </div>
+        {invalidCollectionName ? (
+          <div className={styles.invalid_collection_name}>
+            Invalid collection name, your collection name has to at least one
+            character.
+          </div>
+        ) : null}
+        <div onClick={handleCreateCollectionButton}>
+          <CreateCollectionButton isDisable={false} />
+        </div>
       </div>
-    </div>
+      <Overlay />
+    </>
   )
 }

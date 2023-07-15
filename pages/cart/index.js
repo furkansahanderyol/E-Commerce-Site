@@ -51,11 +51,20 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
 
   function handleOrder() {
     if (selectedAddress) {
-      axios.post("http://localhost:3000/api/orders", {
-        selectedAddress,
-      })
-
+      try {
+        axios.post("http://localhost:3000/api/orders", {
+          selectedAddress,
+        })
+      } catch (error) {
+        console.log(error)
+      }
       router.push("/cart/OrderConfirmed")
+    }
+
+    try {
+      axios.delete("http://localhost:3000/api/cart/clear")
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -113,7 +122,8 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
                   location={"cart"}
                   key={address.id}
                   id={address.id}
-                  addressName={address.name}
+                  addressName={address.addressName}
+                  name={address.name}
                   surname={address.surname}
                   street={address.street}
                   province={address.province}
@@ -123,6 +133,7 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
                   selectedAddress={selectedAddress}
                   setSelectedAddress={setSelectedAddress}
                   items={cartItems}
+                  totalPrice={totalPrice}
                 />
               )
             })}
