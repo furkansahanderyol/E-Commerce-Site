@@ -18,7 +18,6 @@ export default function AvailableCollectionItems({
   collectionName,
   setCollectionName,
   collectionId,
-  setOverlay,
   setShowFavorites,
   isRemovable,
 }) {
@@ -40,14 +39,12 @@ export default function AvailableCollectionItems({
 
     setSelectFromFavorites(false)
     setCollectionName("")
-    setOverlay(false)
     isRemovable ? setShowFavorites(false) : null
   }
 
   function handleSelectCollectionItemsCloseButton() {
     setSelectFromFavorites(false)
     setSelectedItems([])
-    setOverlay(false)
     isRemovable ? setShowFavorites(false) : null
   }
 

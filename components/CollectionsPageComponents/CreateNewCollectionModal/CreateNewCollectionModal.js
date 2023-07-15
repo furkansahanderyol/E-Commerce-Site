@@ -10,7 +10,6 @@ export default function CreateNewCollectionModal(props) {
     isSpecific,
     product,
     setCollectionName,
-    setOverlay,
     setCreateCollectionModal,
     setIsNewCollection,
     setSelectFromFavorites,
@@ -26,7 +25,6 @@ export default function CreateNewCollectionModal(props) {
   const createCollectionRef = useRef(null)
 
   function handleCloseModalButton() {
-    setOverlay(false)
     isRemovable
       ? setShowCreateNewCollectionModal(false)
       : setCreateCollectionModal(false)
@@ -63,7 +61,6 @@ export default function CreateNewCollectionModal(props) {
           selectedItems: [product],
         })
 
-        setOverlay(false)
         setNewCollectionModal(false)
         setCollectionList(false)
         setIsCollectionListUpdated(true)

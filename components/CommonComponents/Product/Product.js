@@ -29,7 +29,6 @@ export default function Product(props) {
     isRemovable,
     setCollectionList,
     showCreateNewCollectionModal,
-    setOverlay,
     setSelectedProduct,
   } = props
 
@@ -126,7 +125,6 @@ export default function Product(props) {
               setCollectionItemOptions={setCollectionItemOptions}
               optionsRef={optionsRef}
               setCollectionList={setCollectionList}
-              setOverlay={setOverlay}
               showCreateNewCollectionModal={showCreateNewCollectionModal}
               product={product}
               setSelectedProduct={setSelectedProduct}

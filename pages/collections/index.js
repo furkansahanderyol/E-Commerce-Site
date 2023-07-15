@@ -5,7 +5,6 @@ import axios from "axios"
 import CollectionBubble from "@/components/CollectionsPageComponents/CollectionBubble/CollectionBubble"
 import AvailableCollectionItems from "@/components/CollectionsPageComponents/AvailableCollectionItems/AvailableCollectionItems"
 import { CollectionsContext } from "./CollectionsContext"
-import { OverlayContext } from "@/components/CommonComponents/OverlayContext/OverlayContext"
 import CreateNewCollectionModal from "@/components/CollectionsPageComponents/CreateNewCollectionModal/CreateNewCollectionModal"
 import styles from "../../styles/collectionsPageStyles/collectionsStyle.module.css"
 
@@ -25,14 +24,9 @@ export default function Collections({ favorites }) {
     setCollectionName,
     collectionId,
     setCollectionId,
-  } = useContext(CollectionsContext)
-
-  const {
-    overlay,
-    setOverlay,
     createCollectionModal,
     setCreateCollectionModal,
-  } = useContext(OverlayContext)
+  } = useContext(CollectionsContext)
 
   useEffect(() => {
     try {
@@ -64,7 +58,6 @@ export default function Collections({ favorites }) {
         {createCollectionModal ? (
           <CreateNewCollectionModal
             setCollectionName={setCollectionName}
-            setOverlay={setOverlay}
             setCreateCollectionModal={setCreateCollectionModal}
             setIsNewCollection={setIsNewCollection}
             setSelectFromFavorites={setSelectFromFavorites}
@@ -82,7 +75,6 @@ export default function Collections({ favorites }) {
             collectionName={collectionName}
             setCollectionName={setCollectionName}
             collectionId={collectionId}
-            setOverlay={setOverlay}
           />
         ) : null}
       </div>
@@ -93,7 +85,6 @@ export default function Collections({ favorites }) {
           <CollectionBubble
             isDefault={true}
             setCreateCollectionModal={setCreateCollectionModal}
-            setOverlay={setOverlay}
           />
           <div className={styles.collections_grid}>
             {collections.length > 0

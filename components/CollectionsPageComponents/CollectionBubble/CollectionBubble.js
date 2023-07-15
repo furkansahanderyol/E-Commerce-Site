@@ -11,7 +11,6 @@ export default function CollectionBubble({
   id,
   isDefault,
   setCreateCollectionModal,
-  setOverlay,
   collectionName,
   collectionItems,
   setSelectFromFavorites,
@@ -26,7 +25,6 @@ export default function CollectionBubble({
 
   function handleCreateNewCollection() {
     setCreateCollectionModal(true)
-    setOverlay(true)
   }
 
   function handleCollectionBubbleClick(e) {

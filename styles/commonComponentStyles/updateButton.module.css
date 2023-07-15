@@ -6,13 +6,10 @@
 }
 
 .update_button button,
-.update_button_active button {
+.update_button_active button,
+.create_address_button button {
   width: 120px;
   height: 40px;
-
-  outline: 1px solid gray;
-  border: 1px solid gray;
-  color: #ccc;
 
   font-weight: bold;
 
@@ -25,13 +22,22 @@
   background-color: #444;
 }
 
+.update_button button,
 .update_button_active button {
+  outline: 1px solid gray;
+  border: 1px solid gray;
+  color: #ccc;
+}
+
+.update_button_active button,
+.create_address_button button {
   background-color: #588620;
   cursor: pointer;
   pointer-events: all;
 }
 
-.update_button_active button:hover {
+.update_button_active button:hover,
+.create_address_button button:hover {
   background-color: #51ff14;
   color: #fcfcfc;
 }

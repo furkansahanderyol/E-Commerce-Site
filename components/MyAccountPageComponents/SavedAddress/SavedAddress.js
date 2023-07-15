@@ -1,5 +1,4 @@
 import React from "react"
-import { useRouter } from "next/router"
 import { AiFillEdit } from "react-icons/ai"
 import { FaTrashAlt } from "react-icons/fa"
 import axios from "axios"
@@ -26,13 +25,10 @@ export default function SavedAddress(props) {
     items,
   } = props
 
-  const router = useRouter()
-
   async function handleEditAddress() {
     setCreateAddressForm(true)
     setEditAddressForm(true)
     setSelectedAddressId(id)
-
     axios
       .get(`http://localhost:3000/api/addressInformation/${id}`)
       .then((response) => {
@@ -83,13 +79,14 @@ export default function SavedAddress(props) {
           </div>
         </div>
       ) : null}
-      <div>{name}</div>
-      <div>{surname}</div>
-      <div>{street}</div>
-      <div>{addressName}</div>
-      <div>{address}</div>
-      <div>{province}</div>
-      <div>{country}</div>
+      <div className={styles.address_header}>
+        <div className={styles.address_name}>{addressName}</div>
+      </div>
+      <div className={styles.user_name_and_surname}>{`${name} ${surname}`}</div>
+      <div className={styles.street}>{street}</div>
+      <div className={styles.address}>{address}</div>
+      <div className={styles.province}>{province}</div>
+      <div className={styles.country}>{country}</div>
     </div>
   )
 }

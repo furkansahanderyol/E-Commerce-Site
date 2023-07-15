@@ -4,6 +4,7 @@ import SavedAddress from "@/components/MyAccountPageComponents/SavedAddress/Save
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
 import axios from "axios"
 import { AddressFormContext } from "@/components/CommonComponents/AddressFormContext/AddressFormContext"
+import UpdateButton from "@/components/CommonComponents/UpdateButton/UpdateButton"
 import styles from "../../../styles/myAccountPageStyles/addressInformation.module.css"
 
 export default function AddressInformation({
@@ -24,13 +25,15 @@ export default function AddressInformation({
 
   const [selectedAddressId, setSelectedAddressId] = useState(null)
 
-  function handleCreateAddressButtonClick() {
-    setCreateAddressForm(true)
-  }
+  useEffect(() => {
+    if (!addresses) {
+      setAddresses(addressData)
+    }
+  }, [])
 
   useEffect(() => {
-    setAddresses(addressData)
-  }, [])
+    console.log("selectedAddressId", selectedAddressId)
+  }, [selectedAddressId])
 
   return (
     <>
@@ -61,12 +64,11 @@ export default function AddressInformation({
                 )
               })}
             </div>
-            <button
-              className={styles.create_address_button}
-              onClick={handleCreateAddressButtonClick}
-            >
-              Create Address
-            </button>
+            <UpdateButton
+              location={"addressInformation"}
+              createAddressForm={createAddressForm}
+              setCreateAddressForm={setCreateAddressForm}
+            />
           </div>
         </div>
       </div>

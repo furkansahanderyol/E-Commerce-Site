@@ -4,7 +4,6 @@ import Stars from "@/components/CommonComponents/Stars/Stars"
 import AddToCartButton from "@/components/CommonComponents/AddToCartButton/AddToCartButton"
 import FavoriteButton from "@/components/CommonComponents/FavoriteButton/FavoriteButton"
 import { FaBookmark } from "react-icons/fa"
-import { OverlayContext } from "@/components/CommonComponents/OverlayContext/OverlayContext"
 import CreateNewCollectionModal from "@/components/CollectionsPageComponents/CreateNewCollectionModal/CreateNewCollectionModal"
 import { CollectionsContext } from "@/pages/collections/CollectionsContext"
 import axios from "axios"
@@ -30,20 +29,18 @@ export default function Product({ product = [], favorites, collections }) {
   })
 
   const {
-    setOverlay,
+    setIsNewCollection,
+    setSelectFromFavorites,
+    setCollectionName,
+    setCreateCollectionModal,
     collectionList,
     setCollectionList,
-    setCreateCollectionModal,
     isCollectionListUpdated,
     setIsCollectionListUpdated,
-  } = useContext(OverlayContext)
-
-  const { setIsNewCollection, setSelectFromFavorites, setCollectionName } =
-    useContext(CollectionsContext)
+  } = useContext(CollectionsContext)
 
   function addToCollection() {
     setCollectionList(true)
-    setOverlay(true)
   }
 
   useEffect(() => {
@@ -138,7 +135,6 @@ export default function Product({ product = [], favorites, collections }) {
         <CollectionList
           setNewCollectionModal={setNewCollectionModal}
           product={product}
-          setOverlay={setOverlay}
           collectionsData={collectionsData}
           setCollectionList={setCollectionList}
         />
@@ -148,7 +144,6 @@ export default function Product({ product = [], favorites, collections }) {
           isSpecific={true}
           product={product}
           setCollectionName={setCollectionName}
-          setOverlay={setOverlay}
           setCreateCollectionModal={setCreateCollectionModal}
           setIsNewCollection={setIsNewCollection}
           setSelectFromFavorites={setSelectFromFavorites}

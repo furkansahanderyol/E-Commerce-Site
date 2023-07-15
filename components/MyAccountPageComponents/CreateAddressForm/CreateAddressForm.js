@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react"
 import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import { AiOutlineClose } from "react-icons/ai"
 import axios from "axios"
-import { useRouter } from "next/router"
 import { v4 } from "uuid"
+import Overlay from "@/components/CommonComponents/Overlay/Overlay"
 import styles from "../../../styles/myAccountPageStyles/createAddressForm.module.css"
 
 export default function CreateAddressForm(props) {
@@ -158,12 +158,24 @@ export default function CreateAddressForm(props) {
     setCreateAddressForm(false)
     setEditAddressForm(false)
 
-    axios
-      .get("http://localhost:3000/api/addressInformation")
-      .then((response) => {
-        setAddresses(response.data)
-      })
+    try {
+      axios
+        .get("http://localhost:3000/api/addressInformation")
+        .then((response) => {
+          setAddresses(response.data)
+        })
+    } catch (error) {
+      console.log(error)
+    }
   }, [isFormReady])
+
+  useEffect(() => {
+    console.log("selectedAddressId", selectedAddressId)
+  }, [selectedAddressId])
+
+  useEffect(() => {
+    console.log("editAddressForm", editAddressForm)
+  }, [editAddressForm])
 
   function handleCloseForm() {
     setCreateAddressForm(false)
@@ -190,128 +202,131 @@ export default function CreateAddressForm(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.create_address_form}>
-      <div className={styles.form_header}>
-        <div className={styles.header}>Create new address</div>
-        <AiOutlineClose onClick={handleCloseForm} />
-      </div>
-      <div className={styles.name_and_surname_container}>
-        <div
-          className={
-            isNameInputEmpty
-              ? styles.input_wrapper_danger
-              : styles.input_wrapper
-          }
-        >
-          <label htmlFor="name">Name:</label>
-          <input
-            ref={nameInputRef}
-            onChange={(e) => setNameInput(e.target.value)}
-            type="text"
-            id="name"
-            name="name"
-            value={nameInput}
-          />
+    <>
+      <form onSubmit={handleSubmit} className={styles.create_address_form}>
+        <div className={styles.form_header}>
+          <div className={styles.header}>Create new address</div>
+          <AiOutlineClose onClick={handleCloseForm} />
         </div>
-        <div
-          className={
-            isSurnameInputEmpty
-              ? styles.input_wrapper_danger
-              : styles.input_wrapper
-          }
-        >
-          <label htmlFor="surname">Surname:</label>
-          <input
-            ref={surnameInputRef}
-            onChange={(e) => setSurnameInput(e.target.value)}
-            type="text"
-            id="surname"
-            name="surname"
-          />
+        <div className={styles.name_and_surname_container}>
+          <div
+            className={
+              isNameInputEmpty
+                ? styles.input_wrapper_danger
+                : styles.input_wrapper
+            }
+          >
+            <label htmlFor="name">Name:</label>
+            <input
+              ref={nameInputRef}
+              onChange={(e) => setNameInput(e.target.value)}
+              type="text"
+              id="name"
+              name="name"
+              value={nameInput}
+            />
+          </div>
+          <div
+            className={
+              isSurnameInputEmpty
+                ? styles.input_wrapper_danger
+                : styles.input_wrapper
+            }
+          >
+            <label htmlFor="surname">Surname:</label>
+            <input
+              ref={surnameInputRef}
+              onChange={(e) => setSurnameInput(e.target.value)}
+              type="text"
+              id="surname"
+              name="surname"
+            />
+          </div>
         </div>
-      </div>
-      <div className={styles.country_and_province_container}>
-        <div>
-          <div>Country: </div>
-          <DropdownMenu
-            type={"countryName"}
-            value={selectedCountryName}
-            options={countries ? countries : []}
-            setSelectedCountryName={setSelectedCountryName}
-            setSelectedCountryCode={setSelectedCountryCode}
-            danger={isSelectedCountryNameEmpty}
-          />
+        <div className={styles.country_and_province_container}>
+          <div>
+            <div>Country: </div>
+            <DropdownMenu
+              type={"countryName"}
+              value={selectedCountryName}
+              options={countries ? countries : []}
+              setSelectedCountryName={setSelectedCountryName}
+              setSelectedCountryCode={setSelectedCountryCode}
+              danger={isSelectedCountryNameEmpty}
+            />
+          </div>
+          <div>
+            <div>Province: </div>
+            <DropdownMenu
+              type={"provinceName"}
+              options={provinces ? provinces.geonames : []}
+              value={selectedProvince}
+              setSelectedProvince={setSelectedProvince}
+              danger={isSelectedProvinceEmpty}
+            />
+          </div>
         </div>
-        <div>
-          <div>Province: </div>
-          <DropdownMenu
-            type={"provinceName"}
-            options={provinces ? provinces.geonames : []}
-            value={selectedProvince}
-            setSelectedProvince={setSelectedProvince}
-            danger={isSelectedProvinceEmpty}
-          />
+        <div className={styles.street_container}>
+          <div
+            className={
+              isStreetInputEmpty
+                ? styles.input_wrapper_danger
+                : styles.input_wrapper
+            }
+          >
+            <label htmlFor="street">Street:</label>
+            <input
+              ref={streetInputRef}
+              onChange={(e) => setStreetInput(e.target.value)}
+              type="text"
+              id="street"
+              name="street"
+            />
+          </div>
         </div>
-      </div>
-      <div className={styles.street_container}>
-        <div
-          className={
-            isStreetInputEmpty
-              ? styles.input_wrapper_danger
-              : styles.input_wrapper
-          }
-        >
-          <label htmlFor="street">Street:</label>
-          <input
-            ref={streetInputRef}
-            onChange={(e) => setStreetInput(e.target.value)}
-            type="text"
-            id="street"
-            name="street"
-          />
+        <div className={styles.address_container}>
+          <div
+            className={
+              isAddressNameInputEmpty
+                ? styles.input_wrapper_danger
+                : styles.input_wrapper
+            }
+          >
+            <label htmlFor="addressName">Address name:</label>
+            <input
+              ref={addressNameInputRef}
+              onChange={(e) => setAddressNameInput(e.target.value)}
+              type="text"
+              id="addressName"
+              name="addressName"
+            />
+          </div>
+          <div
+            className={
+              isAddressInputEmpty
+                ? `${styles.input_wrapper_danger} ${styles.address_input_danger}`
+                : `${styles.input_wrapper} ${styles.address_input}`
+            }
+          >
+            <label htmlFor="address">Address:</label>
+            <textarea
+              ref={addressInputRef}
+              onChange={(e) => setAddressInput(e.target.value)}
+              id="address"
+              name="address"
+            />
+          </div>
         </div>
-      </div>
-      <div className={styles.address_container}>
-        <div
-          className={
-            isAddressNameInputEmpty
-              ? styles.input_wrapper_danger
-              : styles.input_wrapper
-          }
-        >
-          <label htmlFor="addressName">Address name:</label>
-          <input
-            ref={addressNameInputRef}
-            onChange={(e) => setAddressNameInput(e.target.value)}
-            type="text"
-            id="addressName"
-            name="addressName"
-          />
+        {error ? <div>Please fill in the marked fields</div> : null}
+        <div className={styles.create_new_address_button}>
+          {editAddressForm ? (
+            <button type="submit">Update address</button>
+          ) : (
+            <button type="submit">Create new address</button>
+          )}
         </div>
-        <div
-          className={
-            isAddressInputEmpty
-              ? `${styles.input_wrapper_danger} ${styles.address_input_danger}`
-              : `${styles.input_wrapper} ${styles.address_input}`
-          }
-        >
-          <label htmlFor="address">Address:</label>
-          <textarea
-            ref={addressInputRef}
-            onChange={(e) => setAddressInput(e.target.value)}
-            id="address"
-            name="address"
-          />
-        </div>
-      </div>
-      {error ? <div>Please fill in the marked fields</div> : null}
-      <div className={styles.create_new_address_button}>
-        {editAddressForm ? (
-          <button type="submit">Update address</button>
-        ) : (
-          <button type="submit">Create new address</button>
-        )}
-      </div>
-    </form>
+      </form>
+      <Overlay />
+    </>
   )
 }

@@ -17,7 +17,6 @@ export default function Options({
   collectionBubbleRef,
   collectionItemOptions,
   setCollectionList,
-  setOverlay,
   product,
   setSelectedProduct,
 }) {
@@ -41,7 +40,6 @@ export default function Options({
 
   function addItemToAnotherCollection() {
     setCollectionList(true)
-    setOverlay(true)
     setSelectedProduct(product)
   }
 
