@@ -81,29 +81,32 @@ export default function Collections({ favorites }) {
       <div className={styles.container}>
         <div className={styles.collections_wrapper}>
           <FavoritesHeader />
-          <SectionHeader section={"collections"} />
-          <CollectionBubble
-            isDefault={true}
-            setCreateCollectionModal={setCreateCollectionModal}
-          />
+          <div className={styles.create_collection_bubble}>
+            <CollectionBubble
+              isDefault={true}
+              setCreateCollectionModal={setCreateCollectionModal}
+            />
+          </div>
           <div className={styles.collections_grid}>
-            {collections.length > 0
-              ? collections.map((collection, index) => {
-                  return (
-                    <CollectionBubble
-                      key={index}
-                      id={collection.id}
-                      isDefault={false}
-                      collectionName={collection.collectionName}
-                      collectionItems={collection.items.selectedItems}
-                      setSelectFromFavorites={setSelectFromFavorites}
-                      isNewCollection={isNewCollection}
-                      setIsNewCollection={setIsNewCollection}
-                      setCollectionId={setCollectionId}
-                    />
-                  )
-                })
-              : null}
+            {collections.length > 0 ? (
+              collections.map((collection, index) => {
+                return (
+                  <CollectionBubble
+                    key={index}
+                    id={collection.id}
+                    isDefault={false}
+                    collectionName={collection.collectionName}
+                    collectionItems={collection.items.selectedItems}
+                    setSelectFromFavorites={setSelectFromFavorites}
+                    isNewCollection={isNewCollection}
+                    setIsNewCollection={setIsNewCollection}
+                    setCollectionId={setCollectionId}
+                  />
+                )
+              })
+            ) : (
+              <SectionHeader section={"collections"} />
+            )}
           </div>
         </div>
       </div>
