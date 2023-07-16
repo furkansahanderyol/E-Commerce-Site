@@ -6,8 +6,8 @@
 
 .favorite_products {
   display: grid;
-  grid-template-columns: repeat(4, 200px);
-  grid-template-rows: repeat(auto, 250px);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: auto;
 
   gap: 100px;
 

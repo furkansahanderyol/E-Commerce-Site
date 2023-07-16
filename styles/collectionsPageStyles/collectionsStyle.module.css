@@ -15,10 +15,18 @@
   min-height: 100vh;
 }
 
+.create_collection_bubble {
+  padding-top: 1em;
+}
+
 .collections_grid {
   display: grid;
-  grid-template-columns: repeat(4, 300px);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-template-rows: auto;
+
+  gap: 15px;
+
+  padding-top: 1em;
 }
 
 .outline {

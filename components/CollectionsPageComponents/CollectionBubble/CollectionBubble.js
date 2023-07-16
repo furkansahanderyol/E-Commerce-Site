@@ -82,6 +82,7 @@ export default function CollectionBubble({
                     src={item.images[0]}
                     width="30"
                     height="40"
+                    objectFit="cover"
                     alt="Product image"
                   />
                 )
