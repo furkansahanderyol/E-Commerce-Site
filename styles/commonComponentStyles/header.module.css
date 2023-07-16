@@ -37,6 +37,9 @@
 .list_item {
   text-decoration: none;
   list-style: none;
+  white-space: nowrap;
+
+  font-size: 16px;
 
   display: flex;
   justify-content: space-between;
@@ -52,4 +55,53 @@
 .list_item:hover svg {
   transition: all 0.3s ease-in-out;
   filter: drop-shadow(0 0 0.75em white);
+}
+
+@media all and (max-width: 1280px) {
+  .header {
+    font-size: 32px;
+  }
+
+  .navigation_list {
+    gap: 15px;
+  }
+
+  .input {
+    flex-shrink: 1;
+  }
+
+  .list_item {
+    font-size: 12px;
+  }
+}
+
+@media all and (max-width: 1080px) {
+  .header {
+    font-size: 24px;
+  }
+
+  .navigation_list {
+    gap: 5px;
+  }
+
+  .list_item {
+    font-size: 8px;
+  }
+}
+
+@media all and (max-width: 920px) {
+  .wrapper {
+    justify-content: space-around;
+    padding: 20px 10px;
+
+    gap: 10px;
+  }
+
+  .header {
+    font-size: 16px;
+  }
+
+  .navigation_list {
+    padding-left: 0;
+  }
 }
