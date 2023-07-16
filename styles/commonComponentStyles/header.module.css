@@ -6,6 +6,8 @@
   align-items: center;
 
   padding: 20px 20px;
+
+  transition: all 0.2s ease-in-out;
 }
 
 .header {
@@ -14,6 +16,7 @@
   color: white;
   user-select: none;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .input {
@@ -24,6 +27,7 @@
   flex-shrink: 0;
 
   border-radius: 0.3em;
+  transition: all 0.2s ease-in-out;
 }
 
 .navigation_list {
@@ -50,6 +54,7 @@
   cursor: pointer;
 
   color: white;
+  transition: all 0.2s ease-in-out;
 }
 
 .list_item:hover svg {
@@ -103,5 +108,42 @@
 
   .navigation_list {
     padding-left: 0;
+  }
+}
+
+@media all and (max-width: 540px) {
+  .wrapper {
+    padding: 20px 5px;
+  }
+
+  .header {
+    font-size: 12px;
+  }
+
+  .list_item {
+    font-size: 8px;
+  }
+
+  .input {
+    width: 150px;
+    font-size: 8px;
+  }
+}
+
+@media all and (max-width: 280px) {
+  .wrapper {
+    padding: 20px 0px;
+  }
+
+  .header {
+    font-size: 10px;
+  }
+
+  .list_item {
+    font-size: 6px;
+  }
+
+  .input {
+    width: 50px;
   }
 }
