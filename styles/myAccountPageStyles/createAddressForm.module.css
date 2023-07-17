@@ -5,13 +5,24 @@
 
   transform: translateX(-50%) translateY(-50%);
 
-  z-index: 100;
+  z-index: 1000;
 
-  width: 600px;
-  height: 600px;
-  background-color: yellow;
+  width: 30%;
+  height: 70%;
+
+  background-color: rgb(203, 202, 202);
 
   padding: 1.5em;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.create_address_form label {
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
 }
 
 .form_header {
@@ -80,4 +91,68 @@
 
 .address_input_danger textarea:focus {
   box-shadow: 0 0 5px 0 red;
+}
+
+.create_new_address_button {
+  display: grid;
+  place-items: center;
+
+  margin-top: 10px;
+}
+
+.create_new_address_button button {
+  background: #367408;
+  outline: none;
+  border: 1px solid white;
+  border-radius: 0.3em;
+
+  color: black;
+
+  padding: 0.5em 1em;
+
+  cursor: pointer;
+}
+
+.create_new_address_button button:hover {
+  background-color: #477519;
+  color: white;
+
+  box-shadow: 0 0 10px 0 lightgreen;
+}
+
+.dropdown_menu_header {
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+}
+
+@media all and (max-width: 1300px) {
+  .create_address_form {
+    width: 50%;
+  }
+}
+
+@media all and (max-width: 780px) {
+  .create_address_form {
+    width: 70%;
+  }
+}
+
+@media all and (max-width: 600px) {
+  .create_address_form {
+    width: 85%;
+  }
+
+  .name_and_surname_container {
+    gap: 5px;
+  }
+
+  .create_address_form input {
+    width: 100%;
+  }
+}
+
+@media all and (max-height: 750px) {
+  .create_address_form {
+    height: 100%;
+  }
 }

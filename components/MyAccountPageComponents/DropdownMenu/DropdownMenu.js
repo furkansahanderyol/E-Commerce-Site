@@ -53,7 +53,7 @@ export default function DropdownMenu(props) {
         onClick={handleDropdownClick}
         className={styles.dropdown_menu_wrapper}
       >
-        {value}
+        <div className={styles.dropdown_menu_value}>{value}</div>
         <MdKeyboardArrowUp />
         <div
           className={
@@ -123,7 +123,7 @@ export default function DropdownMenu(props) {
             : styles.dropdown_menu_wrapper_disabled
         }
       >
-        {value}
+        <div className={styles.dropdown_menu_value}>{value}</div>
         <MdKeyboardArrowUp />
         <div
           className={
