@@ -109,3 +109,18 @@
 
   align-self: flex-end;
 }
+
+@media all and (max-width: 540px) {
+  .product {
+    max-width: 150px;
+    height: 200px;
+  }
+
+  .product_title {
+    font-size: 12px;
+  }
+
+  .rate {
+    font-size: 12px;
+  }
+}
