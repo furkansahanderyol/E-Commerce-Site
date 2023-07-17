@@ -89,3 +89,17 @@
 
   gap: 20px;
 }
+
+@media all and (max-width: 760px) {
+  .total_price,
+  .order_summary {
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .total_price,
+  .order_summary {
+    font-size: 12px;
+  }
+}
