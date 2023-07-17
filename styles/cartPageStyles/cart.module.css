@@ -64,6 +64,8 @@
   padding: 1.5rem;
 
   border: 1px solid black;
+
+  z-index: 10;
 }
 
 .choose_address_modal_header {
@@ -73,6 +75,10 @@
   padding-bottom: 1em;
 
   border-bottom: 1px solid black;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .choose_address_grid {
@@ -95,11 +101,21 @@
   .order_summary {
     font-size: 16px;
   }
+
+  .choose_address_grid {
+    width: 350px;
+    height: 350px;
+  }
 }
 
 @media all and (max-width: 500px) {
   .total_price,
   .order_summary {
     font-size: 12px;
+  }
+
+  .choose_address_grid {
+    width: 300px;
+    height: 300px;
   }
 }

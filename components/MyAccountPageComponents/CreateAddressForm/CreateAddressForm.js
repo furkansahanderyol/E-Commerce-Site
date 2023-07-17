@@ -245,7 +245,7 @@ export default function CreateAddressForm(props) {
         </div>
         <div className={styles.country_and_province_container}>
           <div>
-            <div>Country: </div>
+            <div className={styles.dropdown_menu_header}>Country: </div>
             <DropdownMenu
               type={"countryName"}
               value={selectedCountryName}
@@ -256,7 +256,7 @@ export default function CreateAddressForm(props) {
             />
           </div>
           <div>
-            <div>Province: </div>
+            <div className={styles.dropdown_menu_header}>Province: </div>
             <DropdownMenu
               type={"provinceName"}
               options={provinces ? provinces.geonames : []}

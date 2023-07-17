@@ -6,7 +6,9 @@ import CreateAddressButton from "@/components/CartPageComponents/CreateAddressBu
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
 import { AddressFormContext } from "@/components/CommonComponents/AddressFormContext/AddressFormContext"
 import { useRouter } from "next/router"
+import { AiOutlineClose } from "react-icons/ai"
 import styles from "../../styles/cartPageStyles/cart.module.css"
+import Overlay from "@/components/CommonComponents/Overlay/Overlay"
 
 export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
   const {
@@ -68,6 +70,10 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
     }
   }
 
+  function handleChooseAddressModalClose() {
+    setChooseAddressModal(false)
+  }
+
   return (
     <>
       <div className={styles.cart_wrapper}>
@@ -110,40 +116,46 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
         </div>
       </div>
       {chooseAddressModal ? (
-        <div className={styles.choose_address_modal}>
-          <div className={styles.choose_address_modal_header}>
-            Choose your address
+        <>
+          <div className={styles.choose_address_modal}>
+            <div className={styles.choose_address_modal_header}>
+              Choose your address
+              <AiOutlineClose onClick={handleChooseAddressModalClose} />
+            </div>
+            <div className={styles.choose_address_grid}>
+              <CreateAddressButton
+                setCreateAddressForm={setCreateAddressForm}
+              />
+              {addresses?.addressInformation?.map((address) => {
+                return (
+                  <SavedAddress
+                    location={"cart"}
+                    key={address.id}
+                    id={address.id}
+                    addressName={address.addressName}
+                    name={address.name}
+                    surname={address.surname}
+                    street={address.street}
+                    province={address.province}
+                    country={address.country}
+                    setEditAddressForm={setEditAddressForm}
+                    setEditAddress={setEditAddress}
+                    selectedAddress={selectedAddress}
+                    setSelectedAddress={setSelectedAddress}
+                    items={cartItems}
+                    totalPrice={totalPrice}
+                  />
+                )
+              })}
+            </div>
+            <div>
+              <button onClick={handleOrder} type="click">
+                Order
+              </button>
+            </div>
           </div>
-          <div className={styles.choose_address_grid}>
-            <CreateAddressButton setCreateAddressForm={setCreateAddressForm} />
-            {addresses?.addressInformation?.map((address) => {
-              return (
-                <SavedAddress
-                  location={"cart"}
-                  key={address.id}
-                  id={address.id}
-                  addressName={address.addressName}
-                  name={address.name}
-                  surname={address.surname}
-                  street={address.street}
-                  province={address.province}
-                  country={address.country}
-                  setEditAddressForm={setEditAddressForm}
-                  setEditAddress={setEditAddress}
-                  selectedAddress={selectedAddress}
-                  setSelectedAddress={setSelectedAddress}
-                  items={cartItems}
-                  totalPrice={totalPrice}
-                />
-              )
-            })}
-          </div>
-          <div>
-            <button onClick={handleOrder} type="click">
-              Order
-            </button>
-          </div>
-        </div>
+          <Overlay />
+        </>
       ) : null}
       {createAddressForm ? (
         <CreateAddressForm
