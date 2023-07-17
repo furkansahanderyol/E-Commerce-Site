@@ -29,3 +29,41 @@
 
   gap: 10px;
 }
+
+@media all and (max-width: 760px) {
+  .product_image {
+    width: 40px;
+    height: 60px;
+  }
+
+  .product_name {
+    font-size: 0.8em;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .product_image {
+    width: 20px;
+    height: 30px;
+  }
+
+  .product_name {
+    font-size: 0.5em;
+  }
+
+  .quantity_settings {
+    gap: 5px;
+  }
+
+  .price {
+    font-size: 0.6em;
+  }
+
+  .unit {
+    font-size: 0.6em;
+  }
+
+  .remove_item_button {
+    font-size: 0.7em;
+  }
+}
