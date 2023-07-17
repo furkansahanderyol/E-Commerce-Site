@@ -78,3 +78,15 @@
   user-select: none;
   pointer-events: none;
 }
+
+@media all and (max-width: 1080px) {
+  .product_image_wrapper {
+    width: 175px;
+    height: 200px;
+  }
+
+  .product_image_wrapper_mini {
+    width: 20px;
+    height: 30px;
+  }
+}

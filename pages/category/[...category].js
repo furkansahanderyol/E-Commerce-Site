@@ -229,7 +229,7 @@ export default function Home({ products, favorites, previousQueryParameters }) {
                       200$ & Above
                     </li>
                   </ul>
-                  <div className={styles.price_i}>
+                  <div className={styles.price_input_values}>
                     <span>
                       <input
                         ref={minPriceRef}
@@ -245,8 +245,13 @@ export default function Home({ products, favorites, previousQueryParameters }) {
                         type="number"
                         placeholder="Max $"
                       />
-                      <button type="submit">Go</button>
                     </span>
+                    <button
+                      className={styles.custom_price_button}
+                      type="submit"
+                    >
+                      Go
+                    </button>
                   </div>
                 </>
               ) : null}

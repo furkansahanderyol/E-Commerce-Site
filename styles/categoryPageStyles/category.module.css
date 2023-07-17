@@ -9,8 +9,8 @@
   position: sticky;
   border-right: 1px solid black;
   top: 0;
+  bottom: 0;
 
-  height: 100vh;
   width: 300px;
 
   overflow: hidden;
@@ -26,7 +26,7 @@
   text-decoration: none;
   list-style: none;
 
-  height: 200px;
+  height: fit-content;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -67,6 +67,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  gap: 10px;
 }
 
 .price_input {
@@ -84,10 +86,75 @@
 
 .home_grid {
   display: grid;
-  grid-template-columns: repeat(4, 200px);
-  grid-template-rows: repeat(auto, 250px);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-rows: auto;
+
+  width: 100%;
 
   gap: 100px;
 
   padding: 2em;
+}
+
+@media all and (max-width: 1080px) {
+  .filter_list {
+    font-size: 0.7em;
+  }
+
+  .price_input_values {
+    gap: 5px;
+  }
+
+  .price_input {
+    width: 50px;
+    height: 15px;
+
+    padding: 0;
+  }
+}
+
+@media all and (max-width: 540px) {
+  .filters {
+    width: 340px;
+  }
+
+  .home_grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .price_input {
+    width: 30px;
+    height: 10px;
+
+    font-size: 6px;
+  }
+
+  .custom_price_button {
+    width: 12px;
+    height: 12px;
+    font-size: 6px;
+  }
+}
+
+@media all and (max-width: 280px) {
+  .price_list_wrapper {
+    font-size: 0.3em;
+  }
+
+  .price_list_wrapper,
+  .average_customer_review_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .filter_list {
+    font-size: 0.5em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
 }
