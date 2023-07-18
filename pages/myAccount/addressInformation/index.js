@@ -4,8 +4,8 @@ import SavedAddress from "@/components/MyAccountPageComponents/SavedAddress/Save
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
 import axios from "axios"
 import { AddressFormContext } from "@/components/CommonComponents/AddressFormContext/AddressFormContext"
-import UpdateButton from "@/components/CommonComponents/UpdateButton/UpdateButton"
 import styles from "../../../styles/myAccountPageStyles/addressInformation.module.css"
+import CustomButton from "@/components/CommonComponents/CustomButton/CustomButton"
 
 export default function AddressInformation({
   addressData,
@@ -64,8 +64,9 @@ export default function AddressInformation({
                 )
               })}
             </div>
-            <UpdateButton
+            <CustomButton
               location={"addressInformation"}
+              value={"Create address"}
               createAddressForm={createAddressForm}
               setCreateAddressForm={setCreateAddressForm}
             />

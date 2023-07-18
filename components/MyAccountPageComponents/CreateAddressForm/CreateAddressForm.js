@@ -5,6 +5,7 @@ import axios from "axios"
 import { v4 } from "uuid"
 import Overlay from "@/components/CommonComponents/Overlay/Overlay"
 import styles from "../../../styles/myAccountPageStyles/createAddressForm.module.css"
+import CustomButton from "@/components/CommonComponents/CustomButton/CustomButton"
 
 export default function CreateAddressForm(props) {
   const {
@@ -320,9 +321,12 @@ export default function CreateAddressForm(props) {
         {error ? <div>Please fill in the marked fields</div> : null}
         <div className={styles.create_new_address_button}>
           {editAddressForm ? (
-            <button type="submit">Update address</button>
+            <CustomButton location={"addressForm"} value={"Update address"} />
           ) : (
-            <button type="submit">Create new address</button>
+            <CustomButton
+              location={"addressForm"}
+              value={"Create new address"}
+            />
           )}
         </div>
       </form>

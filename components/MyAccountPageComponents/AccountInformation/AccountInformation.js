@@ -5,6 +5,7 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import CustomCheckbox from "../CustomCheckbox/CustomCheckbox"
 import axios from "axios"
 import styles from "../../../styles/myAccountPageStyles/accountInformation.module.css"
+import CustomButton from "@/components/CommonComponents/CustomButton/CustomButton"
 
 export default function AccountInformation({ data, setData }) {
   const [areaCodes, setAreaCodes] = useState([])
@@ -65,23 +66,6 @@ export default function AccountInformation({ data, setData }) {
     updateCellphoneNumber,
     updateGender,
   ])
-
-  async function handleUpdateAccountInformation() {
-    axios.post("http://localhost:3000/api/accountInformation/update", {
-      updateName,
-      updateSurname,
-      updateEmail,
-      updateGender,
-    })
-
-    axios
-      .get("http://localhost:3000/api/accountInformation")
-      .then((response) => {
-        setData(response)
-      })
-
-    router.reload()
-  }
 
   return (
     <div className={styles.account_information_wrapper}>
@@ -155,9 +139,15 @@ export default function AccountInformation({ data, setData }) {
             : styles.update_button
         }
       >
-        <button onClick={handleUpdateAccountInformation} type="submit">
-          Update
-        </button>
+        <CustomButton
+          location={"accountInformation"}
+          value={"Update"}
+          updateButtonActive={updateButtonActive}
+          updateName={updateName}
+          updateSurname={updateSurname}
+          updateEmail={updateEmail}
+          updateGender={updateGender}
+        />
       </div>
     </div>
   )

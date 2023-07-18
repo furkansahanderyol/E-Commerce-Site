@@ -1,5 +1,6 @@
 .saved_address_wrapper,
-.saved_address_wrapper_cart {
+.saved_address_wrapper_cart,
+.saved_address_wrapper_cart_selected {
   position: relative;
   background-color: white;
 
