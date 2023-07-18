@@ -50,7 +50,12 @@ export default function CartItem(props) {
   return (
     <div ref={cartItemRef} className={styles.cart_item_wrapper}>
       <div className={styles.product_image}>
-        <Image layout="fill" objectFit="cover" src={productImage} />
+        <Image
+          layout="fill"
+          objectFit="cover"
+          src={productImage}
+          alt="Product thumbnail"
+        />
       </div>
       <div className={styles.product_name}>{productName}</div>
       <div className={styles.quantity_settings}>

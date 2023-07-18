@@ -1,0 +1,24 @@
+.custom_button,
+.custom_button_disabled {
+  outline: none;
+  background-color: #477519;
+
+  border: 1px solid white;
+  border-radius: 0.3em;
+
+  font-weight: bold;
+
+  padding: 0.5em 1em;
+
+  cursor: pointer;
+
+  pointer-events: auto;
+}
+
+.custom_button:hover {
+  background-color: #366408;
+  color: white;
+  border: 1px solid #477519;
+
+  box-shadow: 0 0 5px 0 #477519;
+}

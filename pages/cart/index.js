@@ -5,10 +5,10 @@ import SavedAddress from "@/components/MyAccountPageComponents/SavedAddress/Save
 import CreateAddressButton from "@/components/CartPageComponents/CreateAddressButton/CreateAddressButton"
 import CreateAddressForm from "@/components/MyAccountPageComponents/CreateAddressForm/CreateAddressForm"
 import { AddressFormContext } from "@/components/CommonComponents/AddressFormContext/AddressFormContext"
-import { useRouter } from "next/router"
 import { AiOutlineClose } from "react-icons/ai"
-import styles from "../../styles/cartPageStyles/cart.module.css"
 import Overlay from "@/components/CommonComponents/Overlay/Overlay"
+import CustomButton from "@/components/CommonComponents/CustomButton/CustomButton"
+import styles from "../../styles/cartPageStyles/cart.module.css"
 
 export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
   const {
@@ -27,8 +27,6 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
   const [chooseAddressModal, setChooseAddressModal] = useState(false)
   const [selectedAddress, setSelectedAddress] = useState(null)
 
-  const router = useRouter()
-
   useEffect(() => {
     setAddresses(addressData)
   }, [])
@@ -38,37 +36,16 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
   }, [cart])
 
   useEffect(() => {
+    console.log("addresses", addresses)
+  }, [addresses])
+
+  useEffect(() => {
     const calculateTotalPrice = cartItems.reduce((accumulator, value) => {
       return accumulator + value.items[0]?.price * value.items.length
     }, 0)
 
     setTotalPrice(calculateTotalPrice)
   }, [cartItems])
-
-  function handleCompleteOrder() {
-    if (cartItems.length > 0) {
-      setChooseAddressModal(true)
-    }
-  }
-
-  function handleOrder() {
-    if (selectedAddress) {
-      try {
-        axios.post("http://localhost:3000/api/orders", {
-          selectedAddress,
-        })
-      } catch (error) {
-        console.log(error)
-      }
-      router.push("/cart/OrderConfirmed")
-    }
-
-    try {
-      axios.delete("http://localhost:3000/api/cart/clear")
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   function handleChooseAddressModalClose() {
     setChooseAddressModal(false)
@@ -106,11 +83,13 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
             <div className={styles.total_price}>
               Total price: <span>{`${totalPrice}$`}</span>
             </div>
-            <div
-              onClick={handleCompleteOrder}
-              className={styles.complete_the_order_button}
-            >
-              <button>Complete the order</button>
+            <div className={styles.complete_the_order_button}>
+              <CustomButton
+                location={"cart"}
+                value={"Complete the order"}
+                cartItems={cartItems}
+                setChooseAddressModal={setChooseAddressModal}
+              />
             </div>
           </div>
         </div>
@@ -148,10 +127,13 @@ export default function Cart({ cart = [], addressData, countryData, API_KEY }) {
                 )
               })}
             </div>
-            <div>
-              <button onClick={handleOrder} type="click">
-                Order
-              </button>
+            <div className={styles.order_button}>
+              <CustomButton
+                location={"chooseAddressModal"}
+                value={"Order"}
+                selectedAddress={selectedAddress}
+                setChooseAddressModal={setChooseAddressModal}
+              />
             </div>
           </div>
           <Overlay />
@@ -189,7 +171,7 @@ export async function getServerSideProps() {
   return {
     props: {
       cart: cartData.cart,
-      addressData: addressData.addressInformation,
+      addressData: addressData,
       countryData: countryData,
       API_KEY,
     },
