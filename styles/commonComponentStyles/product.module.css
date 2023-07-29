@@ -3,14 +3,16 @@
   flex-direction: column;
   justify-content: center;
 
-  max-width: 250px;
-  height: 300px;
+  max-width: 270px;
+  height: 360px;
   border-radius: 0.3em;
 
   border: 1px solid #ccc;
 
   position: relative;
   text-decoration: none;
+
+  cursor: pointer;
 }
 
 .favorite_button_wrapper {

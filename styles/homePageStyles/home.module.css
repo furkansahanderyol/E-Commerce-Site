@@ -1,0 +1,11 @@
+.homepage_wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-rows: auto;
+
+  justify-items: center;
+
+  gap: 20px;
+
+  padding: 1em 0.5em;
+}
