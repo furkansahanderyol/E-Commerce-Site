@@ -9,7 +9,12 @@ import axios from "axios"
 import NotificationsWrapper from "@/components/CommonComponents/NotificationsWrapper/NotificationsWrapper"
 import styles from "../../styles/categoryPageStyles/category.module.css"
 
-export default function Home({ products, favorites, previousQueryParameters }) {
+export default function Home({
+  products,
+  favorites,
+  previousQueryParameters,
+  category,
+}) {
   const router = useRouter()
   const [data, setData] = useState(null)
   const [brandsList, setBrandsList] = useState(false)
@@ -126,7 +131,7 @@ export default function Home({ products, favorites, previousQueryParameters }) {
       .then((response) => {
         return setData(response.data.products)
       })
-  }, [queryParameters])
+  }, [queryParameters, category])
 
   useEffect(() => {
     const matchedProducts = []
@@ -328,6 +333,7 @@ export async function getServerSideProps(context) {
       products: categoryProductsData.products,
       favorites: favoriteProductsData,
       previousQueryParameters: queryParameters,
+      category: category,
     },
   }
 }

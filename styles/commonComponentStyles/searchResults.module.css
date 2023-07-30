@@ -3,8 +3,34 @@
 
   background-color: white;
 
+  border: 1px solid black;
+  border-radius: 0.3em;
+
   width: 100%;
   min-height: 30px;
 
   z-index: 2;
+
+  padding: 0.5em;
+}
+
+.search_header {
+  padding: 0.3em 0.2em;
+  margin: 0;
+}
+
+.searched_items {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.search_item {
+  padding: 0 0.5em;
+}
+
+.search_item:hover {
+  background-color: #5df820;
+  color: white;
 }
