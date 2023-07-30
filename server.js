@@ -43,6 +43,12 @@ app.prepare().then(() => {
   const orders = require("./routes/orders")
   server.use("/api", orders)
 
+  const allCategories = require("./routes/allCategories")
+  server.use("/api", allCategories)
+
+  const allProducts = require("./routes/allProducts")
+  server.use("/api", allProducts)
+
   server.all("*", (req, res) => {
     return handle(req, res)
   })
