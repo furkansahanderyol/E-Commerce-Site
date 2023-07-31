@@ -10,3 +10,8 @@
 
 [build.environment]
   NEXT_PUBLIC_PUBLIC_URL = "https://my-netlify-site.netlify.app"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+  Access-Control-Allow-Origin = "*"
