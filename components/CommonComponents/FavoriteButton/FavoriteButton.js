@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { FaHeart } from "react-icons/fa"
 import { FaRegHeart } from "react-icons/fa"
 import axios from "axios"
-import styles from "../../../styles/commonComponentStyles/FavoriteButton.module.css"
+import styles from "../../../styles/commonComponentStyles/favoriteButton.module.css"
 
 export default function FavoriteButton({
   product,

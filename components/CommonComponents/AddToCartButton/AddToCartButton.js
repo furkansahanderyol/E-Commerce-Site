@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { FaShoppingCart } from "react-icons/fa"
 import { FaCheck } from "react-icons/fa"
 import axios from "axios"
-import styles from "../../../styles/commonComponentStyles/AddToCartButton.module.css"
+import styles from "../../../styles/commonComponentStyles/addToCartButton.module.css"
 
 export default function AddToCartButton({ product }) {
   const [addedToCart, setAddedToCart] = useState(false)
