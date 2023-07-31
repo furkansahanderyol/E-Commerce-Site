@@ -95,7 +95,7 @@ export default function Product(props) {
           <div>
             <Stars rate={rate} />
           </div>
-          <div className={styles.count}>{`(${count})`}</div>
+          <div className={styles.count}>{`(${rate})`}</div>
         </div>
         <div className={styles.price}>{`${price} $`}</div>
       </div>
@@ -154,7 +154,7 @@ export default function Product(props) {
           <div>
             <Stars rate={rate} />
           </div>
-          <div className={styles.count}>{`(${count})`}</div>
+          <div className={styles.count}>{`(${rate})`}</div>
         </div>
         <div className={styles.price}>{`${price} $`}</div>
       </div>
