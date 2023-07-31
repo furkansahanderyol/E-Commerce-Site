@@ -4,9 +4,12 @@ const dev = process.env.NODE_ENV !== "production"
 const app = next({ dev })
 const handle = app.getRequestHandler()
 const url = require("url")
+const cors = require("cors")
 
 app.prepare().then(() => {
   const server = express()
+
+  server.use(cors())
 
   server.use((req, res, next) => {
     const parsedUrl = url.parse(req.url, true)
