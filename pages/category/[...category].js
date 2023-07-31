@@ -14,6 +14,7 @@ export default function Home({
   favorites,
   previousQueryParameters,
   category,
+  apiUrl,
 }) {
   const router = useRouter()
   const [data, setData] = useState(null)
@@ -125,7 +126,7 @@ export default function Home({
     })
 
     axios
-      .get(`http://localhost:3000/api/category/${router.query.category[0]}`, {
+      .get(`${apiUrl}/api/category/${router.query.category[0]}`, {
         params: queryParameters,
       })
       .then((response) => {
@@ -313,6 +314,10 @@ export async function getServerSideProps(context) {
   const { params } = context
   const { query } = context
 
+  const apiUrl = process.env.NEXT_PUBLIC_PUBLIC_URL
+    ? `${process.env.NEXT_PUBLIC_PUBLIC_URL}`
+    : "http://localhost:3000"
+
   const queryParameters = {
     brand: query.brand || null,
     minPrice: query.minPrice || null,
@@ -321,10 +326,11 @@ export async function getServerSideProps(context) {
   }
   const category = params.category[0]
 
-  const categoryResponse = await fetch(
-    `http://localhost:3000/api/category/${category}`
-  )
-  const favoritesResponse = await fetch("http://localhost:3000/api/favorites")
+  console.log("apiUrl", apiUrl)
+
+  const categoryResponse = await fetch(`${apiUrl}/api/category/${category}`)
+  const favoritesResponse = await fetch(`${apiUrl}/api/favorites`)
+  console.log(categoryResponse)
   const categoryProductsData = await categoryResponse.json()
   const favoriteProductsData = await favoritesResponse.json()
 
@@ -334,6 +340,7 @@ export async function getServerSideProps(context) {
       favorites: favoriteProductsData,
       previousQueryParameters: queryParameters,
       category: category,
+      apiUrl,
     },
   }
 }

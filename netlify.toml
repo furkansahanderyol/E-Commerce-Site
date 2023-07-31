@@ -8,3 +8,5 @@
   to = "https://my-netlify-site.netlify.app/:splat"
   status = 200
 
+[build.environment]
+  NEXT_PUBLIC_PUBLIC_URL = "https://my-netlify-site.netlify.app"
